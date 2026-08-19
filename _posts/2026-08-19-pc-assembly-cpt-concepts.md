@@ -41,6 +41,13 @@ DISPLAY("Install in: " + targetSlot)
    height="220px"
 %}
 
+**Expected output**
+
+```text
+Current part: CPU
+Install in: CPU socket
+```
+
 ---
 
 ## Input
@@ -66,6 +73,13 @@ DISPLAY("Selected destination: " + selectedSlot)
    code=pc_input_code
    height="230px"
 %}
+
+**Example output (if the user chose "CPU" and "CPU socket")**
+
+```text
+Selected part: CPU
+Selected destination: CPU socket
+```
 
 ---
 
@@ -95,6 +109,20 @@ FOR EACH part IN parts
    code=pc_list_code
    height="300px"
 %}
+
+**Expected output**
+
+```text
+Parts in this build: 8
+CPU
+RAM
+M.2 SSD
+CPU cooler
+Power supply
+Motherboard
+Graphics card
+Power cables
+```
 
 ---
 
@@ -131,6 +159,12 @@ DISPLAY("Correct placement: " + correctPlacement)
    height="390px"
 %}
 
+**Expected output**
+
+```text
+Correct placement: true
+```
+
 ---
 
 ## Sequence
@@ -162,6 +196,15 @@ DISPLAY("Step " + step + ": Mount the CPU cooler")
    code=pc_sequence_code
    height="330px"
 %}
+
+**Expected output**
+
+```text
+Step 1: Seat the CPU
+Step 2: Install the RAM
+Step 3: Install the M.2 SSD
+Step 4: Mount the CPU cooler
+```
 
 ---
 
@@ -196,6 +239,12 @@ ELSE
    height="360px"
 %}
 
+**Example output (if the user selected "CPU")**
+
+```text
+Correct! CPU snapped into place.
+```
+
 ---
 
 ## Iteration
@@ -224,6 +273,19 @@ FOR EACH part IN parts
    code=pc_iteration_code
    height="320px"
 %}
+
+**Expected output**
+
+```text
+Step 1: Install CPU
+Step 2: Install RAM
+Step 3: Install M.2 SSD
+Step 4: Install CPU cooler
+Step 5: Install Power supply
+Step 6: Install Motherboard
+Step 7: Install Graphics card
+Step 8: Install Power cables
+```
 
 ---
 
@@ -275,6 +337,17 @@ DISPLAY("Installed correctly: " + installed + " of " + LENGTH(parts))
    height="600px"
 %}
 
+**Expected output**
+
+```text
+Graphics card returned. Next part is CPU.
+CPU installed correctly.
+RAM installed correctly.
+M.2 SSD installed correctly.
+CPU cooler installed correctly.
+Installed correctly: 4 of 4
+```
+
 ---
 
 ## List Operations
@@ -308,6 +381,16 @@ DISPLAY("Parts remaining: " + LENGTH(partsTray))
    code=pc_list_operations_code
    height="380px"
 %}
+
+**Expected output**
+
+```text
+Initial tray: ["CPU", "RAM"]
+After APPEND: ["CPU", "RAM", "M.2 SSD"]
+After INSERT: ["CPU", "CPU cooler", "RAM", "M.2 SSD"]
+After installing CPU: ["CPU cooler", "RAM", "M.2 SSD"]
+Parts remaining: 3
+```
 
 ---
 
@@ -348,6 +431,12 @@ DISPLAY("Graphics card position: " + result)
    code=pc_search_code
    height="480px"
 %}
+
+**Expected output**
+
+```text
+Graphics card position: 4
+```
 
 ---
 
@@ -391,6 +480,13 @@ IF (NOT (partsRemaining = 0))
    code=pc_boolean_code
    height="500px"
 %}
+
+**Expected output**
+
+```text
+The CPU snaps into place.
+The PC build is still in progress.
+```
 
 ---
 
@@ -544,6 +640,13 @@ updateProgress();
    output_height="600px"
 %}
 
+**Example output (initial UI state)**
+
+```text
+Next part: CPU
+Installed: 0/8 | Accuracy: 100%
+```
+
 ---
 
 # Python Prototype
@@ -614,6 +717,24 @@ print("Accuracy:", str(accuracy) + "%")
    code=pc_python_code
    height="760px"
 %}
+
+**Sample output (from `use_sample_input = True`)**
+
+```text
+\nNext part: CPU
+Choose a PC part: Graphics card
+Choose its destination: PCIe slot
+Incorrect placement. The part returned to the tray.
+Hint: CPU goes in CPU socket
+
+Next part: CPU
+Choose a PC part: CPU
+Choose its destination: CPU socket
+CPU snapped into place!
+... (remaining steps omitted) ...
+\nPC assembly complete!
+Accuracy: 89%
+```
 
 ---
 
