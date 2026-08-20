@@ -13,8 +13,6 @@ search_exclude: false
 
 This notebook uses one theme throughout: assembling the parts of a desktop computer in the correct order. The user chooses a component and its destination. A correct component snaps into place; an incorrect component returns to the parts tray. Every example below connects that program idea to a CPT requirement.
 
-> **Team-size check:** The assignment says teams of three, but six contributors were provided. Confirm whether this should be one six-person team or two three-person teams before submitting.
-
 <!-- Runner view toggle buttons -->
 <div id="runner-view-toggle" style="margin: 12px 0;">
   <button id="view-python" style="margin-right:8px;padding:6px 10px;">View Python runners</button>
@@ -63,40 +61,128 @@ This notebook uses one theme throughout: assembling the parts of a desktop compu
     const jsVersions = {
       'pc-output': `const currentPart = "CPU";
 const targetSlot = "CPU socket";
+
 console.log("Current part:", currentPart);
 console.log("Install in:", targetSlot);`,
       'pc-input': `const selectedPart = prompt("Choose a PC part:");
 const selectedSlot = prompt("Choose its destination:");
+
 console.log("Selected part:", selectedPart);
 console.log("Selected destination:", selectedSlot);`,
-      'pc-list': `const parts = ["CPU","RAM","M.2 SSD","CPU cooler","Power supply","Motherboard","Graphics card","Power cables"];
+      'pc-list': `const parts = [
+  "CPU",
+  "RAM",
+  "M.2 SSD",
+  "CPU cooler",
+  "Power supply",
+  "Motherboard",
+  "Graphics card",
+  "Power cables"
+];
+
 console.log("Parts in this build:", parts.length);
-for (const part of parts) console.log(part);`,
+for (const part of parts) {
+  console.log(part);
+}`,
       'pc-procedure': `function isCorrectTarget(partName, targetName) {
   return partName === 'CPU' && targetName === 'CPU socket';
 }
-console.log('Correct placement:', isCorrectTarget('CPU','CPU socket'));`,
+
+console.log('Correct placement:', isCorrectTarget('CPU', 'CPU socket'));`,
       'pc-sequence': `let step = 1;
-console.log(` + "`Step ${step}: Seat the CPU`" + `);
+
+console.log(\`Step \${step}: Seat the CPU\`);
 step++;
-console.log(` + "`Step ${step}: Install the RAM`" + `);
+console.log(\`Step \${step}: Install the RAM\`);
 step++;
-console.log(` + "`Step ${step}: Install the M.2 SSD`" + `);
+console.log(\`Step \${step}: Install the M.2 SSD\`);
 step++;
-console.log(` + "`Step ${step}: Mount the CPU cooler`" + `);`,
+console.log(\`Step \${step}: Mount the CPU cooler\`);`,
       'pc-selection': `const expectedPart = 'CPU';
 const selectedPart = prompt('Choose the first part:');
+
 if (selectedPart === expectedPart) {
   console.log('Correct! ' + selectedPart + ' snapped into place.');
 } else {
   console.log('Incorrect. ' + selectedPart + ' returned to the parts tray.');
   console.log('Install ' + expectedPart + ' first.');
 }`,
-      'pc-iteration': `const partsIter = ["CPU","RAM","M.2 SSD","CPU cooler","Power supply","Motherboard","Graphics card","Power cables"];let stepIter=1;for(const p of partsIter){console.log('Step ' + stepIter + ': Install ' + p);stepIter++;}`,
-      'pc-algorithm': `function assembleComputer(parts, selectedParts){let installedCount=0;let step=0;for(const selectedPart of selectedParts){const expectedPart = parts[step];if(selectedPart===expectedPart){console.log(selectedPart + ' installed correctly.');installedCount++;step++;}else{console.log(selectedPart + ' returned. Next part is ' + expectedPart + '.');}}return installedCount;}const partsArr=['CPU','RAM','M.2 SSD','CPU cooler'];const attempts=['Graphics card','CPU','RAM','M.2 SSD','CPU cooler'];const installed=assembleComputer(partsArr,attempts);console.log('Installed correctly: ' + installed + ' of ' + partsArr.length);`,
-      'pc-list-operations': `let partsTray = ['CPU','RAM'];console.log('Initial tray:', partsTray);partsTray.push('M.2 SSD');console.log('After APPEND:', partsTray);partsTray.splice(1,0,'CPU cooler');console.log('After INSERT:', partsTray);partsTray.shift();console.log('After installing CPU:', partsTray);console.log('Parts remaining:', partsTray.length);`,
-      'pc-search': `function findPart(partsTray, targetPart){for(let i=0;i<partsTray.length;i++){if(partsTray[i]===targetPart) return i+1;}return -1;}const partsTray=['CPU','RAM','M.2 SSD','Graphics card'];console.log('Graphics card position:', findPart(partsTray,'Graphics card'));`,
-      'pc-boolean': `const selectedPart='CPU';const selectedSlot='CPU socket';const expectedPart='CPU';const expectedSlot='CPU socket';let partsRemaining=7;const correctPart = selectedPart===expectedPart;const correctSlot = selectedSlot===expectedSlot;if(correctPart && correctSlot){console.log('The CPU snaps into place.');}else{console.log('Return the part to the tray.');}if(!(partsRemaining===0)){console.log('The PC build is still in progress.');}`
+      'pc-iteration': `const partsIter = [
+  "CPU",
+  "RAM",
+  "M.2 SSD",
+  "CPU cooler",
+  "Power supply",
+  "Motherboard",
+  "Graphics card",
+  "Power cables"
+];
+
+let stepIter = 1;
+for (const p of partsIter) {
+  console.log('Step ' + stepIter + ': Install ' + p);
+  stepIter++;
+}`,
+      'pc-algorithm': `function assembleComputer(parts, selectedParts) {
+  let installedCount = 0;
+  let step = 0;
+
+  for (const selectedPart of selectedParts) {
+    const expectedPart = parts[step];
+    if (selectedPart === expectedPart) {
+      console.log(selectedPart + ' installed correctly.');
+      installedCount++;
+      step++;
+    } else {
+      console.log(selectedPart + ' returned. Next part is ' + expectedPart + '.');
+    }
+  }
+
+  return installedCount;
+}
+
+const partsArr = ['CPU', 'RAM', 'M.2 SSD', 'CPU cooler'];
+const attempts = ['Graphics card', 'CPU', 'RAM', 'M.2 SSD', 'CPU cooler'];
+const installed = assembleComputer(partsArr, attempts);
+
+console.log('Installed correctly: ' + installed + ' of ' + partsArr.length);`,
+      'pc-list-operations': `let partsTray = ['CPU', 'RAM'];
+
+console.log('Initial tray:', partsTray);
+partsTray.push('M.2 SSD');
+console.log('After APPEND:', partsTray);
+partsTray.splice(1, 0, 'CPU cooler');
+console.log('After INSERT:', partsTray);
+partsTray.shift();
+console.log('After installing CPU:', partsTray);
+console.log('Parts remaining:', partsTray.length);`,
+      'pc-search': `function findPart(partsTray, targetPart) {
+  for (let i = 0; i < partsTray.length; i++) {
+    if (partsTray[i] === targetPart) return i + 1;
+  }
+  return -1;
+}
+
+const partsTray = ['CPU', 'RAM', 'M.2 SSD', 'Graphics card'];
+console.log('Graphics card position:', findPart(partsTray, 'Graphics card'));`,
+      'pc-boolean': `const selectedPart = 'CPU';
+const selectedSlot = 'CPU socket';
+const expectedPart = 'CPU';
+const expectedSlot = 'CPU socket';
+let partsRemaining = 7;
+
+const correctPart = selectedPart === expectedPart;
+const correctSlot = selectedSlot === expectedSlot;
+
+if (correctPart && correctSlot) {
+  console.log('The CPU snaps into place.');
+} else {
+  console.log('Return the part to the tray.');
+}
+
+if (!(partsRemaining === 0)) {
+  console.log('The PC build is still in progress.');
+}`
     };
 
     function setCodeInContainer(container, code, mode) {
@@ -184,6 +270,9 @@ if (selectedPart === expectedPart) {
     setTimeout(function(){
       // If there are ui-runner-containers but they are hidden by CSS, show them
       document.querySelectorAll('.ui-runner-container').forEach(function(uic){ if (uic.style.display === 'none') uic.style.display = ''; });
+      document.querySelectorAll('.code-runner-container .output-content').forEach(function(output){
+        output.textContent = 'Run the code to see output ...';
+      });
       refreshCodeMirrors();
     }, 300);
   });
@@ -790,7 +879,7 @@ Installed: 0/8 | Accuracy: 100%
 The Python version uses the same lists, procedure, selection, iteration, Boolean logic, and accuracy calculation. `use_sample_input` is set to `True` so the web code runner can demonstrate the program automatically. Change it to `False` when running in a terminal to type your own choices with `input()`.
 
 {% capture pc_python_challenge %}
-Run the automatic sample build. Then copy the code to a terminal, change use_sample_input to False, and assemble the PC with your own typed choices.
+Run the automatic sample build. Then change the sample values to try a different assembly order.
 {% endcapture %}
 
 {% capture pc_python_code %}
@@ -799,20 +888,20 @@ slots = ["CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "PSU bay", "Boar
 attempts = []
 current_step = 0
 
-# True keeps this example runnable in the web code runner.
-# Change to False in a terminal to use input().
-use_sample_input = True
-sample_parts = ["Graphics card"] + parts
-sample_slots = ["PCIe slot"] + slots
+# Sample choices keep this example runnable in the web code runner.
+# Change these lists to test a different build order.
+sample_attempts = [
+    ("Graphics card", "PCIe slot"),
+    ("CPU", "CPU socket"),
+    ("RAM", "RAM slots"),
+    ("M.2 SSD", "M.2 slot"),
+    ("CPU cooler", "Cooler mount"),
+    ("Power supply", "PSU bay"),
+    ("Motherboard", "Board tray"),
+    ("Graphics card", "PCIe slot"),
+    ("Power cables", "Power headers"),
+]
 sample_index = 0
-
-def get_choice(prompt, sample_values):
-    global sample_index
-    if use_sample_input:
-        choice = sample_values[sample_index]
-        print(prompt + choice)
-        return choice
-    return input(prompt).strip()
 
 def check_placement(part_name, slot_name):
     correct_part = part_name.lower() == parts[current_step].lower()
@@ -821,10 +910,12 @@ def check_placement(part_name, slot_name):
 
 while current_step < len(parts):
     print("\nNext part:", parts[current_step])
-    selected_part = get_choice("Choose a PC part: ", sample_parts)
-    selected_slot = get_choice("Choose its destination: ", sample_slots)
+    selected_part, selected_slot = sample_attempts[sample_index]
+    print("Choose a PC part:", selected_part)
+    print("Choose its destination:", selected_slot)
     is_correct = check_placement(selected_part, selected_slot)
     attempts.append(is_correct)
+    sample_index += 1
 
     if is_correct:
         print(selected_part, "snapped into place!")
@@ -832,9 +923,6 @@ while current_step < len(parts):
     else:
         print("Incorrect placement. The part returned to the tray.")
         print("Hint:", parts[current_step], "goes in", slots[current_step])
-
-    if use_sample_input:
-        sample_index += 1
 
 correct_attempts = 0
 for result in attempts:
@@ -854,7 +942,7 @@ print("Accuracy:", str(accuracy) + "%")
    height="760px"
 %}
 
-**Sample output (from `use_sample_input = True`)**
+**Sample output**
 
 ```text
 \nNext part: CPU
@@ -869,7 +957,7 @@ Choose its destination: CPU socket
 CPU snapped into place!
 ... (remaining steps omitted) ...
 \nPC assembly complete!
-Accuracy: 89%
+Accuracy: 100%
 ```
 
 ---
