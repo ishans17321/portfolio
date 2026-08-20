@@ -15,6 +15,181 @@ This notebook uses one theme throughout: assembling the parts of a desktop compu
 
 > **Team-size check:** The assignment says teams of three, but six contributors were provided. Confirm whether this should be one six-person team or two three-person teams before submitting.
 
+<!-- Runner view toggle buttons -->
+<div id="runner-view-toggle" style="margin: 12px 0;">
+  <button id="view-python" style="margin-right:8px;padding:6px 10px;">View Python runners</button>
+  <button id="view-javascript" style="margin-right:8px;padding:6px 10px;">View JavaScript runners</button>
+  <button id="view-both" style="padding:6px 10px;">View Both</button>
+</div>
+
+<script>
+// Toggle and refresh runner editors so CodeRunners render correctly
+(function(){
+  function refreshCodeMirrors() {
+    // Refresh CodeMirror instances
+    document.querySelectorAll('.CodeMirror').forEach(function(cmEl){
+      try { if (cmEl.CodeMirror && typeof cmEl.CodeMirror.refresh === 'function') cmEl.CodeMirror.refresh(); } catch(e){}
+    });
+  }
+
+  function setLanguageForRunners(lang) {
+    document.querySelectorAll('.code-runner-container').forEach(function(container){
+      const sel = container.querySelector('.languageSelect');
+      if (!sel) return;
+      sel.value = lang;
+      sel.dispatchEvent(new Event('change'));
+    });
+    // Show/hide UI runners: UI runners are interactive JS-only; show them when javascript selected
+    document.querySelectorAll('.ui-runner-container').forEach(function(uic){
+      if (lang === 'javascript') { uic.style.display = ''; } else { uic.style.display = 'none'; }
+    });
+    // For code-runner containers with non-js languages, ensure they are visible
+    document.querySelectorAll('.code-runner-container').forEach(function(c){ c.style.display = ''; });
+    // Small delay then refresh editors
+    setTimeout(refreshCodeMirrors, 150);
+  }
+
+  function showBoth() {
+    // Show everything and refresh
+    document.querySelectorAll('.ui-runner-container, .code-runner-container').forEach(function(el){ el.style.display = ''; });
+    refreshCodeMirrors();
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const pyBtn = document.getElementById('view-python');
+    const jsBtn = document.getElementById('view-javascript');
+    const bothBtn = document.getElementById('view-both');
+    // JavaScript snippets for the runners (simple translations)
+    const jsVersions = {
+      'pc-output': `const currentPart = "CPU";
+const targetSlot = "CPU socket";
+console.log("Current part:", currentPart);
+console.log("Install in:", targetSlot);`,
+      'pc-input': `const selectedPart = prompt("Choose a PC part:");
+const selectedSlot = prompt("Choose its destination:");
+console.log("Selected part:", selectedPart);
+console.log("Selected destination:", selectedSlot);`,
+      'pc-list': `const parts = ["CPU","RAM","M.2 SSD","CPU cooler","Power supply","Motherboard","Graphics card","Power cables"];
+console.log("Parts in this build:", parts.length);
+for (const part of parts) console.log(part);`,
+      'pc-procedure': `function isCorrectTarget(partName, targetName) {
+  return partName === 'CPU' && targetName === 'CPU socket';
+}
+console.log('Correct placement:', isCorrectTarget('CPU','CPU socket'));`,
+      'pc-sequence': `let step = 1;
+console.log(` + "`Step ${step}: Seat the CPU`" + `);
+step++;
+console.log(` + "`Step ${step}: Install the RAM`" + `);
+step++;
+console.log(` + "`Step ${step}: Install the M.2 SSD`" + `);
+step++;
+console.log(` + "`Step ${step}: Mount the CPU cooler`" + `);`,
+      'pc-selection': `const expectedPart = 'CPU';
+const selectedPart = prompt('Choose the first part:');
+if (selectedPart === expectedPart) {
+  console.log('Correct! ' + selectedPart + ' snapped into place.');
+} else {
+  console.log('Incorrect. ' + selectedPart + ' returned to the parts tray.');
+  console.log('Install ' + expectedPart + ' first.');
+}`,
+      'pc-iteration': `const partsIter = ["CPU","RAM","M.2 SSD","CPU cooler","Power supply","Motherboard","Graphics card","Power cables"];let stepIter=1;for(const p of partsIter){console.log('Step ' + stepIter + ': Install ' + p);stepIter++;}`,
+      'pc-algorithm': `function assembleComputer(parts, selectedParts){let installedCount=0;let step=0;for(const selectedPart of selectedParts){const expectedPart = parts[step];if(selectedPart===expectedPart){console.log(selectedPart + ' installed correctly.');installedCount++;step++;}else{console.log(selectedPart + ' returned. Next part is ' + expectedPart + '.');}}return installedCount;}const partsArr=['CPU','RAM','M.2 SSD','CPU cooler'];const attempts=['Graphics card','CPU','RAM','M.2 SSD','CPU cooler'];const installed=assembleComputer(partsArr,attempts);console.log('Installed correctly: ' + installed + ' of ' + partsArr.length);`,
+      'pc-list-operations': `let partsTray = ['CPU','RAM'];console.log('Initial tray:', partsTray);partsTray.push('M.2 SSD');console.log('After APPEND:', partsTray);partsTray.splice(1,0,'CPU cooler');console.log('After INSERT:', partsTray);partsTray.shift();console.log('After installing CPU:', partsTray);console.log('Parts remaining:', partsTray.length);`,
+      'pc-search': `function findPart(partsTray, targetPart){for(let i=0;i<partsTray.length;i++){if(partsTray[i]===targetPart) return i+1;}return -1;}const partsTray=['CPU','RAM','M.2 SSD','Graphics card'];console.log('Graphics card position:', findPart(partsTray,'Graphics card'));`,
+      'pc-boolean': `const selectedPart='CPU';const selectedSlot='CPU socket';const expectedPart='CPU';const expectedSlot='CPU socket';let partsRemaining=7;const correctPart = selectedPart===expectedPart;const correctSlot = selectedSlot===expectedSlot;if(correctPart && correctSlot){console.log('The CPU snaps into place.');}else{console.log('Return the part to the tray.');}if(!(partsRemaining===0)){console.log('The PC build is still in progress.');}`
+    };
+
+    function setCodeInContainer(container, code, mode) {
+      let tries = 0;
+      function attempt() {
+        const cmEl = container.querySelector('.CodeMirror');
+        const cm = cmEl && cmEl.CodeMirror ? cmEl.CodeMirror : null;
+        if (cm) {
+          try { cm.setValue(code); cm.setOption('mode', mode); } catch(e) {}
+          return true;
+        }
+        const ta = container.querySelector('.editor-textarea');
+        if (ta) {
+          ta.value = code;
+          return true;
+        }
+        return false;
+      }
+      function doAttempt() {
+        if (attempt()) return;
+        tries++;
+        if (tries < 8) setTimeout(doAttempt, 150);
+      }
+      doAttempt();
+    }
+
+    function setEditorsToPython() {
+      document.querySelectorAll('.code-runner-container').forEach(function(container){
+        const sel = container.querySelector('.languageSelect');
+        if (sel) sel.value = 'python';
+        const defaultCode = container.dataset.defaultCode ? JSON.parse(container.dataset.defaultCode) : '';
+        setCodeInContainer(container, defaultCode, 'python');
+      });
+      // hide UI-only runners when showing python
+      document.querySelectorAll('.ui-runner-container').forEach(uic => uic.style.display = 'none');
+    }
+
+    function setEditorsToJavaScript() {
+      document.querySelectorAll('.code-runner-container').forEach(function(container){
+        const rid = container.dataset.runnerId || container.id.replace('runner-','');
+        const sel = container.querySelector('.languageSelect');
+        if (sel) sel.value = 'javascript';
+        const js = jsVersions[rid] || '// JavaScript version not available for this runner';
+        setCodeInContainer(container, js, 'javascript');
+      });
+      // show UI runners when JS selected
+      document.querySelectorAll('.ui-runner-container').forEach(uic => uic.style.display = '');
+    }
+
+    function waitForEditors(timeoutMs = 8000) {
+      const start = Date.now();
+      return new Promise((resolve) => {
+        (function check() {
+          const any = !!document.querySelector('.code-runner-container .CodeMirror');
+          if (any) return resolve(true);
+          if (Date.now() - start > timeoutMs) return resolve(false);
+          setTimeout(check, 150);
+        })();
+      });
+    }
+
+    if (pyBtn) pyBtn.addEventListener('click', async function(){
+      const ready = await waitForEditors();
+      setEditorsToPython();
+      setLanguageForRunners('python');
+      if (!ready) setTimeout(() => { setEditorsToPython(); setLanguageForRunners('python'); }, 300);
+    });
+
+    if (jsBtn) jsBtn.addEventListener('click', async function(){
+      const ready = await waitForEditors();
+      setEditorsToJavaScript();
+      setLanguageForRunners('javascript');
+      if (!ready) setTimeout(() => { setEditorsToJavaScript(); setLanguageForRunners('javascript'); }, 300);
+    });
+
+    if (bothBtn) bothBtn.addEventListener('click', async function(){
+      const ready = await waitForEditors();
+      showBoth();
+      setEditorsToJavaScript();
+      setLanguageForRunners('javascript');
+      if (!ready) setTimeout(() => { setEditorsToJavaScript(); setLanguageForRunners('javascript'); showBoth(); }, 300);
+    });
+
+    // Initial refresh after small delay to allow included runner scripts to initialize
+    setTimeout(function(){
+      // If there are ui-runner-containers but they are hidden by CSS, show them
+      document.querySelectorAll('.ui-runner-container').forEach(function(uic){ if (uic.style.display === 'none') uic.style.display = ''; });
+      refreshCodeMirrors();
+    }, 300);
+  });
+})();
+</script>
+
 ---
 
 ## Output
@@ -26,19 +201,19 @@ Display the current PC part and where it should be installed.
 {% endcapture %}
 
 {% capture pc_output_code %}
-currentPart ← "CPU"
-targetSlot ← "CPU socket"
+currentPart = "CPU"
+targetSlot = "CPU socket"
 
-DISPLAY("Current part: " + currentPart)
-DISPLAY("Install in: " + targetSlot)
+print("Current part:", currentPart)
+print("Install in:", targetSlot)
 {% endcapture %}
 
 {% include runners/code.html
-   runner_id="pc-output"
-   language="pseudocode"
-   challenge=pc_output_challenge
-   code=pc_output_code
-   height="220px"
+  runner_id="pc-output"
+  language="python"
+  challenge=pc_output_challenge
+  code=pc_output_code
+  height="220px"
 %}
 
 **Expected output**
@@ -59,19 +234,19 @@ Ask the builder to choose a PC part and its destination, then display both choic
 {% endcapture %}
 
 {% capture pc_input_code %}
-selectedPart ← INPUT("Choose a PC part:")
-selectedSlot ← INPUT("Choose its destination:")
+selectedPart = input("Choose a PC part: ")
+selectedSlot = input("Choose its destination: ")
 
-DISPLAY("Selected part: " + selectedPart)
-DISPLAY("Selected destination: " + selectedSlot)
+print("Selected part:", selectedPart)
+print("Selected destination:", selectedSlot)
 {% endcapture %}
 
 {% include runners/code.html
-   runner_id="pc-input"
-   language="pseudocode"
-   challenge=pc_input_challenge
-   code=pc_input_code
-   height="230px"
+  runner_id="pc-input"
+  language="python"
+  challenge=pc_input_challenge
+  code=pc_input_code
+  height="230px"
 %}
 
 **Example output (if the user chose "CPU" and "CPU socket")**
@@ -92,22 +267,20 @@ Store the PC components in assembly order and display each component with a loop
 {% endcapture %}
 
 {% capture pc_list_code %}
-parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
+parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
 
-DISPLAY("Parts in this build: " + LENGTH(parts))
+print("Parts in this build:", len(parts))
 
-FOR EACH part IN parts
-{
-  DISPLAY(part)
-}
+for part in parts:
+   print(part)
 {% endcapture %}
 
 {% include runners/code.html
-   runner_id="pc-list"
-   language="pseudocode"
-   challenge=pc_list_challenge
-   code=pc_list_code
-   height="300px"
+  runner_id="pc-list"
+  language="python"
+  challenge=pc_list_challenge
+  code=pc_list_code
+  height="300px"
 %}
 
 **Expected output**
@@ -135,25 +308,16 @@ Create and call a procedure that checks whether the CPU was placed in the CPU so
 {% endcapture %}
 
 {% capture pc_procedure_code %}
-PROCEDURE isCorrectTarget(partName, targetName)
-{
-  IF (partName = "CPU" AND targetName = "CPU socket")
-  {
-    RETURN(true)
-  }
-  ELSE
-  {
-    RETURN(false)
-  }
-}
+def is_correct_target(part_name, target_name):
+    return part_name == "CPU" and target_name == "CPU socket"
 
-correctPlacement ← isCorrectTarget("CPU", "CPU socket")
-DISPLAY("Correct placement: " + correctPlacement)
+correct_placement = is_correct_target("CPU", "CPU socket")
+print("Correct placement:", correct_placement)
 {% endcapture %}
 
 {% include runners/code.html
    runner_id="pc-procedure"
-   language="pseudocode"
+   language="python"
    challenge=pc_procedure_challenge
    code=pc_procedure_code
    height="390px"
@@ -176,25 +340,25 @@ Display four motherboard-preparation steps in the order they occur.
 {% endcapture %}
 
 {% capture pc_sequence_code %}
-step ← 1
-DISPLAY("Step " + step + ": Seat the CPU")
+step = 1
+print(f"Step {step}: Seat the CPU")
 
-step ← step + 1
-DISPLAY("Step " + step + ": Install the RAM")
+step += 1
+print(f"Step {step}: Install the RAM")
 
-step ← step + 1
-DISPLAY("Step " + step + ": Install the M.2 SSD")
+step += 1
+print(f"Step {step}: Install the M.2 SSD")
 
-step ← step + 1
-DISPLAY("Step " + step + ": Mount the CPU cooler")
+step += 1
+print(f"Step {step}: Mount the CPU cooler")
 {% endcapture %}
 
 {% include runners/code.html
-   runner_id="pc-sequence"
-   language="pseudocode"
-   challenge=pc_sequence_challenge
-   code=pc_sequence_code
-   height="330px"
+  runner_id="pc-sequence"
+  language="python"
+  challenge=pc_sequence_challenge
+  code=pc_sequence_code
+  height="330px"
 %}
 
 **Expected output**
@@ -217,23 +381,19 @@ Check a selected component. If it is the expected part, snap it in; otherwise re
 {% endcapture %}
 
 {% capture pc_selection_code %}
-expectedPart ← "CPU"
-selectedPart ← INPUT("Choose the first part:")
+expected_part = "CPU"
+selected_part = input("Choose the first part: ")
 
-IF (selectedPart = expectedPart)
-{
-  DISPLAY("Correct! " + selectedPart + " snapped into place.")
-}
-ELSE
-{
-  DISPLAY("Incorrect. " + selectedPart + " returned to the parts tray.")
-  DISPLAY("Install " + expectedPart + " first.")
-}
+if selected_part == expected_part:
+    print(f"Correct! {selected_part} snapped into place.")
+else:
+    print(f"Incorrect. {selected_part} returned to the parts tray.")
+    print(f"Install {expected_part} first.")
 {% endcapture %}
 
 {% include runners/code.html
    runner_id="pc-selection"
-   language="pseudocode"
+   language="python"
    challenge=pc_selection_challenge
    code=pc_selection_code
    height="360px"
@@ -256,22 +416,20 @@ Loop through the ordered parts list and display one installation instruction for
 {% endcapture %}
 
 {% capture pc_iteration_code %}
-parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
-step ← 1
+parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
+step = 1
 
-FOR EACH part IN parts
-{
-  DISPLAY("Step " + step + ": Install " + part)
-  step ← step + 1
-}
+for part in parts:
+   print(f"Step {step}: Install {part}")
+   step += 1
 {% endcapture %}
 
 {% include runners/code.html
-   runner_id="pc-iteration"
-   language="pseudocode"
-   challenge=pc_iteration_challenge
-   code=pc_iteration_code
-   height="320px"
+  runner_id="pc-iteration"
+  language="python"
+  challenge=pc_iteration_challenge
+  code=pc_iteration_code
+  height="320px"
 %}
 
 **Expected output**
@@ -298,40 +456,32 @@ Run a complete PC assembly algorithm that combines a list, procedure, sequence, 
 {% endcapture %}
 
 {% capture pc_algorithm_code %}
-PROCEDURE assembleComputer(parts, selectedParts)
-{
-  installedCount ← 0
-  step ← 1
+def assemble_computer(parts, selected_parts):
+    installed_count = 0
+    step = 0
 
-  FOR EACH selectedPart IN selectedParts
-  {
-    expectedPart ← parts[step]
+    for selected_part in selected_parts:
+        expected_part = parts[step]
 
-    IF (selectedPart = expectedPart)
-    {
-      DISPLAY(selectedPart + " installed correctly.")
-      installedCount ← installedCount + 1
-      step ← step + 1
-    }
-    ELSE
-    {
-      DISPLAY(selectedPart + " returned. Next part is " + expectedPart + ".")
-    }
-  }
+        if selected_part == expected_part:
+            print(f"{selected_part} installed correctly.")
+            installed_count += 1
+            step += 1
+        else:
+            print(f"{selected_part} returned. Next part is {expected_part}.")
 
-  RETURN(installedCount)
-}
+    return installed_count
 
-parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler"]
-attempts ← ["Graphics card", "CPU", "RAM", "M.2 SSD", "CPU cooler"]
+parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler"]
+attempts = ["Graphics card", "CPU", "RAM", "M.2 SSD", "CPU cooler"]
 
-installed ← assembleComputer(parts, attempts)
-DISPLAY("Installed correctly: " + installed + " of " + LENGTH(parts))
+installed = assemble_computer(parts, attempts)
+print(f"Installed correctly: {installed} of {len(parts)}")
 {% endcapture %}
 
 {% include runners/code.html
    runner_id="pc-algorithm"
-   language="pseudocode"
+   language="python"
    challenge=pc_algorithm_challenge
    code=pc_algorithm_code
    height="600px"
@@ -359,27 +509,27 @@ Modify a PC parts tray with all four College Board list operations.
 {% endcapture %}
 
 {% capture pc_list_operations_code %}
-partsTray ← ["CPU", "RAM"]
-DISPLAY("Initial tray: " + partsTray)
+parts_tray = ["CPU", "RAM"]
+print("Initial tray:", parts_tray)
 
-APPEND(partsTray, "M.2 SSD")
-DISPLAY("After APPEND: " + partsTray)
+parts_tray.append("M.2 SSD")
+print("After APPEND:", parts_tray)
 
-INSERT(partsTray, 2, "CPU cooler")
-DISPLAY("After INSERT: " + partsTray)
+parts_tray.insert(1, "CPU cooler")
+print("After INSERT:", parts_tray)
 
-REMOVE(partsTray, 1)
-DISPLAY("After installing CPU: " + partsTray)
+parts_tray.pop(0)
+print("After installing CPU:", parts_tray)
 
-DISPLAY("Parts remaining: " + LENGTH(partsTray))
+print("Parts remaining:", len(parts_tray))
 {% endcapture %}
 
 {% include runners/code.html
-   runner_id="pc-list-operations"
-   language="pseudocode"
-   challenge=pc_list_operations_challenge
-   code=pc_list_operations_code
-   height="380px"
+  runner_id="pc-list-operations"
+  language="python"
+  challenge=pc_list_operations_challenge
+  code=pc_list_operations_code
+  height="380px"
 %}
 
 **Expected output**
@@ -403,30 +553,22 @@ Search the parts tray for the graphics card and display its position.
 {% endcapture %}
 
 {% capture pc_search_code %}
-PROCEDURE findPart(partsTray, targetPart)
-{
-  position ← 1
+def find_part(parts_tray, target_part):
+    position = 1
+    for part in parts_tray:
+        if part == target_part:
+            return position
+        position += 1
+    return -1
 
-  FOR EACH part IN partsTray
-  {
-    IF (part = targetPart)
-    {
-      RETURN(position)
-    }
-    position ← position + 1
-  }
-
-  RETURN(-1)
-}
-
-partsTray ← ["CPU", "RAM", "M.2 SSD", "Graphics card"]
-result ← findPart(partsTray, "Graphics card")
-DISPLAY("Graphics card position: " + result)
+parts_tray = ["CPU", "RAM", "M.2 SSD", "Graphics card"]
+result = find_part(parts_tray, "Graphics card")
+print("Graphics card position:", result)
 {% endcapture %}
 
 {% include runners/code.html
    runner_id="pc-search"
-   language="pseudocode"
+   language="python"
    challenge=pc_search_challenge
    code=pc_search_code
    height="480px"
@@ -449,33 +591,27 @@ Use AND and NOT to decide whether a CPU should snap into place and whether the b
 {% endcapture %}
 
 {% capture pc_boolean_code %}
-selectedPart ← "CPU"
-selectedSlot ← "CPU socket"
-expectedPart ← "CPU"
-expectedSlot ← "CPU socket"
-partsRemaining ← 7
+selected_part = "CPU"
+selected_slot = "CPU socket"
+expected_part = "CPU"
+expected_slot = "CPU socket"
+parts_remaining = 7
 
-correctPart ← (selectedPart = expectedPart)
-correctSlot ← (selectedSlot = expectedSlot)
+correct_part = (selected_part == expected_part)
+correct_slot = (selected_slot == expected_slot)
 
-IF (correctPart AND correctSlot)
-{
-  DISPLAY("The CPU snaps into place.")
-}
-ELSE
-{
-  DISPLAY("Return the part to the tray.")
-}
+if correct_part and correct_slot:
+    print("The CPU snaps into place.")
+else:
+    print("Return the part to the tray.")
 
-IF (NOT (partsRemaining = 0))
-{
-  DISPLAY("The PC build is still in progress.")
-}
+if not (parts_remaining == 0):
+    print("The PC build is still in progress.")
 {% endcapture %}
 
 {% include runners/code.html
    runner_id="pc-boolean"
-   language="pseudocode"
+   language="python"
    challenge=pc_boolean_challenge
    code=pc_boolean_code
    height="500px"
