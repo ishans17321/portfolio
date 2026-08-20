@@ -23,7 +23,7 @@
       <button type="button" class="copyBtn" title="Copy Code">⎘</button>
       <button type="button" class="saveBtn" title="Save Code">💾</button>
       <button type="button" class="clearStorageBtn" title="Clear Storage">🗑</button>
-      <select class="languageSelect">
+      <select class="languageSelect" aria-label="Runner language"{% if include.lock_language %} disabled title="This example is written in {{ include.language }}"{% endif %}>
         <option value="python">Python</option>
         <option value="java">Java</option>
         <option value="javascript">JavaScript</option>
