@@ -497,7 +497,7 @@ The PC build is still in progress.
 
 # JavaScript Prototype
 
-The JavaScript version turns the algorithm into a small browser interaction. Select a part, then select its destination. Correct placements stay installed. Incorrect placements return to the tray. The program records every attempt and displays the current accuracy.
+The JavaScript version turns the algorithm into a browser interaction. Drag each component from the parts tray to its matching connection point in assembly order. Clicking a part and then a slot provides the same interaction for keyboard and touch users. Correct placements snap into the build; incorrect placements stay in the tray. The program records every attempt and displays the current accuracy.
 
 {% capture pc_javascript_challenge %}
 Run the PC assembly prototype. Try a wrong part first, then install all eight components in order. Identify the input, output, lists, procedure, selection, iteration, and Boolean expression in the code.
@@ -521,43 +521,104 @@ const attempts = [];
 let currentStep = 0;
 let selectedPart = -1;
 
+const app = document.createElement('section');
+const header = document.createElement('div');
 const heading = document.createElement('h3');
-heading.textContent = 'PC Assembly Bench';
-
 const directions = document.createElement('p');
-directions.textContent = 'Choose a part, then choose its destination.';
-
+const nameLabel = document.createElement('label');
+const builderName = document.createElement('input');
 const status = document.createElement('p');
-status.style.fontWeight = '700';
-
 const progress = document.createElement('p');
-
+const resetButton = document.createElement('button');
 const layout = document.createElement('div');
-layout.style.display = 'grid';
-layout.style.gridTemplateColumns = 'repeat(auto-fit, minmax(240px, 1fr))';
-layout.style.gap = '20px';
-
 const tray = document.createElement('div');
-const trayTitle = document.createElement('h4');
-trayTitle.textContent = 'Parts tray';
-tray.appendChild(trayTitle);
-
 const caseArea = document.createElement('div');
+const trayTitle = document.createElement('h4');
 const caseTitle = document.createElement('h4');
-caseTitle.textContent = 'Connection points';
-caseArea.appendChild(caseTitle);
 
-const partButtons = [];
+heading.textContent = 'PC Assembly Bench';
+directions.textContent = 'Drag a part to its slot in order, or click a part and then a slot.';
+nameLabel.textContent = 'Builder name';
+nameLabel.htmlFor = 'pc-builder-name';
+builderName.id = 'pc-builder-name';
+builderName.type = 'text';
+builderName.placeholder = 'Enter your name';
+builderName.autocomplete = 'name';
+resetButton.type = 'button';
+resetButton.textContent = 'Reset build';
+trayTitle.textContent = 'Parts tray';
+caseTitle.textContent = 'PC connection points';
+status.setAttribute('role', 'status');
+status.setAttribute('aria-live', 'polite');
+
+Object.assign(app.style, {
+  color: '#e5e7eb',
+  background: '#111827',
+  border: '1px solid #334155',
+  borderRadius: '12px',
+  padding: '18px',
+  fontFamily: 'system-ui, sans-serif'
+});
+Object.assign(header.style, {
+  display: 'grid',
+  gridTemplateColumns: '1fr auto',
+  gap: '12px',
+  alignItems: 'end'
+});
+Object.assign(builderName.style, {
+  display: 'block',
+  width: 'min(100%, 320px)',
+  boxSizing: 'border-box',
+  marginTop: '6px',
+  padding: '10px',
+  border: '1px solid #64748b',
+  borderRadius: '7px',
+  background: '#0f172a',
+  color: '#f8fafc'
+});
+Object.assign(resetButton.style, {
+  padding: '10px 14px',
+  border: '1px solid #60a5fa',
+  borderRadius: '7px',
+  background: '#1d4ed8',
+  color: '#ffffff',
+  cursor: 'pointer'
+});
+Object.assign(layout.style, {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+  gap: '18px',
+  marginTop: '14px'
+});
+[tray, caseArea].forEach(function(panel) {
+  Object.assign(panel.style, {
+    background: '#0f172a',
+    border: '1px solid #334155',
+    borderRadius: '10px',
+    padding: '14px'
+  });
+});
+status.style.fontWeight = '700';
+status.style.minHeight = '24px';
+progress.style.color = '#93c5fd';
+
+const partCards = [];
 const slotButtons = [];
 
-function buttonStyle(button) {
-  button.style.display = 'block';
-  button.style.width = '100%';
-  button.style.margin = '8px 0';
-  button.style.padding = '12px';
-  button.style.border = '1px solid #3b82f6';
-  button.style.borderRadius = '8px';
-  button.style.cursor = 'pointer';
+function styleInteractive(element) {
+  Object.assign(element.style, {
+    display: 'block',
+    width: '100%',
+    boxSizing: 'border-box',
+    margin: '8px 0',
+    padding: '11px',
+    border: '1px solid #3b82f6',
+    borderRadius: '8px',
+    background: '#1e293b',
+    color: '#f8fafc',
+    cursor: 'pointer',
+    textAlign: 'left'
+  });
 }
 
 function calculateAccuracy(results) {
@@ -581,59 +642,135 @@ function updateProgress() {
   progress.textContent = 'Installed: ' + currentStep + '/' + parts.length + ' | Accuracy: ' + accuracy + '%';
 }
 
-parts.forEach(function(part, index) {
-  const partButton = document.createElement('button');
-  partButton.textContent = part.name;
-  buttonStyle(partButton);
-  partButton.addEventListener('click', function() {
-    selectedPart = index;
-    status.textContent = part.name + ' selected. Now choose a destination.';
+function updateStatus(message) {
+  const name = builderName.value.trim();
+  status.textContent = name === '' ? message : name + ': ' + message;
+}
+
+function selectPart(index) {
+  if (index < currentStep || partCards[index].disabled) {
+    return;
+  }
+  selectedPart = index;
+  partCards.forEach(function(card, cardIndex) {
+    card.style.outline = cardIndex === index ? '3px solid #fbbf24' : 'none';
   });
-  partButtons.push(partButton);
-  tray.appendChild(partButton);
+  updateStatus(parts[index].name + ' selected. Choose its destination.');
+}
+
+function placePart(partIndex, slotIndex) {
+  if (partIndex < 0 || partCards[partIndex].disabled) {
+    updateStatus('Choose a part from the tray first.');
+    return;
+  }
+
+  const isCorrect = checkPlacement(partIndex, slotIndex);
+  attempts.push(isCorrect);
+
+  if (isCorrect) {
+    const installedPart = parts[partIndex];
+    partCards[partIndex].disabled = true;
+    partCards[partIndex].draggable = false;
+    partCards[partIndex].style.opacity = '0.35';
+    slotButtons[slotIndex].disabled = true;
+    slotButtons[slotIndex].textContent = '✓ ' + installedPart.name + ' → ' + installedPart.slot;
+    slotButtons[slotIndex].style.borderColor = '#22c55e';
+    slotButtons[slotIndex].style.background = '#14532d';
+    currentStep += 1;
+    updateStatus('Correct! ' + installedPart.name + ' snapped into place.');
+  } else {
+    const expected = parts[currentStep];
+    updateStatus('Incorrect. ' + parts[partIndex].name + ' returned to the tray. Install ' + expected.name + ' in ' + expected.slot + ' next.');
+  }
+
+  selectedPart = -1;
+  partCards.forEach(function(card) {
+    card.style.outline = 'none';
+  });
+  updateProgress();
+
+  if (currentStep === parts.length) {
+    updateStatus('PC assembly complete!');
+  }
+}
+
+parts.forEach(function(part, index) {
+  const partCard = document.createElement('button');
+  partCard.type = 'button';
+  partCard.textContent = part.name;
+  partCard.draggable = true;
+  partCard.setAttribute('aria-label', 'PC part: ' + part.name);
+  styleInteractive(partCard);
+  partCard.addEventListener('click', function() {
+    selectPart(index);
+  });
+  partCard.addEventListener('dragstart', function(event) {
+    selectPart(index);
+    event.dataTransfer.setData('text/plain', String(index));
+    event.dataTransfer.effectAllowed = 'move';
+  });
+  partCards.push(partCard);
+  tray.appendChild(partCard);
 
   const slotButton = document.createElement('button');
+  slotButton.type = 'button';
   slotButton.textContent = part.slot;
-  buttonStyle(slotButton);
+  slotButton.setAttribute('aria-label', 'Install a part in ' + part.slot);
+  styleInteractive(slotButton);
   slotButton.addEventListener('click', function() {
-    if (selectedPart === -1) {
-      status.textContent = 'Choose a part from the tray first.';
-      return;
-    }
-
-    const isCorrect = checkPlacement(selectedPart, index);
-    attempts.push(isCorrect);
-
-    if (isCorrect) {
-      partButtons[selectedPart].disabled = true;
-      slotButton.disabled = true;
-      slotButton.textContent = parts[selectedPart].name + ' installed';
-      status.textContent = 'Correct! The part snapped into place.';
-      currentStep += 1;
-    } else {
-      status.textContent = 'Incorrect. The part returned to the tray. Install ' + parts[currentStep].name + ' next.';
-    }
-
-    selectedPart = -1;
-    updateProgress();
-
-    if (currentStep === parts.length) {
-      status.textContent = 'PC assembly complete!';
-    }
+    placePart(selectedPart, index);
+  });
+  slotButton.addEventListener('dragover', function(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  });
+  slotButton.addEventListener('drop', function(event) {
+    event.preventDefault();
+    const droppedPart = Number(event.dataTransfer.getData('text/plain'));
+    placePart(droppedPart, index);
   });
   slotButtons.push(slotButton);
   caseArea.appendChild(slotButton);
 });
 
+resetButton.addEventListener('click', function() {
+  attempts.length = 0;
+  currentStep = 0;
+  selectedPart = -1;
+  partCards.forEach(function(card) {
+    card.disabled = false;
+    card.draggable = true;
+    card.style.opacity = '1';
+    card.style.outline = 'none';
+  });
+  slotButtons.forEach(function(slotButton, index) {
+    slotButton.disabled = false;
+    slotButton.textContent = parts[index].slot;
+    slotButton.style.borderColor = '#3b82f6';
+    slotButton.style.background = '#1e293b';
+  });
+  updateStatus('Next part: ' + parts[currentStep].name);
+  updateProgress();
+});
+
+const nameField = document.createElement('div');
+nameField.appendChild(nameLabel);
+nameField.appendChild(builderName);
+header.appendChild(nameField);
+header.appendChild(resetButton);
+tray.insertBefore(trayTitle, tray.firstChild);
+caseArea.insertBefore(caseTitle, caseArea.firstChild);
 layout.appendChild(tray);
 layout.appendChild(caseArea);
-outputElement.appendChild(heading);
-outputElement.appendChild(directions);
-outputElement.appendChild(status);
-outputElement.appendChild(progress);
-outputElement.appendChild(layout);
+app.appendChild(heading);
+app.appendChild(directions);
+app.appendChild(header);
+app.appendChild(status);
+app.appendChild(progress);
+app.appendChild(layout);
+outputElement.appendChild(app);
 
-status.textContent = 'Next part: ' + parts[currentStep].name;
+updateStatus('Next part: ' + parts[currentStep].name);
 updateProgress();
 {% endcapture %}
 
@@ -641,7 +778,7 @@ updateProgress();
    runner_id="pc-javascript"
    challenge=pc_javascript_challenge
    code=pc_javascript_code
-   height="680px"
+   height="1100px"
    output_height="600px"
 %}
 
@@ -656,7 +793,7 @@ Installed: 0/8 | Accuracy: 100%
 
 # Python Prototype
 
-The Python version uses the same lists, procedure, selection, iteration, Boolean logic, and accuracy calculation. `use_sample_input` is set to `True` so the web code runner can demonstrate the program automatically. Change it to `False` when running in a terminal to type your own choices with `input()`.
+The Python version uses the same lists, procedure, selection, iteration, Boolean logic, and accuracy calculation. The editable `sample_attempts` list supplies input because this web runner does not provide terminal standard input. Change those tuples to test another build order. In a terminal version, the tuple assignment can be replaced with two `input()` calls.
 
 {% capture pc_python_challenge %}
 Run the automatic sample build. Then change the sample values to try a different assembly order.
@@ -717,6 +854,7 @@ print("Accuracy:", str(accuracy) + "%")
 {% include runners/code.html
    runner_id="pc-python"
    language="python"
+   lock_language=true
    challenge=pc_python_challenge
    code=pc_python_code
    height="760px"
@@ -725,7 +863,7 @@ print("Accuracy:", str(accuracy) + "%")
 **Sample output**
 
 ```text
-\nNext part: CPU
+Next part: CPU
 Choose a PC part: Graphics card
 Choose its destination: PCIe slot
 Incorrect placement. The part returned to the tray.
@@ -736,8 +874,8 @@ Choose a PC part: CPU
 Choose its destination: CPU socket
 CPU snapped into place!
 ... (remaining steps omitted) ...
-\nPC assembly complete!
-Accuracy: 100%
+PC assembly complete!
+Accuracy: 89%
 ```
 
 ---
