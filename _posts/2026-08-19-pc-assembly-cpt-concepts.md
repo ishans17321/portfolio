@@ -660,7 +660,8 @@ function selectPart(index) {
 }
 
 function placePart(partIndex, slotIndex) {
-  if (partIndex < 0 || partCards[partIndex].disabled) {
+  const validPart = Number.isInteger(partIndex) && partIndex >= 0 && partIndex < parts.length;
+  if (!validPart || partCards[partIndex].disabled) {
     updateStatus('Choose a part from the tray first.');
     return;
   }
@@ -727,7 +728,7 @@ parts.forEach(function(part, index) {
   });
   slotButton.addEventListener('drop', function(event) {
     event.preventDefault();
-    const droppedPart = Number(event.dataTransfer.getData('text/plain'));
+    const droppedPart = Number.parseInt(event.dataTransfer.getData('text/plain'), 10);
     placePart(droppedPart, index);
   });
   slotButtons.push(slotButton);

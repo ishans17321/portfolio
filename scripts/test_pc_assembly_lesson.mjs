@@ -230,6 +230,19 @@ slotButtons[0].dispatch('drop', { dataTransfer, preventDefault() {} });
 assert.equal(partCards[0].disabled, true);
 assert.equal(progress.textContent, 'Installed: 1/8 | Accuracy: 100%');
 
+for (let index = 1; index < partCards.length; index += 1) {
+  partCards[index].dispatch('click');
+  slotButtons[index].dispatch('click');
+}
+assert.equal(status.textContent, 'PC assembly complete!');
+assert.equal(progress.textContent, 'Installed: 8/8 | Accuracy: 100%');
+
+resetButton.dispatch('click');
+const unrelatedDragData = { getData() { return ''; } };
+slotButtons[0].dispatch('drop', { dataTransfer: unrelatedDragData, preventDefault() {} });
+assert.equal(status.textContent, 'Choose a part from the tray first.');
+assert.equal(progress.textContent, 'Installed: 0/8 | Accuracy: 100%');
+
 const pythonPrototype = extractCapture('pc_python_code');
 const pythonRun = spawnSync('python3', ['-c', pythonPrototype], {
   cwd: repositoryRoot,
