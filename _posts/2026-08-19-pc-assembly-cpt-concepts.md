@@ -643,7 +643,8 @@ function updateProgress() {
 }
 
 function updateStatus(message) {
-  const name = builderName.value.trim();
+  const nameInput = document.getElementById('pc-builder-name');
+  const name = nameInput === null ? '' : nameInput.value.trim();
   status.textContent = name === '' ? message : name + ': ' + message;
 }
 
