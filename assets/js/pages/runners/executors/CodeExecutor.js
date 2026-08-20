@@ -1,3 +1,36 @@
+const JAVASCRIPT_TIMEOUT_MS = 5000;
+
+const JAVASCRIPT_WORKER_SOURCE = `
+function formatValue(value) {
+  if (typeof value === 'string') return value;
+  try {
+    const serialized = JSON.stringify(value);
+    return serialized === undefined ? String(value) : serialized;
+  } catch (_error) {
+    return String(value);
+  }
+}
+
+self.onmessage = function(event) {
+  const logs = [];
+  const capture = function(...values) {
+    logs.push(values.map(formatValue).join(' '));
+  };
+
+  console.log = capture;
+  console.info = capture;
+  console.warn = capture;
+  console.error = capture;
+
+  try {
+    (0, eval)(event.data.code);
+    self.postMessage({ ok: true, output: logs.join('\\n') });
+  } catch (error) {
+    self.postMessage({ ok: false, error: error && error.message ? error.message : String(error) });
+  }
+};
+`;
+
 export class CodeExecutor {
   constructor({ editor, outputElement, execTimeElement, languageSelect, pythonURI, javaURI, fetchOptions = {} } = {}) {
     this.editor = editor;
@@ -23,12 +56,14 @@ export class CodeExecutor {
     if (execTimeSpan) execTimeSpan.textContent = '';
 
     const startTime = Date.now();
-    const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+    if (lang === 'javascript') {
+      return this.runJavaScriptLocally(code, startTime);
+    }
 
     let runURL;
     if (lang === 'python') runURL = `${this.pythonURI}/run/python`;
     else if (lang === 'java') runURL = `${this.javaURI}/run/java`;
-    else if (lang === 'javascript') runURL = `${this.pythonURI}/run/javascript`;
     else throw new Error(`Unsupported language: ${lang}`);
 
     const body = JSON.stringify({ code });
@@ -39,47 +74,67 @@ export class CodeExecutor {
       const result = await res.json();
       const output = result.output || '[no output]';
 
-      if (lang === 'javascript' && isLocalhost && output.includes("No such file or directory: 'node'")) {
-        throw new Error('Node.js not available on backend');
-      }
-
       outputDiv.textContent = output;
       if (execTimeSpan) {
         execTimeSpan.textContent = `⏱Execution time: ${Date.now() - startTime}ms`;
       }
     } catch (err) {
-      if (lang === 'javascript' && isLocalhost) {
-        this.runJavaScriptFallback(code, startTime);
-      } else {
-        outputDiv.textContent = 'Error: ' + err.message;
-        if (execTimeSpan) execTimeSpan.textContent = '';
-      }
+      outputDiv.textContent = 'Error: ' + err.message;
+      if (execTimeSpan) execTimeSpan.textContent = '';
     }
   }
 
-  runJavaScriptFallback(code, startTime) {
+  runJavaScriptLocally(code, startTime) {
     const outputDiv = this.outputElement;
     const execTimeSpan = this.execTimeElement;
 
-    try {
-      const logs = [];
-      const originalLog = console.log;
-      console.log = function(...args) {
-        logs.push(args.map(arg => String(arg)).join(' '));
-        originalLog.apply(console, args);
+    return new Promise((resolve) => {
+      let worker;
+      let workerURL;
+      let timeoutId;
+      let settled = false;
+
+      const finish = (message, showExecutionTime = false) => {
+        if (settled) return;
+        settled = true;
+        if (timeoutId) clearTimeout(timeoutId);
+        if (worker) worker.terminate();
+        if (workerURL) URL.revokeObjectURL(workerURL);
+        outputDiv.textContent = message;
+        if (execTimeSpan) {
+          execTimeSpan.textContent = showExecutionTime
+            ? `⏱Execution time: ${Date.now() - startTime}ms (browser)`
+            : '';
+        }
+        resolve();
       };
 
-      eval(code);
-      console.log = originalLog;
+      try {
+        const workerBlob = new Blob([JAVASCRIPT_WORKER_SOURCE], { type: 'text/javascript' });
+        workerURL = URL.createObjectURL(workerBlob);
+        worker = new Worker(workerURL);
 
-      outputDiv.textContent = logs.length > 0 ? logs.join('\n') : '[no output]';
-      if (execTimeSpan) {
-        execTimeSpan.textContent = `⏱Execution time: ${Date.now() - startTime}ms (local fallback)`;
+        worker.onmessage = (event) => {
+          if (event.data?.ok) {
+            finish(event.data.output || '[no output]', true);
+          } else {
+            finish('Error: ' + (event.data?.error || 'JavaScript execution failed'));
+          }
+        };
+
+        worker.onerror = (event) => {
+          finish('Error: ' + (event.message || 'JavaScript execution failed'));
+        };
+
+        timeoutId = setTimeout(() => {
+          finish(`Error: JavaScript execution exceeded ${JAVASCRIPT_TIMEOUT_MS / 1000} seconds`);
+        }, JAVASCRIPT_TIMEOUT_MS);
+
+        worker.postMessage({ code });
+      } catch (error) {
+        finish('Error: ' + (error.message || String(error)));
       }
-    } catch (evalErr) {
-      outputDiv.textContent = 'Error: ' + evalErr.message;
-      if (execTimeSpan) execTimeSpan.textContent = '';
-    }
+    });
   }
 
   bindCopyOutput(button) {
