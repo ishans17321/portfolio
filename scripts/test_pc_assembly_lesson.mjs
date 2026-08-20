@@ -8,6 +8,8 @@ const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = path.resolve(scriptDirectory, '..');
 const lessonPath = path.join(repositoryRoot, '_posts/2026-08-19-pc-assembly-cpt-concepts.md');
 const executorPath = path.join(repositoryRoot, 'assets/js/pages/runners/executors/PseudocodeExecutor.js');
+const pyodideExecutorPath = path.join(repositoryRoot, 'assets/js/pages/runners/executors/PyodideExecutor.js');
+const codeRunnerIncludePath = path.join(repositoryRoot, '_includes/runners/code.html');
 const lesson = readFileSync(lessonPath, 'utf8');
 
 function extractCapture(name) {
@@ -251,5 +253,49 @@ const pythonRun = spawnSync('python3', ['-c', pythonPrototype], {
 assert.equal(pythonRun.status, 0, pythonRun.stderr);
 assert.match(pythonRun.stdout, /PC assembly complete!\nAccuracy: 89%\s*$/);
 assert.match(pythonRun.stdout, /Incorrect placement\. The part returned to the tray\./);
+
+assert.match(
+  lesson,
+  /runner_id="pc-python"[\s\S]*?language="python"[\s\S]*?local_python=true[\s\S]*?%}/,
+  'The Python prototype must use browser-local execution',
+);
+
+const codeRunnerInclude = readFileSync(codeRunnerIncludePath, 'utf8');
+assert.match(codeRunnerInclude, /include\.local_python[\s\S]*?pyodide\/v0\.23\.4\/full\/pyodide\.js/);
+assert.match(codeRunnerInclude, /localPythonExecutor\.run\(editor\.getValue\(\)\)/);
+
+const browserPythonCalls = [];
+const fakeBrowserPython = {
+  runPython(code) {
+    browserPythonCalls.push(code);
+    if (code === '__runner_output.getvalue()') {
+      return 'PC assembly complete!\nAccuracy: 89%\n';
+    }
+    return undefined;
+  },
+};
+let runtimeLoads = 0;
+globalThis.loadPyodide = async ({ indexURL }) => {
+  runtimeLoads += 1;
+  assert.equal(indexURL, 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/');
+  return fakeBrowserPython;
+};
+
+const pyodideExecutorSource = readFileSync(pyodideExecutorPath, 'utf8');
+const pyodideExecutorModule = await import(
+  'data:text/javascript;base64,' + Buffer.from(pyodideExecutorSource).toString('base64')
+);
+const browserPythonOutput = { textContent: '' };
+const browserPythonTime = { textContent: '' };
+const browserPythonExecutor = new pyodideExecutorModule.PyodideExecutor({
+  outputElement: browserPythonOutput,
+  execTimeElement: browserPythonTime,
+});
+await browserPythonExecutor.run(pythonPrototype);
+assert.equal(runtimeLoads, 1);
+assert.ok(browserPythonCalls.includes(pythonPrototype));
+assert.equal(browserPythonOutput.textContent, 'PC assembly complete!\nAccuracy: 89%\n');
+assert.match(browserPythonTime.textContent, /\(browser\)$/);
+delete globalThis.loadPyodide;
 
 console.log('PC assembly lesson checks passed: 11 pseudocode runners, JavaScript prototype, and Python prototype.');

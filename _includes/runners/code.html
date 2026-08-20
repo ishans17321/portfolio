@@ -1,4 +1,7 @@
 <!-- Reusable Code Runner Component -->
+{% if include.local_python %}
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js" crossorigin="anonymous"></script>
+{% endif %}
 <div class="code-runner-container"
   id="runner-{{ include.runner_id }}"
   data-runner-id="{{ include.runner_id }}"
@@ -108,7 +111,7 @@ if (typeof CodeMirror !== 'undefined' && !CodeMirror.modes['pseudocode']) {
 </script>
 
 <script type="module">
-import { BaseRunner, CodeExecutor, PseudocodeExecutor } from '{{site.baseurl}}/assets/js/pages/runners/index.js';
+import { BaseRunner, CodeExecutor, PseudocodeExecutor, PyodideExecutor } from '{{site.baseurl}}/assets/js/pages/runners/index.js';
 import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
 
 (function() {
@@ -116,6 +119,7 @@ import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api
   if (!container) return;
   
   const initialLang = "{{ include.language }}";
+  const useLocalPython = {{ include.local_python | default: false | jsonify }};
   const defaultCode = JSON.parse(container.dataset.defaultCode || "\"\"");
   const editorHeight = "{{ include.height }}";
   const storageKey = container.dataset.storageKey;
@@ -153,6 +157,11 @@ import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api
     outputElement: outputDiv,
     execTimeElement: execTimeSpan,
   });
+
+  const localPythonExecutor = useLocalPython ? new PyodideExecutor({
+    outputElement: outputDiv,
+    execTimeElement: execTimeSpan,
+  }) : null;
 
   // Set initial language selection
   if (initialLang) {
@@ -210,6 +219,9 @@ import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api
   function runCode() {
     if (langSelect.value === "pseudocode") {
       return pseudoExecutor.run(editor.getValue());
+    }
+    if (langSelect.value === "python" && localPythonExecutor) {
+      return localPythonExecutor.run(editor.getValue());
     }
     return codeExecutor.run();
   }

@@ -857,6 +857,7 @@ print("Accuracy:", str(accuracy) + "%")
    runner_id="pc-python"
    language="python"
    lock_language=true
+   local_python=true
    challenge=pc_python_challenge
    code=pc_python_code
    height="760px"
