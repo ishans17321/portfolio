@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -9,7 +10,9 @@ const repositoryRoot = path.resolve(scriptDirectory, '..');
 const lessonPath = path.join(repositoryRoot, '_posts/2026-08-19-pc-assembly-cpt-concepts.md');
 const executorPath = path.join(repositoryRoot, 'assets/js/pages/runners/executors/PseudocodeExecutor.js');
 const pyodideExecutorPath = path.join(repositoryRoot, 'assets/js/pages/runners/executors/PyodideExecutor.js');
+const languageVariantManagerPath = path.join(repositoryRoot, 'assets/js/pages/runners/core/LanguageVariantManager.js');
 const codeRunnerIncludePath = path.join(repositoryRoot, '_includes/runners/code.html');
+const variantsPath = path.join(repositoryRoot, '_data/pc_assembly_runner_variants.yml');
 const lesson = readFileSync(lessonPath, 'utf8');
 
 function extractCapture(name) {
@@ -24,7 +27,7 @@ const executorModule = await import(
   'data:text/javascript;base64,' + Buffer.from(executorSource).toString('base64')
 );
 
-function runPseudocode(name, inputValues = []) {
+function runPseudocodeSource(name, source, inputValues = []) {
   const pendingInputs = [...inputValues];
   globalThis.window = {
     prompt() {
@@ -36,10 +39,14 @@ function runPseudocode(name, inputValues = []) {
   const outputElement = { textContent: '' };
   const execTimeElement = { textContent: '' };
   const executor = new executorModule.PseudocodeExecutor({ outputElement, execTimeElement });
-  executor.run(extractCapture(name));
+  executor.run(source);
   assert.equal(pendingInputs.length, 0, name + ' did not consume every test input');
   assert.doesNotMatch(outputElement.textContent, /^AP CSP (Runtime )?Error:/);
   return outputElement.textContent;
+}
+
+function runPseudocode(name, inputValues = []) {
+  return runPseudocodeSource(name, extractCapture(name), inputValues);
 }
 
 const expectedPseudocodeOutputs = {
@@ -106,10 +113,81 @@ assert.match(lesson, /^---[\s\S]*?search_exclude:\s*false[\s\S]*?---/);
 assert.doesNotMatch(lesson, /id="view-(python|javascript|both)"/);
 assert.equal((lesson.match(/language="pseudocode"/g) || []).length, 11);
 assert.equal(
-  (lesson.match(/{% include runners\/code\.html[\s\S]*?language="pseudocode"[\s\S]*?lock_language=true[\s\S]*?%}/g) || []).length,
-  11,
-  'Every pseudocode runner must keep its language locked',
+  (lesson.match(/variants_key="[a-z_]+"/g) || []).length,
+  12,
+  'Every concept runner and the full prototype must provide language variants',
 );
+assert.doesNotMatch(lesson, /lock_language=true/);
+assert.equal((lesson.match(/local_python=true/g) || []).length, 12);
+
+const yamlRead = spawnSync('ruby', [
+  '-ryaml',
+  '-rjson',
+  '-e',
+  'puts JSON.generate(YAML.load_file(ARGV.fetch(0)))',
+  variantsPath,
+], { encoding: 'utf8' });
+assert.equal(yamlRead.status, 0, yamlRead.stderr);
+const languageVariants = JSON.parse(yamlRead.stdout);
+const conceptVariantKeys = [
+  'output',
+  'input',
+  'list',
+  'procedure',
+  'sequence',
+  'selection',
+  'iteration',
+  'algorithm',
+  'list_operations',
+  'search',
+  'boolean',
+];
+
+for (const key of conceptVariantKeys) {
+  assert.ok(languageVariants[key]?.python, key + ' is missing Python code');
+  assert.ok(languageVariants[key]?.java, key + ' is missing Java code');
+
+  const pythonRun = spawnSync('python3', ['-c', languageVariants[key].python], {
+    cwd: repositoryRoot,
+    encoding: 'utf8',
+  });
+  assert.equal(pythonRun.status, 0, `${key} Python failed:\n${pythonRun.stderr}`);
+}
+
+assert.ok(languageVariants.prototype?.pseudocode, 'Full prototype is missing Pseudocode code');
+assert.ok(languageVariants.prototype?.java, 'Full prototype is missing Java code');
+const prototypePseudocodeOutput = runPseudocodeSource(
+  'prototype pseudocode',
+  languageVariants.prototype.pseudocode,
+);
+assert.match(prototypePseudocodeOutput, /Build complete!/);
+assert.match(prototypePseudocodeOutput, /Accuracy: 8 of 9$/);
+assert.match(prototypePseudocodeOutput, /Incorrect: Graphics card returned to the parts tray\./);
+
+const javaVariants = [
+  ...conceptVariantKeys.map((key) => [key, languageVariants[key].java]),
+  ['prototype', languageVariants.prototype.java],
+];
+
+for (const [key, source] of javaVariants) {
+  assert.match(source, /public class Main\s*\{/);
+  assert.match(source, /public static void main\(String\[\] args\)/);
+  assert.equal((source.match(/{/g) || []).length, (source.match(/}/g) || []).length, key + ' Java braces do not balance');
+}
+
+const javacCheck = spawnSync('javac', ['-version'], { encoding: 'utf8' });
+if (javacCheck.status === 0) {
+  for (const [key, source] of javaVariants) {
+    const tempDirectory = mkdtempSync(path.join(os.tmpdir(), 'pc-java-'));
+    try {
+      writeFileSync(path.join(tempDirectory, 'Main.java'), source);
+      const compile = spawnSync('javac', ['Main.java'], { cwd: tempDirectory, encoding: 'utf8' });
+      assert.equal(compile.status, 0, `${key} Java failed to compile:\n${compile.stderr}`);
+    } finally {
+      rmSync(tempDirectory, { recursive: true, force: true });
+    }
+  }
+}
 
 const javascriptPrototype = extractCapture('pc_javascript_code');
 const runJavascriptPrototype = new Function('outputElement', 'document', javascriptPrototype);
@@ -261,8 +339,55 @@ assert.match(
 );
 
 const codeRunnerInclude = readFileSync(codeRunnerIncludePath, 'utf8');
-assert.match(codeRunnerInclude, /include\.local_python[\s\S]*?pyodide\/v0\.23\.4\/full\/pyodide\.js/);
 assert.match(codeRunnerInclude, /localPythonExecutor\.run\(editor\.getValue\(\)\)/);
+assert.match(codeRunnerInclude, /data-python-code=/);
+assert.match(codeRunnerInclude, /data-java-code=/);
+assert.match(codeRunnerInclude, /data-pseudocode-code=/);
+assert.match(codeRunnerInclude, /languageVariants\?\.switchTo\(lang\)/);
+
+const managerSource = readFileSync(languageVariantManagerPath, 'utf8');
+const managerModule = await import(
+  'data:text/javascript;base64,' + Buffer.from(managerSource).toString('base64')
+);
+const savedDrafts = new Map();
+globalThis.localStorage = {
+  getItem(key) { return savedDrafts.has(key) ? savedDrafts.get(key) : null; },
+  setItem(key, value) { savedDrafts.set(key, value); },
+  removeItem(key) { savedDrafts.delete(key); },
+};
+const fakeEditor = {
+  value: '',
+  mode: '',
+  refreshCount: 0,
+  getValue() { return this.value; },
+  setValue(value) { this.value = value; },
+  setOption(name, value) { if (name === 'mode') this.mode = value; },
+  refresh() { this.refreshCount += 1; },
+};
+const fakeLanguageSelect = { value: '' };
+const draftManager = new managerModule.LanguageVariantManager({
+  editor: fakeEditor,
+  languageSelect: fakeLanguageSelect,
+  variants: { pseudocode: 'DISPLAY("CPU")', python: 'print("CPU")', java: 'class Main {}' },
+  storageKey: 'pc-output',
+  initialLanguage: 'pseudocode',
+});
+draftManager.activateInitial();
+assert.equal(fakeEditor.value, 'DISPLAY("CPU")');
+assert.equal(fakeEditor.mode, 'pseudocode');
+fakeEditor.value = 'DISPLAY("edited")';
+assert.equal(draftManager.switchTo('python'), true);
+assert.equal(fakeEditor.value, 'print("CPU")');
+assert.equal(fakeEditor.mode, 'python');
+fakeEditor.value = 'print("edited")';
+draftManager.saveCurrent();
+assert.equal(savedDrafts.get('pc-output_python'), 'print("edited")');
+draftManager.switchTo('pseudocode');
+assert.equal(fakeEditor.value, 'DISPLAY("edited")', 'Unsaved edits must survive language switching');
+draftManager.clearAll();
+draftManager.resetCurrent();
+assert.equal(fakeEditor.value, 'DISPLAY("CPU")');
+assert.equal(savedDrafts.size, 0);
 
 const browserPythonCalls = [];
 const fakeBrowserPython = {
@@ -297,5 +422,6 @@ assert.ok(browserPythonCalls.includes(pythonPrototype));
 assert.equal(browserPythonOutput.textContent, 'PC assembly complete!\nAccuracy: 89%\n');
 assert.match(browserPythonTime.textContent, /\(browser\)$/);
 delete globalThis.loadPyodide;
+delete globalThis.localStorage;
 
-console.log('PC assembly lesson checks passed: 11 pseudocode runners, JavaScript prototype, and Python prototype.');
+console.log('PC assembly lesson checks passed: 12 three-language runners, JavaScript prototype, and browser Python.');

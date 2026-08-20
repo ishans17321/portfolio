@@ -13,9 +13,9 @@ search_exclude: false
 
 This notebook uses one theme throughout: assembling the parts of a desktop computer in the correct order. The user chooses a component and its destination. A correct component snaps into place; an incorrect component returns to the parts tray. Every example below connects that program idea to a CPT requirement.
 
-# Pseudocode
+# Code Runner Concepts
 
-These runners use College Board pseudocode exactly like the course examples. The language selector is locked so changing the syntax setting cannot accidentally send pseudocode to the Python or JavaScript server.
+Each runner starts in College Board pseudocode. Use the language dropdown to switch the entire example between Pseudocode, Python, and Java. Each language keeps its own edited draft while you switch.
 
 ---
 
@@ -38,7 +38,8 @@ DISPLAY("Install in: " + targetSlot)
 {% include runners/code.html
   runner_id="pc-output"
   language="pseudocode"
-  lock_language=true
+  variants_key="output"
+  local_python=true
   challenge=pc_output_challenge
   code=pc_output_code
   height="220px"
@@ -72,7 +73,8 @@ DISPLAY("Selected destination: " + selectedSlot)
 {% include runners/code.html
   runner_id="pc-input"
   language="pseudocode"
-  lock_language=true
+  variants_key="input"
+  local_python=true
   challenge=pc_input_challenge
   code=pc_input_code
   height="230px"
@@ -109,7 +111,8 @@ FOR EACH part IN parts
 {% include runners/code.html
   runner_id="pc-list"
   language="pseudocode"
-  lock_language=true
+  variants_key="list"
+  local_python=true
   challenge=pc_list_challenge
   code=pc_list_code
   height="300px"
@@ -152,7 +155,8 @@ DISPLAY("Correct placement: " + correctPlacement)
 {% include runners/code.html
    runner_id="pc-procedure"
    language="pseudocode"
-   lock_language=true
+   variants_key="procedure"
+   local_python=true
    challenge=pc_procedure_challenge
    code=pc_procedure_code
    height="390px"
@@ -191,7 +195,8 @@ DISPLAY("Step " + step + ": Mount the CPU cooler")
 {% include runners/code.html
   runner_id="pc-sequence"
   language="pseudocode"
-  lock_language=true
+  variants_key="sequence"
+  local_python=true
   challenge=pc_sequence_challenge
   code=pc_sequence_code
   height="330px"
@@ -234,7 +239,8 @@ ELSE
 {% include runners/code.html
    runner_id="pc-selection"
    language="pseudocode"
-   lock_language=true
+   variants_key="selection"
+   local_python=true
    challenge=pc_selection_challenge
    code=pc_selection_code
    height="360px"
@@ -270,7 +276,8 @@ FOR EACH part IN parts
 {% include runners/code.html
   runner_id="pc-iteration"
   language="pseudocode"
-  lock_language=true
+  variants_key="iteration"
+  local_python=true
   challenge=pc_iteration_challenge
   code=pc_iteration_code
   height="320px"
@@ -333,7 +340,8 @@ DISPLAY("Installed correctly: " + installed + " of " + LENGTH(parts))
 {% include runners/code.html
    runner_id="pc-algorithm"
    language="pseudocode"
-   lock_language=true
+   variants_key="algorithm"
+   local_python=true
    challenge=pc_algorithm_challenge
    code=pc_algorithm_code
    height="600px"
@@ -379,7 +387,8 @@ DISPLAY("Parts remaining: " + LENGTH(partsTray))
 {% include runners/code.html
   runner_id="pc-list-operations"
   language="pseudocode"
-  lock_language=true
+  variants_key="list_operations"
+  local_python=true
   challenge=pc_list_operations_challenge
   code=pc_list_operations_code
   height="380px"
@@ -430,7 +439,8 @@ DISPLAY("Graphics card position: " + result)
 {% include runners/code.html
    runner_id="pc-search"
    language="pseudocode"
-   lock_language=true
+   variants_key="search"
+   local_python=true
    challenge=pc_search_challenge
    code=pc_search_code
    height="480px"
@@ -480,7 +490,8 @@ IF (NOT (partsRemaining = 0))
 {% include runners/code.html
    runner_id="pc-boolean"
    language="pseudocode"
-   lock_language=true
+   variants_key="boolean"
+   local_python=true
    challenge=pc_boolean_challenge
    code=pc_boolean_code
    height="500px"
@@ -793,9 +804,9 @@ Installed: 0/8 | Accuracy: 100%
 
 ---
 
-# Python Prototype
+# Full Program Prototype
 
-The Python version uses the same lists, procedure, selection, iteration, Boolean logic, and accuracy calculation. The editable `sample_attempts` list supplies input because this web runner does not provide terminal standard input. Change those tuples to test another build order. In a terminal version, the tuple assignment can be replaced with two `input()` calls.
+The full program uses the same lists, procedure, selection, iteration, Boolean logic, and accuracy calculation. It starts in Python, and the dropdown also provides complete Pseudocode and Java versions. The editable sample attempts supply input because this web runner does not provide terminal standard input.
 
 {% capture pc_python_challenge %}
 Run the automatic sample build. Then change the sample values to try a different assembly order.
@@ -856,7 +867,8 @@ print("Accuracy:", str(accuracy) + "%")
 {% include runners/code.html
    runner_id="pc-python"
    language="python"
-   lock_language=true
+   variants_key="prototype"
+   python_code=pc_python_code
    local_python=true
    challenge=pc_python_challenge
    code=pc_python_code

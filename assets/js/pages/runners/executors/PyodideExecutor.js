@@ -1,11 +1,42 @@
 const DEFAULT_INDEX_URL = 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/';
 
 let runtimePromise = null;
+let loaderPromise = null;
 
-function loadRuntime(indexURL) {
-  if (typeof globalThis.loadPyodide !== 'function') {
-    throw new Error('The browser Python engine did not load. Refresh the page and try again.');
+function ensureLoader(indexURL) {
+  if (typeof globalThis.loadPyodide === 'function') {
+    return Promise.resolve();
   }
+
+  if (typeof document === 'undefined') {
+    return Promise.reject(new Error('The browser Python engine is unavailable.'));
+  }
+
+  if (!loaderPromise) {
+    loaderPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = `${indexURL}pyodide.js`;
+      script.crossOrigin = 'anonymous';
+      script.onload = () => {
+        if (typeof globalThis.loadPyodide === 'function') {
+          resolve();
+        } else {
+          reject(new Error('The browser Python engine did not initialize.'));
+        }
+      };
+      script.onerror = () => reject(new Error('The browser Python engine could not be downloaded.'));
+      document.head.appendChild(script);
+    }).catch((error) => {
+      loaderPromise = null;
+      throw error;
+    });
+  }
+
+  return loaderPromise;
+}
+
+async function loadRuntime(indexURL) {
+  await ensureLoader(indexURL);
 
   if (!runtimePromise) {
     runtimePromise = globalThis.loadPyodide({ indexURL }).catch((error) => {
