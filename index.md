@@ -37,13 +37,11 @@ Hi! My name is Ishan Shrivastava
 
 > Explore a real online dataset through an interactive AP CSP project.
 
-<a href="{{site.baseurl}}/sp500-index-lab" style="display: block; max-width: 760px; color: inherit; text-decoration: none;">
-    <div style="background-color: #101b14; border: 1px solid #5f8d6d; border-radius: 12px; padding: 20px; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;">
+<a href="{{site.baseurl}}/sp500-index-lab" style="display: block; max-width: 760px; box-sizing: border-box; color: inherit; text-decoration: none; background-color: #101b14; border: 1px solid #5f8d6d; border-radius: 12px; padding: 20px; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;">
         <span style="display: block; color: #8bd3a2; font-size: 0.8rem; font-weight: 800; margin-bottom: 6px;">LIVE DATA · PSEUDOCODE · PYTHON · JAVA</span>
         <strong style="display: block; color: #f4f7f4; font-size: 1.35rem; margin-bottom: 8px;">S&amp;P 500 Sector Challenge</strong>
         <span style="display: block; color: #c0cec3; line-height: 1.5; margin-bottom: 14px;">Match current S&amp;P 500 companies to their real GICS sectors, test wrong answers, and track your accuracy.</span>
         <span style="color: #f0cb72; font-weight: 800;">Open the project →</span>
-    </div>
 </a>
 
 <br>
