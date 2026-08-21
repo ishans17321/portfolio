@@ -19,9 +19,9 @@ FORM: Read/Operate extension of the established lesson structure; interaction is
 
 **Team:** Adhvay Iyer, Rohan Chandra, Ishan Shrivastava, Ishan Jha, Ishan Khandelwal, and Vayun Shekhar
 
-This notebook uses one theme throughout: rebalancing a miniature S&P 500-style index. Rank eight fictional companies by illustrative market capitalization. A correct company enters the index board; an incorrect company returns to the watchlist. Every example below connects that idea to a CPT requirement.
+This notebook uses one theme throughout: exploring the real S&P 500 through company sectors. The interactive prototype downloads the current constituent table, samples eight companies, and asks the analyst to match each company to its GICS sector. A correct match enters the sector board; an incorrect match returns to the watchlist. Every example below connects that idea to a CPT requirement.
 
-> **Classroom data only:** Every company name and market-cap value on this page is fictional and does not represent live market information or investment advice.
+> **Live-data note:** The prototype reads the community-maintained [List of S&P 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies) through the [MediaWiki API](https://www.mediawiki.org/wiki/API:Parsing_wikitext). If the request fails, it clearly switches to a verified eight-company snapshot so the assignment remains usable. This independent classroom project is not affiliated with S&P Global and is not investment advice.
 
 # Code Runner Concepts
 
@@ -31,36 +31,36 @@ Each runner starts in College Board pseudocode. Use the language dropdown to swi
 
 ## Output
 
-**CPT Requirement:** Your program must produce output visible to the user. College Board pseudocode uses `DISPLAY()` to show results. In this index lab, output identifies the next company and its illustrative market capitalization.
+**CPT Requirement:** Your program must produce output visible to the user. College Board pseudocode uses `DISPLAY()` to show results. Here, the output identifies a real constituent and its GICS sector.
 
 {% capture sp_output_challenge %}
-Display the current candidate company and its illustrative market capitalization.
+Display Apple's ticker and GICS sector from the verified constituent snapshot.
 {% endcapture %}
 
 {% capture sp_output_code %}
-currentCompany ← "APX"
-marketCap ← 420
+currentCompany ← "AAPL"
+currentSector ← "Information Technology"
 
 DISPLAY("Current company: " + currentCompany)
-DISPLAY("Illustrative market cap: $" + marketCap + "B")
+DISPLAY("GICS sector: " + currentSector)
 {% endcapture %}
 
 {% capture sp_output_python %}
-current_company = "APX"
-market_cap = 420
+current_company = "AAPL"
+current_sector = "Information Technology"
 
 print("Current company:", current_company)
-print("Illustrative market cap: $" + str(market_cap) + "B")
+print("GICS sector:", current_sector)
 {% endcapture %}
 
 {% capture sp_output_java %}
 public class Main {
     public static void main(String[] args) {
-        String currentCompany = "APX";
-        int marketCap = 420;
+        String currentCompany = "AAPL";
+        String currentSector = "Information Technology";
 
         System.out.println("Current company: " + currentCompany);
-        System.out.println("Illustrative market cap: $" + marketCap + "B");
+        System.out.println("GICS sector: " + currentSector);
     }
 }
 {% endcapture %}
@@ -80,46 +80,46 @@ public class Main {
 **Expected output**
 
 ```text
-Current company: APX
-Illustrative market cap: $420B
+Current company: AAPL
+GICS sector: Information Technology
 ```
 
 ---
 
 ## Input
 
-**CPT Requirement:** Your program must get input from the user. College Board pseudocode uses `INPUT()` to collect data. Here, the analyst supplies a ticker and the rank where it should enter the mini-index.
+**CPT Requirement:** Your program must get input from the user. College Board pseudocode uses `INPUT()` to collect data. Here, the analyst supplies a ticker and the sector they think it belongs to.
 
 {% capture sp_input_challenge %}
-Ask the analyst to choose a ticker and index rank, then display both choices.
+Ask the analyst to choose a ticker and GICS sector, then display both choices.
 {% endcapture %}
 
 {% capture sp_input_code %}
 selectedTicker ← INPUT("Choose a ticker:")
-selectedRank ← INPUT("Choose its index rank:")
+selectedSector ← INPUT("Choose its GICS sector:")
 
 DISPLAY("Selected ticker: " + selectedTicker)
-DISPLAY("Selected rank: " + selectedRank)
+DISPLAY("Selected sector: " + selectedSector)
 {% endcapture %}
 
 {% capture sp_input_python %}
 # These sample values represent the analyst's input.
-selected_ticker = "APX"
-selected_rank = 1
+selected_ticker = "AAPL"
+selected_sector = "Information Technology"
 
 print("Selected ticker:", selected_ticker)
-print("Selected rank:", selected_rank)
+print("Selected sector:", selected_sector)
 {% endcapture %}
 
 {% capture sp_input_java %}
 public class Main {
     public static void main(String[] args) {
         // These sample values represent the analyst's input.
-        String selectedTicker = "APX";
-        int selectedRank = 1;
+        String selectedTicker = "AAPL";
+        String selectedSector = "Information Technology";
 
         System.out.println("Selected ticker: " + selectedTicker);
-        System.out.println("Selected rank: " + selectedRank);
+        System.out.println("Selected sector: " + selectedSector);
     }
 }
 {% endcapture %}
@@ -136,27 +136,27 @@ public class Main {
   height="240px"
 %}
 
-**Example output (if the user chose "APX" and rank `1`)**
+**Example output (if the user chose AAPL and Information Technology)**
 
 ```text
-Selected ticker: APX
-Selected rank: 1
+Selected ticker: AAPL
+Selected sector: Information Technology
 ```
 
 ---
 
 ## List
 
-**CPT Requirement:** Your program must use a list to manage multiple related values. The ordered `companies` list stores every ticker without requiring a separate variable for each one. College Board pseudocode lists begin at index 1.
+**CPT Requirement:** Your program must use a list to manage multiple related values. The `companies` list stores eight real S&P 500 securities without requiring a separate variable for each ticker.
 
 {% capture sp_list_challenge %}
-Store the candidate tickers in market-cap order and display each one with a loop.
+Store eight current constituent tickers and display each one with a loop.
 {% endcapture %}
 
 {% capture sp_list_code %}
-companies ← ["APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
+companies ← ["AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"]
 
-DISPLAY("Companies in the mini-index: " + LENGTH(companies))
+DISPLAY("Snapshot companies: " + LENGTH(companies))
 
 FOR EACH company IN companies
 {
@@ -165,9 +165,9 @@ FOR EACH company IN companies
 {% endcapture %}
 
 {% capture sp_list_python %}
-companies = ["APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
+companies = ["AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"]
 
-print("Companies in the mini-index:", len(companies))
+print("Snapshot companies:", len(companies))
 for company in companies:
     print(company)
 {% endcapture %}
@@ -175,9 +175,9 @@ for company in companies:
 {% capture sp_list_java %}
 public class Main {
     public static void main(String[] args) {
-        String[] companies = {"APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"};
+        String[] companies = {"AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"};
 
-        System.out.println("Companies in the mini-index: " + companies.length);
+        System.out.println("Snapshot companies: " + companies.length);
         for (String company : companies) {
             System.out.println(company);
         }
@@ -200,15 +200,15 @@ public class Main {
 **Expected output**
 
 ```text
-Companies in the mini-index: 8
-APX
-NVA
-UFN
-CRST
-FRGE
-ORBT
-HBR
-SOLR
+Snapshot companies: 8
+AAPL
+JPM
+XOM
+JNJ
+PG
+CAT
+NEE
+AMZN
 ```
 
 ---
