@@ -98,7 +98,7 @@ Store the PC components in assembly order and display each component with a loop
 {% endcapture %}
 
 {% capture pc_list_code %}
-parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
+parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
 
 DISPLAY("Parts in this build: " + LENGTH(parts))
 
@@ -126,8 +126,8 @@ CPU
 RAM
 M.2 SSD
 CPU cooler
-Power supply
 Motherboard
+Power supply
 Graphics card
 Power cables
 ```
@@ -263,7 +263,7 @@ Loop through the ordered parts list and display one installation instruction for
 {% endcapture %}
 
 {% capture pc_iteration_code %}
-parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
+parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
 step ← 1
 
 FOR EACH part IN parts
@@ -290,8 +290,8 @@ Step 1: Install CPU
 Step 2: Install RAM
 Step 3: Install M.2 SSD
 Step 4: Install CPU cooler
-Step 5: Install Power supply
-Step 6: Install Motherboard
+Step 5: Install Motherboard
+Step 6: Install Power supply
 Step 7: Install Graphics card
 Step 8: Install Power cables
 ```
@@ -518,14 +518,14 @@ Run the PC assembly prototype. Try a wrong part first, then install all eight co
 outputElement.innerHTML = '';
 
 const parts = [
-  { name: 'CPU', slot: 'CPU socket' },
-  { name: 'RAM', slot: 'RAM slots' },
-  { name: 'M.2 SSD', slot: 'M.2 slot' },
-  { name: 'CPU cooler', slot: 'Cooler mount' },
-  { name: 'Power supply', slot: 'PSU bay' },
-  { name: 'Motherboard', slot: 'Board tray' },
-  { name: 'Graphics card', slot: 'PCIe slot' },
-  { name: 'Power cables', slot: 'Power headers' }
+  { name: 'CPU', slot: 'CPU socket', kind: 'cpu', left: 34, top: 24, width: 14, height: 15, layer: 6 },
+  { name: 'RAM', slot: 'RAM slots', kind: 'ram', left: 55, top: 17, width: 10, height: 32, layer: 5 },
+  { name: 'M.2 SSD', slot: 'M.2 slot', kind: 'ssd', left: 39, top: 53, width: 25, height: 8, layer: 5 },
+  { name: 'CPU cooler', slot: 'Cooler mount', kind: 'cooler', left: 27, top: 15, width: 28, height: 34, layer: 4 },
+  { name: 'Motherboard', slot: 'Board tray', kind: 'motherboard', left: 17, top: 9, width: 60, height: 58, layer: 2 },
+  { name: 'Power supply', slot: 'PSU bay', kind: 'psu', left: 5, top: 76, width: 31, height: 18, layer: 4 },
+  { name: 'Graphics card', slot: 'PCIe slot', kind: 'gpu', left: 24, top: 65, width: 57, height: 12, layer: 5 },
+  { name: 'Power cables', slot: 'Power headers', kind: 'cables', left: 79, top: 24, width: 13, height: 47, layer: 5 }
 ];
 
 const attempts = [];
@@ -533,22 +533,45 @@ let currentStep = 0;
 let selectedPart = -1;
 
 const app = document.createElement('section');
+const styleElement = document.createElement('style');
 const header = document.createElement('div');
+const titleGroup = document.createElement('div');
 const heading = document.createElement('h3');
 const directions = document.createElement('p');
+const controls = document.createElement('div');
 const nameLabel = document.createElement('label');
 const builderName = document.createElement('input');
+const liveRow = document.createElement('div');
 const status = document.createElement('p');
 const progress = document.createElement('p');
 const resetButton = document.createElement('button');
 const layout = document.createElement('div');
 const tray = document.createElement('div');
+const partGrid = document.createElement('div');
 const caseArea = document.createElement('div');
 const trayTitle = document.createElement('h4');
 const caseTitle = document.createElement('h4');
+const caseFrame = document.createElement('div');
+const caseInterior = document.createElement('div');
+const motherboardGhost = document.createElement('div');
+const psuShroud = document.createElement('div');
+const rearSlots = document.createElement('div');
+
+styleElement.textContent = [
+  '.pc-assembly-app{--pc-ink:#f4f7fb;--pc-muted:#aab7c7;--pc-line:#425265;--pc-panel:#111923;--pc-deep:#080d13;--pc-accent:#e7b84b;--pc-blue:#5db0ff;--pc-good:#55d68b;color:var(--pc-ink);background:#0d141d;border:1px solid #334154;border-radius:14px;padding:18px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 12px 32px rgba(0,0,0,.28)}',
+  '.pc-app-header{display:flex;justify-content:space-between;gap:18px;align-items:flex-end}.pc-title-group{max-width:62ch}.pc-title-group h3{font-size:1.35rem;letter-spacing:-.02em;margin:0 0 5px}.pc-title-group p{color:var(--pc-muted);line-height:1.45;margin:0}.pc-controls{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}.pc-name-field{min-width:190px}.pc-name-field label{display:block;color:var(--pc-muted);font-size:.78rem;margin-bottom:5px}.pc-name-field input{width:100%;box-sizing:border-box;border:1px solid #53657a;border-radius:8px;background:#090f16;color:var(--pc-ink);padding:9px 10px}.pc-reset{min-height:40px;border:1px solid #68809a;border-radius:8px;background:#1a2633;color:var(--pc-ink);padding:8px 12px;font-weight:650;cursor:pointer}',
+  '.pc-live-row{display:flex;justify-content:space-between;gap:14px;align-items:center;margin:16px 0 12px;padding:10px 12px;background:#151f2b;border:1px solid #35465a;border-radius:10px}.pc-status{margin:0;font-weight:720;color:#f6d889}.pc-progress{margin:0;color:#9ecfff;font-size:.9rem;white-space:nowrap}',
+  '.pc-bench{display:grid;grid-template-columns:minmax(210px,.68fr) minmax(420px,1.7fr);gap:16px;align-items:stretch}.pc-tray,.pc-case-panel{min-width:0}.pc-panel-title{font-size:.88rem;color:#d9e2ed;margin:0 0 9px}.pc-part-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pc-part-card{position:relative;min-height:104px;border:1px solid #3e5064;border-radius:10px;background:#151f2a;color:var(--pc-ink);padding:8px 6px 7px;cursor:grab;text-align:center;transition:transform 160ms ease-out,border-color 160ms ease-out,background 160ms ease-out}.pc-part-card:hover{transform:translateY(-2px);border-color:#7bbcff;background:#192838}.pc-part-card:focus-visible,.pc-slot:focus-visible,.pc-reset:focus-visible,.pc-name-field input:focus-visible{outline:3px solid #f2c65d;outline-offset:2px}.pc-part-card:active{cursor:grabbing}.pc-part-card[disabled]{cursor:not-allowed;transform:none}.pc-step{position:absolute;top:6px;left:7px;color:#99abc0;font-size:.67rem}.pc-part-label{display:block;margin-top:5px;font-size:.76rem;font-weight:700}.pc-part-shape{position:relative;display:block;margin:15px auto 0;background:#263848;border:2px solid #82a2bd;box-sizing:border-box;box-shadow:0 4px 10px rgba(0,0,0,.32)}',
+  '.pc-part-shape--cpu{width:43px;height:43px;border-radius:5px;background:#b7a26d;border-color:#e1d29d;box-shadow:inset 0 0 0 8px #26313d,0 4px 10px rgba(0,0,0,.32)}.pc-part-shape--ram{width:18px;height:58px;border-radius:2px;background:#1c604c;border-color:#75b697;box-shadow:inset 0 -6px 0 #d8bd67,0 4px 10px rgba(0,0,0,.32)}.pc-part-shape--ssd{width:72px;height:22px;border-radius:3px;background:#215b48;border-color:#79ac97;box-shadow:inset -9px 0 0 #d7bd68,0 4px 10px rgba(0,0,0,.32)}.pc-part-shape--cooler{width:54px;height:54px;border-radius:50%;background:#162d3b;border:7px double #63a7c7}.pc-part-shape--cooler:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:#a9d8eb;left:50%;top:50%;transform:translate(-50%,-50%)}.pc-part-shape--motherboard{width:66px;height:59px;border-radius:4px;background:#17473f;border-color:#619288;box-shadow:inset 12px 10px 0 #20313a,inset -8px -11px 0 #20313a,0 4px 10px rgba(0,0,0,.32)}.pc-part-shape--psu{width:65px;height:49px;border-radius:4px;background:#272f38;border-color:#7d8995;box-shadow:inset 0 0 0 8px #151b22,0 4px 10px rgba(0,0,0,.32)}.pc-part-shape--gpu{width:82px;height:30px;border-radius:4px;background:#293844;border-color:#83a4ba;box-shadow:inset 9px 0 0 #1b252e,inset -15px 0 0 #1b252e,0 4px 10px rgba(0,0,0,.32)}.pc-part-shape--cables{width:57px;height:48px;border:6px double #6fa5d6;border-top-color:transparent;border-bottom-color:transparent;border-radius:50%;background:transparent;box-shadow:none}',
+  '.pc-case{position:relative;min-height:430px;overflow:hidden;border:9px solid #38434e;border-radius:9px;background:#080d12;box-shadow:inset 0 0 0 2px #111923,0 10px 26px rgba(0,0,0,.35)}.pc-case:before{content:"PC CASE • SIDE PANEL REMOVED";position:absolute;left:14px;top:9px;color:#8d9bab;font-size:.64rem;letter-spacing:.08em;z-index:10}.pc-case-interior{position:absolute;inset:31px 13px 13px}.pc-board-ghost{position:absolute;left:15%;top:6%;width:63%;height:61%;box-sizing:border-box;background:#102c29;border:2px solid #2d5d57;border-radius:5px;box-shadow:inset 0 0 0 7px #0c201f}.pc-board-ghost:before,.pc-board-ghost:after{content:"";position:absolute;background:#28534e}.pc-board-ghost:before{left:11%;top:70%;width:72%;height:2px}.pc-board-ghost:after{left:72%;top:10%;width:2px;height:55%}.pc-psu-shroud{position:absolute;left:0;bottom:0;width:100%;height:22%;background:#121922;border-top:2px solid #303c49}.pc-rear-slots{position:absolute;left:2%;top:48%;width:10%;height:25%;border:1px solid #344252;box-shadow:inset 0 -6px 0 #1a2430,inset 0 -13px 0 #0a1017,inset 0 -20px 0 #1a2430,inset 0 -27px 0 #0a1017}.pc-fan{position:absolute;right:1.5%;width:13%;aspect-ratio:1;border:7px double #385f78;border-radius:50%;background:#111c26;box-sizing:border-box}.pc-fan:after{content:"";position:absolute;left:50%;top:50%;width:18%;height:18%;border-radius:50%;background:#6bbef0;transform:translate(-50%,-50%)}.pc-fan--one{top:4%}.pc-fan--two{top:31%}.pc-fan--three{top:58%}',
+  '.pc-slot{position:absolute;box-sizing:border-box;border:2px dashed #65798d;border-radius:6px;background:rgba(20,31,42,.82);color:#d5e0eb;padding:4px;font-size:clamp(.55rem,1.15vw,.73rem);font-weight:720;line-height:1.1;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;transition:border-color 160ms ease-out,background 160ms ease-out,box-shadow 160ms ease-out,transform 160ms ease-out}.pc-slot:hover{border-style:solid;background:#1d3040}.pc-slot[data-kind="cpu"]{border-radius:5px}.pc-slot[data-kind="ram"]{border-radius:3px;writing-mode:vertical-rl}.pc-slot[data-kind="ssd"]{border-radius:3px}.pc-slot[data-kind="cooler"]{border-radius:50%;background:rgba(17,31,42,.65)}.pc-slot[data-kind="motherboard"]{align-items:flex-end;justify-content:flex-start;padding:8px;background:rgba(15,43,40,.48)}.pc-slot[data-kind="psu"]{background:rgba(35,43,52,.9)}.pc-slot[data-kind="gpu"]{background:rgba(31,44,55,.92)}.pc-slot[data-kind="cables"]{border-radius:18px;background:rgba(23,37,49,.88)}',
+  '@media(max-width:760px){.pc-app-header{align-items:stretch;flex-direction:column}.pc-controls{align-items:stretch}.pc-name-field{flex:1}.pc-bench{grid-template-columns:1fr}.pc-part-grid{grid-template-columns:repeat(4,minmax(88px,1fr));overflow-x:auto;padding-bottom:5px}.pc-part-card{min-height:98px}.pc-case{min-height:390px}.pc-live-row{align-items:flex-start;flex-direction:column}.pc-progress{white-space:normal}}',
+  '@media(max-width:480px){.pc-assembly-app{padding:12px}.pc-part-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pc-case{min-height:340px;border-width:6px}.pc-slot{font-size:.52rem}}',
+  '@media(prefers-reduced-motion:reduce){.pc-part-card,.pc-slot{transition:none}}'
+].join('\\n');
 
 heading.textContent = 'PC Assembly Bench';
-directions.textContent = 'Drag a part to its slot in order, or click a part and then a slot.';
+directions.textContent = 'Build from the motherboard outward. Drag each shaped component to its matching location, or select a part and then its destination.';
 nameLabel.textContent = 'Builder name';
 nameLabel.htmlFor = 'pc-builder-name';
 builderName.id = 'pc-builder-name';
@@ -558,79 +581,32 @@ builderName.autocomplete = 'name';
 resetButton.type = 'button';
 resetButton.textContent = 'Reset build';
 trayTitle.textContent = 'Parts tray';
-caseTitle.textContent = 'PC connection points';
+caseTitle.textContent = 'Motherboard and case layout';
 status.setAttribute('role', 'status');
 status.setAttribute('aria-live', 'polite');
 
-Object.assign(app.style, {
-  color: '#e5e7eb',
-  background: '#111827',
-  border: '1px solid #334155',
-  borderRadius: '12px',
-  padding: '18px',
-  fontFamily: 'system-ui, sans-serif'
-});
-Object.assign(header.style, {
-  display: 'grid',
-  gridTemplateColumns: '1fr auto',
-  gap: '12px',
-  alignItems: 'end'
-});
-Object.assign(builderName.style, {
-  display: 'block',
-  width: 'min(100%, 320px)',
-  boxSizing: 'border-box',
-  marginTop: '6px',
-  padding: '10px',
-  border: '1px solid #64748b',
-  borderRadius: '7px',
-  background: '#0f172a',
-  color: '#f8fafc'
-});
-Object.assign(resetButton.style, {
-  padding: '10px 14px',
-  border: '1px solid #60a5fa',
-  borderRadius: '7px',
-  background: '#1d4ed8',
-  color: '#ffffff',
-  cursor: 'pointer'
-});
-Object.assign(layout.style, {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-  gap: '18px',
-  marginTop: '14px'
-});
-[tray, caseArea].forEach(function(panel) {
-  Object.assign(panel.style, {
-    background: '#0f172a',
-    border: '1px solid #334155',
-    borderRadius: '10px',
-    padding: '14px'
-  });
-});
-status.style.fontWeight = '700';
-status.style.minHeight = '24px';
-progress.style.color = '#93c5fd';
+app.className = 'pc-assembly-app';
+header.className = 'pc-app-header';
+titleGroup.className = 'pc-title-group';
+controls.className = 'pc-controls';
+liveRow.className = 'pc-live-row';
+status.className = 'pc-status';
+progress.className = 'pc-progress';
+resetButton.className = 'pc-reset';
+layout.className = 'pc-bench';
+tray.className = 'pc-tray';
+partGrid.className = 'pc-part-grid';
+caseArea.className = 'pc-case-panel';
+trayTitle.className = 'pc-panel-title';
+caseTitle.className = 'pc-panel-title';
+caseFrame.className = 'pc-case';
+caseInterior.className = 'pc-case-interior';
+motherboardGhost.className = 'pc-board-ghost';
+psuShroud.className = 'pc-psu-shroud';
+rearSlots.className = 'pc-rear-slots';
 
 const partCards = [];
 const slotButtons = [];
-
-function styleInteractive(element) {
-  Object.assign(element.style, {
-    display: 'block',
-    width: '100%',
-    boxSizing: 'border-box',
-    margin: '8px 0',
-    padding: '11px',
-    border: '1px solid #3b82f6',
-    borderRadius: '8px',
-    background: '#1e293b',
-    color: '#f8fafc',
-    cursor: 'pointer',
-    textAlign: 'left'
-  });
-}
 
 function calculateAccuracy(results) {
   let correctAttempts = 0;
@@ -650,7 +626,7 @@ function checkPlacement(partIndex, slotIndex) {
 
 function updateProgress() {
   const accuracy = attempts.length === 0 ? 100 : calculateAccuracy(attempts);
-  progress.textContent = 'Installed: ' + currentStep + '/' + parts.length + ' | Accuracy: ' + accuracy + '%';
+  progress.textContent = 'Installed ' + currentStep + ' of ' + parts.length + ' • Accuracy ' + accuracy + '%';
 }
 
 function updateStatus(message) {
@@ -665,9 +641,22 @@ function selectPart(index) {
   }
   selectedPart = index;
   partCards.forEach(function(card, cardIndex) {
-    card.style.outline = cardIndex === index ? '3px solid #fbbf24' : 'none';
+    card.style.outline = cardIndex === index ? '3px solid #f2c65d' : 'none';
+    card.setAttribute('aria-pressed', cardIndex === index ? 'true' : 'false');
   });
   updateStatus(parts[index].name + ' selected. Choose its destination.');
+}
+
+function updateTargetGuidance() {
+  slotButtons.forEach(function(slotButton, index) {
+    if (slotButton.disabled) {
+      return;
+    }
+    const isNext = index === currentStep;
+    slotButton.style.borderColor = isNext ? '#e7b84b' : '#65798d';
+    slotButton.style.boxShadow = isNext ? '0 5px 18px rgba(231,184,75,.28)' : 'none';
+    slotButton.setAttribute('aria-current', isNext ? 'step' : 'false');
+  });
 }
 
 function placePart(partIndex, slotIndex) {
@@ -686,9 +675,11 @@ function placePart(partIndex, slotIndex) {
     partCards[partIndex].draggable = false;
     partCards[partIndex].style.opacity = '0.35';
     slotButtons[slotIndex].disabled = true;
-    slotButtons[slotIndex].textContent = '✓ ' + installedPart.name + ' → ' + installedPart.slot;
-    slotButtons[slotIndex].style.borderColor = '#22c55e';
-    slotButtons[slotIndex].style.background = '#14532d';
+    slotButtons[slotIndex].textContent = '✓ ' + installedPart.name;
+    slotButtons[slotIndex].style.borderColor = '#55d68b';
+    slotButtons[slotIndex].style.background = '#174a34';
+    slotButtons[slotIndex].style.boxShadow = '0 5px 18px rgba(85,214,139,.22)';
+    slotButtons[slotIndex].style.pointerEvents = 'none';
     currentStep += 1;
     updateStatus('Correct! ' + installedPart.name + ' snapped into place.');
   } else {
@@ -699,8 +690,10 @@ function placePart(partIndex, slotIndex) {
   selectedPart = -1;
   partCards.forEach(function(card) {
     card.style.outline = 'none';
+    card.setAttribute('aria-pressed', 'false');
   });
   updateProgress();
+  updateTargetGuidance();
 
   if (currentStep === parts.length) {
     updateStatus('PC assembly complete!');
@@ -709,11 +702,24 @@ function placePart(partIndex, slotIndex) {
 
 parts.forEach(function(part, index) {
   const partCard = document.createElement('button');
+  const stepLabel = document.createElement('span');
+  const partShape = document.createElement('span');
+  const partLabel = document.createElement('span');
   partCard.type = 'button';
-  partCard.textContent = part.name;
+  partCard.className = 'pc-part-card';
   partCard.draggable = true;
   partCard.setAttribute('aria-label', 'PC part: ' + part.name);
-  styleInteractive(partCard);
+  partCard.setAttribute('aria-pressed', 'false');
+  partCard.setAttribute('data-part-index', String(index));
+  stepLabel.className = 'pc-step';
+  stepLabel.textContent = String(index + 1);
+  partShape.className = 'pc-part-shape pc-part-shape--' + part.kind;
+  partShape.setAttribute('aria-hidden', 'true');
+  partLabel.className = 'pc-part-label';
+  partLabel.textContent = part.name;
+  partCard.appendChild(stepLabel);
+  partCard.appendChild(partShape);
+  partCard.appendChild(partLabel);
   partCard.addEventListener('click', function() {
     selectPart(index);
   });
@@ -723,13 +729,20 @@ parts.forEach(function(part, index) {
     event.dataTransfer.effectAllowed = 'move';
   });
   partCards.push(partCard);
-  tray.appendChild(partCard);
+  partGrid.appendChild(partCard);
 
   const slotButton = document.createElement('button');
   slotButton.type = 'button';
   slotButton.textContent = part.slot;
+  slotButton.className = 'pc-slot';
   slotButton.setAttribute('aria-label', 'Install a part in ' + part.slot);
-  styleInteractive(slotButton);
+  slotButton.setAttribute('data-kind', part.kind);
+  slotButton.setAttribute('data-slot-index', String(index));
+  slotButton.style.left = part.left + '%';
+  slotButton.style.top = part.top + '%';
+  slotButton.style.width = part.width + '%';
+  slotButton.style.height = part.height + '%';
+  slotButton.style.zIndex = String(part.layer);
   slotButton.addEventListener('click', function() {
     placePart(selectedPart, index);
   });
@@ -743,7 +756,6 @@ parts.forEach(function(part, index) {
     placePart(droppedPart, index);
   });
   slotButtons.push(slotButton);
-  caseArea.appendChild(slotButton);
 });
 
 resetButton.addEventListener('click', function() {
@@ -755,36 +767,69 @@ resetButton.addEventListener('click', function() {
     card.draggable = true;
     card.style.opacity = '1';
     card.style.outline = 'none';
+    card.setAttribute('aria-pressed', 'false');
   });
   slotButtons.forEach(function(slotButton, index) {
     slotButton.disabled = false;
     slotButton.textContent = parts[index].slot;
-    slotButton.style.borderColor = '#3b82f6';
-    slotButton.style.background = '#1e293b';
+    slotButton.style.borderColor = '#65798d';
+    slotButton.style.background = '';
+    slotButton.style.boxShadow = 'none';
+    slotButton.style.pointerEvents = 'auto';
   });
   updateStatus('Next part: ' + parts[currentStep].name);
   updateProgress();
+  updateTargetGuidance();
 });
 
 const nameField = document.createElement('div');
+nameField.className = 'pc-name-field';
 nameField.appendChild(nameLabel);
 nameField.appendChild(builderName);
-header.appendChild(nameField);
-header.appendChild(resetButton);
-tray.insertBefore(trayTitle, tray.firstChild);
-caseArea.insertBefore(caseTitle, caseArea.firstChild);
+titleGroup.appendChild(heading);
+titleGroup.appendChild(directions);
+controls.appendChild(nameField);
+controls.appendChild(resetButton);
+header.appendChild(titleGroup);
+header.appendChild(controls);
+liveRow.appendChild(status);
+liveRow.appendChild(progress);
+tray.appendChild(trayTitle);
+tray.appendChild(partGrid);
+caseArea.appendChild(caseTitle);
+caseInterior.appendChild(motherboardGhost);
+caseInterior.appendChild(psuShroud);
+caseInterior.appendChild(rearSlots);
+
+['one', 'two', 'three'].forEach(function(position) {
+  const fan = document.createElement('div');
+  fan.className = 'pc-fan pc-fan--' + position;
+  fan.setAttribute('aria-hidden', 'true');
+  caseInterior.appendChild(fan);
+});
+
+slotButtons.forEach(function(slotButton) {
+  caseInterior.appendChild(slotButton);
+});
+caseFrame.appendChild(caseInterior);
+caseArea.appendChild(caseFrame);
 layout.appendChild(tray);
 layout.appendChild(caseArea);
-app.appendChild(heading);
-app.appendChild(directions);
 app.appendChild(header);
-app.appendChild(status);
-app.appendChild(progress);
+app.appendChild(liveRow);
 app.appendChild(layout);
+outputElement.appendChild(styleElement);
 outputElement.appendChild(app);
+
+if (outputElement.clientWidth <= 480) {
+  outputElement.style.minHeight = '1300px';
+  outputElement.style.maxHeight = '1300px';
+  outputElement.style.height = '1300px';
+}
 
 updateStatus('Next part: ' + parts[currentStep].name);
 updateProgress();
+updateTargetGuidance();
 {% endcapture %}
 
 {% include runners/ui.html
@@ -792,14 +837,14 @@ updateProgress();
    challenge=pc_javascript_challenge
    code=pc_javascript_code
    height="1100px"
-   output_height="600px"
+   output_height="780px"
 %}
 
 **Example output (initial UI state)**
 
 ```text
 Next part: CPU
-Installed: 0/8 | Accuracy: 100%
+Installed 0 of 8 • Accuracy 100%
 ```
 
 ---
@@ -813,8 +858,8 @@ Run the automatic sample build. Then change the sample values to try a different
 {% endcapture %}
 
 {% capture pc_python_code %}
-parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
-slots = ["CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "PSU bay", "Board tray", "PCIe slot", "Power headers"]
+parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
+slots = ["CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "Board tray", "PSU bay", "PCIe slot", "Power headers"]
 attempts = []
 current_step = 0
 
@@ -826,8 +871,8 @@ sample_attempts = [
     ("RAM", "RAM slots"),
     ("M.2 SSD", "M.2 slot"),
     ("CPU cooler", "Cooler mount"),
-    ("Power supply", "PSU bay"),
     ("Motherboard", "Board tray"),
+    ("Power supply", "PSU bay"),
     ("Graphics card", "PCIe slot"),
     ("Power cables", "Power headers"),
 ]

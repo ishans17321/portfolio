@@ -38,7 +38,7 @@ input:
 
 list:
   python: |
-    parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
+    parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
 
     print("Parts in this build:", len(parts))
     for part in parts:
@@ -46,7 +46,7 @@ list:
   java: |
     public class Main {
         public static void main(String[] args) {
-            String[] parts = {"CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"};
+            String[] parts = {"CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"};
 
             System.out.println("Parts in this build: " + parts.length);
             for (String part : parts) {
@@ -131,14 +131,14 @@ selection:
 
 iteration:
   python: |
-    parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
+    parts = ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
 
     for step, part in enumerate(parts, start=1):
         print("Step " + str(step) + ": Install " + part)
   java: |
     public class Main {
         public static void main(String[] args) {
-            String[] parts = {"CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"};
+            String[] parts = {"CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"};
             int step = 1;
 
             for (String part : parts) {
@@ -304,10 +304,10 @@ boolean:
 
 prototype:
   pseudocode: |
-    parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
-    slots ← ["CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "PSU bay", "Board tray", "PCIe slot", "Power headers"]
-    sampleParts ← ["Graphics card", "CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"]
-    sampleSlots ← ["PCIe slot", "CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "PSU bay", "Board tray", "PCIe slot", "Power headers"]
+    parts ← ["CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
+    slots ← ["CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "Board tray", "PSU bay", "PCIe slot", "Power headers"]
+    sampleParts ← ["Graphics card", "CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"]
+    sampleSlots ← ["PCIe slot", "CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "Board tray", "PSU bay", "PCIe slot", "Power headers"]
     currentStep ← 1
     attemptIndex ← 1
     correctAttempts ← 0
@@ -342,12 +342,12 @@ prototype:
         }
 
         public static void main(String[] args) {
-            String[] parts = {"CPU", "RAM", "M.2 SSD", "CPU cooler", "Power supply", "Motherboard", "Graphics card", "Power cables"};
-            String[] slots = {"CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "PSU bay", "Board tray", "PCIe slot", "Power headers"};
+            String[] parts = {"CPU", "RAM", "M.2 SSD", "CPU cooler", "Motherboard", "Power supply", "Graphics card", "Power cables"};
+            String[] slots = {"CPU socket", "RAM slots", "M.2 slot", "Cooler mount", "Board tray", "PSU bay", "PCIe slot", "Power headers"};
             String[][] sampleAttempts = {
                 {"Graphics card", "PCIe slot"}, {"CPU", "CPU socket"}, {"RAM", "RAM slots"},
-                {"M.2 SSD", "M.2 slot"}, {"CPU cooler", "Cooler mount"}, {"Power supply", "PSU bay"},
-                {"Motherboard", "Board tray"}, {"Graphics card", "PCIe slot"}, {"Power cables", "Power headers"}
+                {"M.2 SSD", "M.2 slot"}, {"CPU cooler", "Cooler mount"}, {"Motherboard", "Board tray"},
+                {"Power supply", "PSU bay"}, {"Graphics card", "PCIe slot"}, {"Power cables", "Power headers"}
             };
             ArrayList<Boolean> attempts = new ArrayList<>();
             int currentStep = 0;

@@ -58,8 +58,8 @@ const expectedPseudocodeOutputs = {
     'RAM',
     'M.2 SSD',
     'CPU cooler',
-    'Power supply',
     'Motherboard',
+    'Power supply',
     'Graphics card',
     'Power cables',
   ].join('\n'),
@@ -76,8 +76,8 @@ const expectedPseudocodeOutputs = {
     'Step 2: Install RAM',
     'Step 3: Install M.2 SSD',
     'Step 4: Install CPU cooler',
-    'Step 5: Install Power supply',
-    'Step 6: Install Motherboard',
+    'Step 5: Install Motherboard',
+    'Step 6: Install Power supply',
     'Step 7: Install Graphics card',
     'Step 8: Install Power cables',
   ].join('\n'),
@@ -200,6 +200,10 @@ for (const requiredBehavior of [
   'snapped into place',
   "setAttribute('aria-live', 'polite')",
   "document.getElementById('pc-builder-name')",
+  "pc-part-shape--",
+  "data-slot-index",
+  "pc-board-ghost",
+  "pc-fan--",
 ]) {
   assert.ok(javascriptPrototype.includes(requiredBehavior), 'Missing JavaScript behavior: ' + requiredBehavior);
 }
@@ -266,35 +270,36 @@ const fakeDocument = {
 
 const uiOutput = new FakeElement('div');
 runJavascriptPrototype(uiOutput, fakeDocument);
-const app = uiOutput.children[0];
-const header = app.children[2];
-const status = app.children[3];
-const progress = app.children[4];
-const layout = app.children[5];
-const partCards = layout.children[0].children.slice(1);
-const slotButtons = layout.children[1].children.slice(1);
-const resetButton = header.children[1];
+const app = createdElements.find((element) => element.className === 'pc-assembly-app');
+const status = createdElements.find((element) => element.className === 'pc-status');
+const progress = createdElements.find((element) => element.className === 'pc-progress');
+const partCards = createdElements.filter((element) => element.attributes.has('data-part-index'));
+const slotButtons = createdElements.filter((element) => element.attributes.has('data-slot-index'));
+const resetButton = createdElements.find((element) => element.className === 'pc-reset');
 
+assert.ok(app, 'PC assembly app was not created');
+assert.equal(partCards.length, 8);
+assert.equal(slotButtons.length, 8);
 assert.equal(status.textContent, 'Next part: CPU');
-assert.equal(progress.textContent, 'Installed: 0/8 | Accuracy: 100%');
+assert.equal(progress.textContent, 'Installed 0 of 8 • Accuracy 100%');
 
 partCards[6].dispatch('click');
 slotButtons[6].dispatch('click');
 assert.match(status.textContent, /Graphics card returned to the tray/);
 assert.equal(partCards[6].disabled, false);
-assert.equal(progress.textContent, 'Installed: 0/8 | Accuracy: 0%');
+assert.equal(progress.textContent, 'Installed 0 of 8 • Accuracy 0%');
 
 partCards[0].dispatch('click');
 slotButtons[0].dispatch('click');
 assert.equal(partCards[0].disabled, true);
 assert.equal(slotButtons[0].disabled, true);
-assert.match(slotButtons[0].textContent, /^✓ CPU → CPU socket$/);
-assert.equal(progress.textContent, 'Installed: 1/8 | Accuracy: 50%');
+assert.match(slotButtons[0].textContent, /^✓ CPU$/);
+assert.equal(progress.textContent, 'Installed 1 of 8 • Accuracy 50%');
 
 resetButton.dispatch('click');
 assert.equal(partCards[0].disabled, false);
 assert.equal(slotButtons[0].disabled, false);
-assert.equal(progress.textContent, 'Installed: 0/8 | Accuracy: 100%');
+assert.equal(progress.textContent, 'Installed 0 of 8 • Accuracy 100%');
 
 const dragData = new Map();
 const dataTransfer = {
@@ -308,20 +313,20 @@ const dataTransfer = {
 partCards[0].dispatch('dragstart', { dataTransfer });
 slotButtons[0].dispatch('drop', { dataTransfer, preventDefault() {} });
 assert.equal(partCards[0].disabled, true);
-assert.equal(progress.textContent, 'Installed: 1/8 | Accuracy: 100%');
+assert.equal(progress.textContent, 'Installed 1 of 8 • Accuracy 100%');
 
 for (let index = 1; index < partCards.length; index += 1) {
   partCards[index].dispatch('click');
   slotButtons[index].dispatch('click');
 }
 assert.equal(status.textContent, 'PC assembly complete!');
-assert.equal(progress.textContent, 'Installed: 8/8 | Accuracy: 100%');
+assert.equal(progress.textContent, 'Installed 8 of 8 • Accuracy 100%');
 
 resetButton.dispatch('click');
 const unrelatedDragData = { getData() { return ''; } };
 slotButtons[0].dispatch('drop', { dataTransfer: unrelatedDragData, preventDefault() {} });
 assert.equal(status.textContent, 'Choose a part from the tray first.');
-assert.equal(progress.textContent, 'Installed: 0/8 | Accuracy: 100%');
+assert.equal(progress.textContent, 'Installed 0 of 8 • Accuracy 100%');
 
 const pythonPrototype = extractCapture('pc_python_code');
 const pythonRun = spawnSync('python3', ['-c', pythonPrototype], {
