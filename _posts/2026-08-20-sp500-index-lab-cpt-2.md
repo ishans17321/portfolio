@@ -2,16 +2,16 @@
 layout: post
 codemirror: true
 title: "S&P 500 Index Lab: CPT 2.0"
-description: Learn AP CSP Create Performance Task concepts through an interactive S&P 500-style index rebalance lab.
+description: Learn AP CSP Create Performance Task concepts by matching current S&P 500 constituents to their real GICS sectors.
 permalink: /sp500-index-lab
 search_exclude: false
 ---
 
 <!--
-THESIS: Turn index weighting into a hands-on ranking problem instead of a generic finance dashboard.
-OWN-WORLD: A dark exchange board, restrained market green, amber rank cues, and compact watchlist rows.
-STORY: The student reads illustrative company data, tests the algorithm, then completes a mini rebalance.
-FIRST VIEWPORT: Existing lesson heading and code-runner format remain unchanged; the prototype opens as a two-column watchlist and index board.
+THESIS: Turn current constituent classifications into a hands-on matching problem instead of a generic finance dashboard.
+OWN-WORLD: A dark exchange board, restrained market green, amber sector cues, and compact constituent cards.
+STORY: The student learns the code concepts, checks the visible data source, then completes a live sector challenge.
+FIRST VIEWPORT: Existing lesson heading and code-runner format remain unchanged; the prototype opens as a two-column watchlist and sector board.
 FORM: Read/Operate extension of the established lesson structure; interaction is the memorable proof.
 -->
 
@@ -215,39 +215,39 @@ AMZN
 
 ## Procedure
 
-**CPT Requirement:** You must create at least one student-developed procedure with parameters. The procedure must be called and contribute to the program. This procedure accepts a ticker and a rank, then returns whether they match the expected first holding.
+**CPT Requirement:** You must create at least one student-developed procedure with parameters. This procedure accepts a selected and expected sector, then returns whether they match.
 
 {% capture sp_procedure_challenge %}
-Create and call a procedure that checks whether APX was assigned to rank 1.
+Create and call a procedure that checks whether AAPL was matched to Information Technology.
 {% endcapture %}
 
 {% capture sp_procedure_code %}
-PROCEDURE isCorrectRank(ticker, rank)
+PROCEDURE isCorrectSector(selectedSector, expectedSector)
 {
-  RETURN(ticker = "APX" AND rank = 1)
+  RETURN(selectedSector = expectedSector)
 }
 
-correctPlacement ← isCorrectRank("APX", 1)
-DISPLAY("Correct rank: " + correctPlacement)
+correctMatch ← isCorrectSector("Information Technology", "Information Technology")
+DISPLAY("Correct sector: " + correctMatch)
 {% endcapture %}
 
 {% capture sp_procedure_python %}
-def is_correct_rank(ticker, rank):
-    return ticker == "APX" and rank == 1
+def is_correct_sector(selected_sector, expected_sector):
+    return selected_sector == expected_sector
 
-correct_placement = is_correct_rank("APX", 1)
-print("Correct rank:", correct_placement)
+correct_match = is_correct_sector("Information Technology", "Information Technology")
+print("Correct sector:", correct_match)
 {% endcapture %}
 
 {% capture sp_procedure_java %}
 public class Main {
-    static boolean isCorrectRank(String ticker, int rank) {
-        return ticker.equals("APX") && rank == 1;
+    static boolean isCorrectSector(String selectedSector, String expectedSector) {
+        return selectedSector.equals(expectedSector);
     }
 
     public static void main(String[] args) {
-        boolean correctPlacement = isCorrectRank("APX", 1);
-        System.out.println("Correct rank: " + correctPlacement);
+        boolean correctMatch = isCorrectSector("Information Technology", "Information Technology");
+        System.out.println("Correct sector: " + correctMatch);
     }
 }
 {% endcapture %}
@@ -267,35 +267,35 @@ public class Main {
 **Expected output**
 
 ```text
-Correct rank: true
+Correct sector: true
 ```
 
 ---
 
 ## Sequence
 
-**AP CSP Concept:** Sequencing means statements execute in order. An index rebalance also follows a sequence: load candidate data, sort by market cap, calculate weights, and publish the new order.
+**AP CSP Concept:** Sequencing means statements execute in order. The live challenge loads the public table, parses constituent fields, samples sectors, and then starts the match.
 
 {% capture sp_sequence_challenge %}
-Display four index-rebalance steps in the order they occur.
+Display the four live-data preparation steps in the order they occur.
 {% endcapture %}
 
 {% capture sp_sequence_code %}
 step ← 1
-DISPLAY("Step " + step + ": Load candidate data")
+DISPLAY("Step " + step + ": Request constituent table")
 
 step ← step + 1
-DISPLAY("Step " + step + ": Sort by market cap")
+DISPLAY("Step " + step + ": Parse company sectors")
 
 step ← step + 1
-DISPLAY("Step " + step + ": Calculate index weights")
+DISPLAY("Step " + step + ": Sample eight sectors")
 
 step ← step + 1
-DISPLAY("Step " + step + ": Publish the rebalance")
+DISPLAY("Step " + step + ": Start the challenge")
 {% endcapture %}
 
 {% capture sp_sequence_python %}
-steps = ["Load candidate data", "Sort by market cap", "Calculate index weights", "Publish the rebalance"]
+steps = ["Request constituent table", "Parse company sectors", "Sample eight sectors", "Start the challenge"]
 
 for step, action in enumerate(steps, start=1):
     print("Step " + str(step) + ": " + action)
@@ -304,7 +304,7 @@ for step, action in enumerate(steps, start=1):
 {% capture sp_sequence_java %}
 public class Main {
     public static void main(String[] args) {
-        String[] steps = {"Load candidate data", "Sort by market cap", "Calculate index weights", "Publish the rebalance"};
+        String[] steps = {"Request constituent table", "Parse company sectors", "Sample eight sectors", "Start the challenge"};
 
         for (int index = 0; index < steps.length; index++) {
             System.out.println("Step " + (index + 1) + ": " + steps[index]);
@@ -328,59 +328,56 @@ public class Main {
 **Expected output**
 
 ```text
-Step 1: Load candidate data
-Step 2: Sort by market cap
-Step 3: Calculate index weights
-Step 4: Publish the rebalance
+Step 1: Request constituent table
+Step 2: Parse company sectors
+Step 3: Sample eight sectors
+Step 4: Start the challenge
 ```
 
 ---
 
 ## Selection
 
-**CPT Requirement:** Your algorithm must include selection with `IF` or `IF/ELSE`. Selection lets the program accept a correctly ranked company or return an incorrect choice to the watchlist.
+**CPT Requirement:** Your algorithm must include selection with `IF` or `IF/ELSE`. Selection accepts a correct sector match or returns an incorrect company to the watchlist.
 
 {% capture sp_selection_challenge %}
-Check a selected ticker. If it is the expected company, add it to the index; otherwise return it to the watchlist.
+Check a selected sector. If it matches Apple's expected sector, add the company to the board; otherwise return it to the watchlist.
 {% endcapture %}
 
 {% capture sp_selection_code %}
-expectedTicker ← "APX"
-selectedTicker ← INPUT("Choose the largest company:")
+expectedSector ← "Information Technology"
+selectedSector ← INPUT("Choose AAPL's GICS sector:")
 
-IF (selectedTicker = expectedTicker)
+IF (selectedSector = expectedSector)
 {
-  DISPLAY("Correct! " + selectedTicker + " entered the index.")
+  DISPLAY("Correct! AAPL matched Information Technology.")
 }
 ELSE
 {
-  DISPLAY("Incorrect. " + selectedTicker + " returned to the watchlist.")
-  DISPLAY("Rank " + expectedTicker + " first.")
+  DISPLAY("Incorrect. AAPL returned to the watchlist.")
 }
 {% endcapture %}
 
 {% capture sp_selection_python %}
-expected_ticker = "APX"
-selected_ticker = "APX"
+expected_sector = "Information Technology"
+selected_sector = "Information Technology"
 
-if selected_ticker == expected_ticker:
-    print("Correct! " + selected_ticker + " entered the index.")
+if selected_sector == expected_sector:
+    print("Correct! AAPL matched Information Technology.")
 else:
-    print("Incorrect. " + selected_ticker + " returned to the watchlist.")
-    print("Rank " + expected_ticker + " first.")
+    print("Incorrect. AAPL returned to the watchlist.")
 {% endcapture %}
 
 {% capture sp_selection_java %}
 public class Main {
     public static void main(String[] args) {
-        String expectedTicker = "APX";
-        String selectedTicker = "APX";
+        String expectedSector = "Information Technology";
+        String selectedSector = "Information Technology";
 
-        if (selectedTicker.equals(expectedTicker)) {
-            System.out.println("Correct! " + selectedTicker + " entered the index.");
+        if (selectedSector.equals(expectedSector)) {
+            System.out.println("Correct! AAPL matched Information Technology.");
         } else {
-            System.out.println("Incorrect. " + selectedTicker + " returned to the watchlist.");
-            System.out.println("Rank " + expectedTicker + " first.");
+            System.out.println("Incorrect. AAPL returned to the watchlist.");
         }
     }
 }
@@ -398,47 +395,47 @@ public class Main {
   height="370px"
 %}
 
-**Example output (if the user selected "APX")**
+**Example output (if the user selected Information Technology)**
 
 ```text
-Correct! APX entered the index.
+Correct! AAPL matched Information Technology.
 ```
 
 ---
 
 ## Iteration
 
-**CPT Requirement:** Your algorithm must include iteration using a loop. Iteration lets one block of code process every candidate company instead of repeating similar statements eight times.
+**CPT Requirement:** Your algorithm must include iteration using a loop. Iteration lets one block of code process every sampled ticker instead of repeating similar statements eight times.
 
 {% capture sp_iteration_challenge %}
-Loop through the ordered companies list and display one index rank for each ticker.
+Loop through the snapshot and display one watchlist position for each real ticker.
 {% endcapture %}
 
 {% capture sp_iteration_code %}
-companies ← ["APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
-rank ← 1
+companies ← ["AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"]
+position ← 1
 
 FOR EACH company IN companies
 {
-  DISPLAY("Rank " + rank + ": " + company)
-  rank ← rank + 1
+  DISPLAY("Card " + position + ": " + company)
+  position ← position + 1
 }
 {% endcapture %}
 
 {% capture sp_iteration_python %}
-companies = ["APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
+companies = ["AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"]
 
-for rank, company in enumerate(companies, start=1):
-    print("Rank " + str(rank) + ": " + company)
+for position, company in enumerate(companies, start=1):
+    print("Card " + str(position) + ": " + company)
 {% endcapture %}
 
 {% capture sp_iteration_java %}
 public class Main {
     public static void main(String[] args) {
-        String[] companies = {"APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"};
+        String[] companies = {"AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"};
 
         for (int index = 0; index < companies.length; index++) {
-            System.out.println("Rank " + (index + 1) + ": " + companies[index]);
+            System.out.println("Card " + (index + 1) + ": " + companies[index]);
         }
     }
 }
@@ -459,103 +456,100 @@ public class Main {
 **Expected output**
 
 ```text
-Rank 1: APX
-Rank 2: NVA
-Rank 3: UFN
-Rank 4: CRST
-Rank 5: FRGE
-Rank 6: ORBT
-Rank 7: HBR
-Rank 8: SOLR
+Card 1: AAPL
+Card 2: JPM
+Card 3: XOM
+Card 4: JNJ
+Card 5: PG
+Card 6: CAT
+Card 7: NEE
+Card 8: AMZN
 ```
 
 ---
 
 ## Complete Algorithm
 
-**CPT Requirement:** Your main algorithm must integrate sequencing, selection, and iteration to solve a meaningful problem. This procedure processes simulated analyst choices in order and returns the number of successful rankings.
+**CPT Requirement:** Your main algorithm must integrate sequencing, selection, and iteration to solve a meaningful problem. This procedure processes simulated sector choices and returns the number of correct matches.
 
 {% capture sp_algorithm_challenge %}
-Run a complete index-rebalance algorithm that combines a list, procedure, sequence, selection, iteration, and a return value.
+Run a sector-matching algorithm that combines a list, procedure, sequence, selection, iteration, and a return value.
 {% endcapture %}
 
 {% capture sp_algorithm_code %}
-PROCEDURE rebalanceIndex(companies, selectedCompanies)
+PROCEDURE matchSectors(expectedSectors, selectedSectors)
 {
-  rankedCount ← 0
-  rank ← 1
+  matchedCount ← 0
+  position ← 1
 
-  FOR EACH selectedCompany IN selectedCompanies
+  FOR EACH selectedSector IN selectedSectors
   {
-    expectedCompany ← companies[rank]
+    expectedSector ← expectedSectors[position]
 
-    IF (selectedCompany = expectedCompany)
+    IF (selectedSector = expectedSector)
     {
-      DISPLAY(selectedCompany + " ranked correctly.")
-      rankedCount ← rankedCount + 1
-      rank ← rank + 1
+      DISPLAY("Company " + position + " matched " + selectedSector + ".")
+      matchedCount ← matchedCount + 1
     }
     ELSE
     {
-      DISPLAY(selectedCompany + " returned. Next company is " + expectedCompany + ".")
+      DISPLAY("Company " + position + " returned. Expected " + expectedSector + ".")
     }
+    position ← position + 1
   }
 
-  RETURN(rankedCount)
+  RETURN(matchedCount)
 }
 
-companies ← ["APX", "NVA", "UFN", "CRST"]
-attempts ← ["HBR", "APX", "NVA", "UFN", "CRST"]
-ranked ← rebalanceIndex(companies, attempts)
-DISPLAY("Ranked correctly: " + ranked + " of " + LENGTH(companies))
+expected ← ["Information Technology", "Financials", "Energy", "Health Care"]
+attempts ← ["Financials", "Financials", "Energy", "Health Care"]
+matched ← matchSectors(expected, attempts)
+DISPLAY("Matched correctly: " + matched + " of " + LENGTH(expected))
 {% endcapture %}
 
 {% capture sp_algorithm_python %}
-def rebalance_index(companies, selected_companies):
-    ranked_count = 0
-    rank = 0
+def match_sectors(expected_sectors, selected_sectors):
+    matched_count = 0
 
-    for selected_company in selected_companies:
-        expected_company = companies[rank]
-        if selected_company == expected_company:
-            print(selected_company + " ranked correctly.")
-            ranked_count += 1
-            rank += 1
+    for position, selected_sector in enumerate(selected_sectors):
+        expected_sector = expected_sectors[position]
+        if selected_sector == expected_sector:
+            print("Company " + str(position + 1) + " matched " + selected_sector + ".")
+            matched_count += 1
         else:
-            print(selected_company + " returned. Next company is " + expected_company + ".")
+            print("Company " + str(position + 1) + " returned. Expected " + expected_sector + ".")
 
-    return ranked_count
+    return matched_count
 
-companies = ["APX", "NVA", "UFN", "CRST"]
-attempts = ["HBR", "APX", "NVA", "UFN", "CRST"]
-ranked = rebalance_index(companies, attempts)
-print("Ranked correctly:", ranked, "of", len(companies))
+expected = ["Information Technology", "Financials", "Energy", "Health Care"]
+attempts = ["Financials", "Financials", "Energy", "Health Care"]
+matched = match_sectors(expected, attempts)
+print("Matched correctly:", matched, "of", len(expected))
 {% endcapture %}
 
 {% capture sp_algorithm_java %}
 public class Main {
-    static int rebalanceIndex(String[] companies, String[] selectedCompanies) {
-        int rankedCount = 0;
-        int rank = 0;
+    static int matchSectors(String[] expectedSectors, String[] selectedSectors) {
+        int matchedCount = 0;
 
-        for (String selectedCompany : selectedCompanies) {
-            String expectedCompany = companies[rank];
-            if (selectedCompany.equals(expectedCompany)) {
-                System.out.println(selectedCompany + " ranked correctly.");
-                rankedCount++;
-                rank++;
+        for (int position = 0; position < selectedSectors.length; position++) {
+            String selectedSector = selectedSectors[position];
+            String expectedSector = expectedSectors[position];
+            if (selectedSector.equals(expectedSector)) {
+                System.out.println("Company " + (position + 1) + " matched " + selectedSector + ".");
+                matchedCount++;
             } else {
-                System.out.println(selectedCompany + " returned. Next company is " + expectedCompany + ".");
+                System.out.println("Company " + (position + 1) + " returned. Expected " + expectedSector + ".");
             }
         }
-        return rankedCount;
+        return matchedCount;
     }
 
     public static void main(String[] args) {
-        String[] companies = {"APX", "NVA", "UFN", "CRST"};
-        String[] attempts = {"HBR", "APX", "NVA", "UFN", "CRST"};
-        int ranked = rebalanceIndex(companies, attempts);
-        System.out.println("Ranked correctly: " + ranked + " of " + companies.length);
+        String[] expected = {"Information Technology", "Financials", "Energy", "Health Care"};
+        String[] attempts = {"Financials", "Financials", "Energy", "Health Care"};
+        int matched = matchSectors(expected, attempts);
+        System.out.println("Matched correctly: " + matched + " of " + expected.length);
     }
 }
 {% endcapture %}
@@ -575,52 +569,51 @@ public class Main {
 **Expected output**
 
 ```text
-HBR returned. Next company is APX.
-APX ranked correctly.
-NVA ranked correctly.
-UFN ranked correctly.
-CRST ranked correctly.
-Ranked correctly: 4 of 4
+Company 1 returned. Expected Information Technology.
+Company 2 matched Financials.
+Company 3 matched Energy.
+Company 4 matched Health Care.
+Matched correctly: 3 of 4
 ```
 
 ---
 
 ## List Operations
 
-**AP CSP Concept:** `APPEND`, `INSERT`, `REMOVE`, and `LENGTH` modify and measure lists. These operations can update the watchlist as candidate companies are added or ranked.
+**AP CSP Concept:** `APPEND`, `INSERT`, `REMOVE`, and `LENGTH` modify and measure lists. These operations update the real-ticker watchlist as companies enter or leave a challenge.
 
 {% capture sp_list_operations_challenge %}
 Modify a market watchlist with all four College Board list operations.
 {% endcapture %}
 
 {% capture sp_list_operations_code %}
-watchlist ← ["APX", "NVA"]
+watchlist ← ["AAPL", "JPM"]
 DISPLAY("Initial watchlist: " + watchlist)
 
-APPEND(watchlist, "UFN")
+APPEND(watchlist, "XOM")
 DISPLAY("After APPEND: " + watchlist)
 
-INSERT(watchlist, 2, "CRST")
+INSERT(watchlist, 2, "JNJ")
 DISPLAY("After INSERT: " + watchlist)
 
 REMOVE(watchlist, 1)
-DISPLAY("After ranking APX: " + watchlist)
+DISPLAY("After matching AAPL: " + watchlist)
 
 DISPLAY("Companies remaining: " + LENGTH(watchlist))
 {% endcapture %}
 
 {% capture sp_list_operations_python %}
-watchlist = ["APX", "NVA"]
+watchlist = ["AAPL", "JPM"]
 print("Initial watchlist:", watchlist)
 
-watchlist.append("UFN")
+watchlist.append("XOM")
 print("After append:", watchlist)
 
-watchlist.insert(1, "CRST")
+watchlist.insert(1, "JNJ")
 print("After insert:", watchlist)
 
 watchlist.pop(0)
-print("After ranking APX:", watchlist)
+print("After matching AAPL:", watchlist)
 print("Companies remaining:", len(watchlist))
 {% endcapture %}
 
@@ -630,17 +623,17 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> watchlist = new ArrayList<>(Arrays.asList("APX", "NVA"));
+        ArrayList<String> watchlist = new ArrayList<>(Arrays.asList("AAPL", "JPM"));
         System.out.println("Initial watchlist: " + watchlist);
 
-        watchlist.add("UFN");
+        watchlist.add("XOM");
         System.out.println("After append: " + watchlist);
 
-        watchlist.add(1, "CRST");
+        watchlist.add(1, "JNJ");
         System.out.println("After insert: " + watchlist);
 
         watchlist.remove(0);
-        System.out.println("After ranking APX: " + watchlist);
+        System.out.println("After matching AAPL: " + watchlist);
         System.out.println("Companies remaining: " + watchlist.size());
     }
 }
@@ -661,10 +654,10 @@ public class Main {
 **Expected output**
 
 ```text
-Initial watchlist: APX,NVA
-After APPEND: APX,NVA,UFN
-After INSERT: APX,CRST,NVA,UFN
-After ranking APX: CRST,NVA,UFN
+Initial watchlist: AAPL,JPM
+After APPEND: AAPL,JPM,XOM
+After INSERT: AAPL,JNJ,JPM,XOM
+After matching AAPL: JNJ,JPM,XOM
 Companies remaining: 3
 ```
 
@@ -675,7 +668,7 @@ Companies remaining: 3
 **AP CSP Concept:** A linear search checks every list item until it finds a target. This algorithm searches the watchlist and returns its 1-based position, or `-1` when the ticker is absent.
 
 {% capture sp_search_challenge %}
-Search the watchlist for HBR and display its position.
+Search the watchlist for NEE and display its position.
 {% endcapture %}
 
 {% capture sp_search_code %}
@@ -695,9 +688,9 @@ PROCEDURE findTicker(watchlist, targetTicker)
   RETURN(-1)
 }
 
-watchlist ← ["APX", "NVA", "UFN", "HBR"]
-result ← findTicker(watchlist, "HBR")
-DISPLAY("HBR position: " + result)
+watchlist ← ["AAPL", "JPM", "XOM", "NEE"]
+result ← findTicker(watchlist, "NEE")
+DISPLAY("NEE position: " + result)
 {% endcapture %}
 
 {% capture sp_search_python %}
@@ -707,9 +700,9 @@ def find_ticker(watchlist, target_ticker):
             return position
     return -1
 
-watchlist = ["APX", "NVA", "UFN", "HBR"]
-result = find_ticker(watchlist, "HBR")
-print("HBR position:", result)
+watchlist = ["AAPL", "JPM", "XOM", "NEE"]
+result = find_ticker(watchlist, "NEE")
+print("NEE position:", result)
 {% endcapture %}
 
 {% capture sp_search_java %}
@@ -724,9 +717,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        String[] watchlist = {"APX", "NVA", "UFN", "HBR"};
-        int result = findTicker(watchlist, "HBR");
-        System.out.println("HBR position: " + result);
+        String[] watchlist = {"AAPL", "JPM", "XOM", "NEE"};
+        int result = findTicker(watchlist, "NEE");
+        System.out.println("NEE position: " + result);
     }
 }
 {% endcapture %}
@@ -746,32 +739,32 @@ public class Main {
 **Expected output**
 
 ```text
-HBR position: 4
+NEE position: 4
 ```
 
 ---
 
 ## Boolean Logic
 
-**AP CSP Concept:** `AND`, `OR`, and `NOT` combine Boolean conditions. A company enters the next rank only when both its ticker and destination are correct. The rebalance is not finished while required companies remain.
+**AP CSP Concept:** `AND`, `OR`, and `NOT` combine Boolean conditions. A company enters the board only when both its ticker and sector are correct. The challenge is not finished while unmatched companies remain.
 
 {% capture sp_boolean_challenge %}
-Use AND and NOT to decide whether APX enters rank 1 and whether the rebalance is still in progress.
+Use AND and NOT to decide whether AAPL enters Information Technology and whether the challenge is still in progress.
 {% endcapture %}
 
 {% capture sp_boolean_code %}
-selectedTicker ← "APX"
-selectedRank ← 1
-expectedTicker ← "APX"
-expectedRank ← 1
+selectedTicker ← "AAPL"
+selectedSector ← "Information Technology"
+expectedTicker ← "AAPL"
+expectedSector ← "Information Technology"
 companiesRemaining ← 7
 
 correctTicker ← selectedTicker = expectedTicker
-correctRank ← selectedRank = expectedRank
+correctSector ← selectedSector = expectedSector
 
-IF (correctTicker AND correctRank)
+IF (correctTicker AND correctSector)
 {
-  DISPLAY("APX enters the index at rank 1.")
+  DISPLAY("AAPL enters Information Technology.")
 }
 ELSE
 {
@@ -780,49 +773,49 @@ ELSE
 
 IF (NOT (companiesRemaining = 0))
 {
-  DISPLAY("The rebalance is still in progress.")
+  DISPLAY("The sector challenge is still in progress.")
 }
 {% endcapture %}
 
 {% capture sp_boolean_python %}
-selected_ticker = "APX"
-selected_rank = 1
-expected_ticker = "APX"
-expected_rank = 1
+selected_ticker = "AAPL"
+selected_sector = "Information Technology"
+expected_ticker = "AAPL"
+expected_sector = "Information Technology"
 companies_remaining = 7
 
 correct_ticker = selected_ticker == expected_ticker
-correct_rank = selected_rank == expected_rank
+correct_sector = selected_sector == expected_sector
 
-if correct_ticker and correct_rank:
-    print("APX enters the index at rank 1.")
+if correct_ticker and correct_sector:
+    print("AAPL enters Information Technology.")
 else:
     print("Return the company to the watchlist.")
 
 if not companies_remaining == 0:
-    print("The rebalance is still in progress.")
+    print("The sector challenge is still in progress.")
 {% endcapture %}
 
 {% capture sp_boolean_java %}
 public class Main {
     public static void main(String[] args) {
-        String selectedTicker = "APX";
-        int selectedRank = 1;
-        String expectedTicker = "APX";
-        int expectedRank = 1;
+        String selectedTicker = "AAPL";
+        String selectedSector = "Information Technology";
+        String expectedTicker = "AAPL";
+        String expectedSector = "Information Technology";
         int companiesRemaining = 7;
 
         boolean correctTicker = selectedTicker.equals(expectedTicker);
-        boolean correctRank = selectedRank == expectedRank;
+        boolean correctSector = selectedSector.equals(expectedSector);
 
-        if (correctTicker && correctRank) {
-            System.out.println("APX enters the index at rank 1.");
+        if (correctTicker && correctSector) {
+            System.out.println("AAPL enters Information Technology.");
         } else {
             System.out.println("Return the company to the watchlist.");
         }
 
         if (!(companiesRemaining == 0)) {
-            System.out.println("The rebalance is still in progress.");
+            System.out.println("The sector challenge is still in progress.");
         }
     }
 }
@@ -843,333 +836,367 @@ public class Main {
 **Expected output**
 
 ```text
-APX enters the index at rank 1.
-The rebalance is still in progress.
+AAPL enters Information Technology.
+The sector challenge is still in progress.
 ```
 
 ---
 
 # JavaScript Prototype
 
-The JavaScript version turns the algorithm into a market-rebalance interaction. Drag each fictional company from the watchlist to its matching rank in descending illustrative market-cap order. Clicking a company and then a rank provides the same interaction for keyboard and touch users. Correct choices enter the index; incorrect choices return to the watchlist. The program records every attempt and displays the current accuracy.
+The JavaScript version turns the algorithm into a live constituent-classification challenge. It requests the current public table, samples companies from eight distinct sectors, and shows the exact source revision. Drag a company to its GICS sector, or select both controls for keyboard and touch use. Correct choices fill the sector board; incorrect choices return to the watchlist.
 
 {% capture sp_javascript_challenge %}
-Run the index-rebalance prototype. Try a wrong company first, then rank all eight companies. Identify the input, output, lists, procedure, selection, iteration, and Boolean expression in the code.
+Load the live constituent challenge. Try a wrong sector first, then match all eight companies. Identify the input, output, lists, procedure, selection, iteration, Boolean expression, and fallback path in the code.
 {% endcapture %}
 
 {% capture sp_javascript_code %}
 outputElement.innerHTML = '';
 
-const companies = [
-  { ticker: 'APX', name: 'Apex Systems', sector: 'Technology', marketCap: 420 },
-  { ticker: 'NVA', name: 'Nova Health', sector: 'Health Care', marketCap: 360 },
-  { ticker: 'UFN', name: 'Union Financial', sector: 'Financials', marketCap: 300 },
-  { ticker: 'CRST', name: 'Crest Consumer', sector: 'Consumer', marketCap: 245 },
-  { ticker: 'FRGE', name: 'Forge Industrial', sector: 'Industrials', marketCap: 195 },
-  { ticker: 'ORBT', name: 'Orbit Media', sector: 'Communication', marketCap: 155 },
-  { ticker: 'HBR', name: 'Harbor Utilities', sector: 'Utilities', marketCap: 110 },
-  { ticker: 'SOLR', name: 'Solara Energy', sector: 'Energy', marketCap: 75 }
+const DATA_URL = 'https://en.wikipedia.org/w/api.php?action=parse&page=List_of_S%26P_500_companies&prop=text%7Crevid&format=json&origin=*';
+const SOURCE_PAGE = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies';
+const OFFICIAL_PAGE = 'https://www.spglobal.com/spdji/en/indices/equity/sp-500/';
+const FALLBACK_REVISION = '1370105675';
+const fallbackCompanies = [
+  { ticker: 'AAPL', name: 'Apple Inc.', sector: 'Information Technology', subIndustry: 'Technology Hardware, Storage & Peripherals', headquarters: 'Cupertino, California', dateAdded: '1982-11-30' },
+  { ticker: 'JPM', name: 'JPMorgan Chase', sector: 'Financials', subIndustry: 'Diversified Banks', headquarters: 'New York City, New York', dateAdded: '1975-06-30' },
+  { ticker: 'XOM', name: 'ExxonMobil', sector: 'Energy', subIndustry: 'Integrated Oil & Gas', headquarters: 'Spring, Texas', dateAdded: '1957-03-04' },
+  { ticker: 'JNJ', name: 'Johnson & Johnson', sector: 'Health Care', subIndustry: 'Pharmaceuticals', headquarters: 'New Brunswick, New Jersey', dateAdded: '1973-06-30' },
+  { ticker: 'PG', name: 'Procter & Gamble', sector: 'Consumer Staples', subIndustry: 'Personal Care Products', headquarters: 'Cincinnati, Ohio', dateAdded: '1957-03-04' },
+  { ticker: 'CAT', name: 'Caterpillar Inc.', sector: 'Industrials', subIndustry: 'Construction Machinery & Heavy Transportation Equipment', headquarters: 'Irving, Texas', dateAdded: '1957-03-04' },
+  { ticker: 'NEE', name: 'NextEra Energy', sector: 'Utilities', subIndustry: 'Multi-Utilities', headquarters: 'Juno Beach, Florida', dateAdded: '1976-06-30' },
+  { ticker: 'AMZN', name: 'Amazon', sector: 'Consumer Discretionary', subIndustry: 'Broadline Retail', headquarters: 'Seattle, Washington', dateAdded: '2005-11-18' }
 ];
 
-const attempts = [];
-let currentRank = 0;
+let sourceCompanies = fallbackCompanies.slice();
+let challengeCompanies = [];
+let sectorTargets = [];
+let attempts = [];
+let matchedCount = 0;
 let selectedCompany = -1;
+let challengeNumber = 0;
+let activeController = null;
 
-const app = document.createElement('section');
-const styleElement = document.createElement('style');
-const header = document.createElement('div');
-const titleGroup = document.createElement('div');
-const heading = document.createElement('h3');
-const directions = document.createElement('p');
-const controls = document.createElement('div');
-const nameLabel = document.createElement('label');
-const analystName = document.createElement('input');
-const resetButton = document.createElement('button');
-const tickerRail = document.createElement('div');
-const liveRow = document.createElement('div');
-const status = document.createElement('p');
-const progress = document.createElement('p');
-const layout = document.createElement('div');
-const watchlist = document.createElement('div');
-const watchlistTitle = document.createElement('h4');
-const companyGrid = document.createElement('div');
-const indexPanel = document.createElement('div');
-const indexTitle = document.createElement('h4');
-const indexBoard = document.createElement('div');
-const boardHeader = document.createElement('div');
-const boardName = document.createElement('strong');
-const boardMethod = document.createElement('span');
-const rankList = document.createElement('div');
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
+}
 
+const styleElement = createElement('style');
 styleElement.textContent = [
-  '.market-lab{--ink:#eef5ef;--muted:#a9b9ad;--line:#3b5143;--panel:#111a15;--deep:#090e0b;--green:#78d398;--amber:#f1c568;--red:#f08a78;color:var(--ink);background:#0c130f;border:1px solid #33483a;border-radius:14px;padding:18px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 12px 30px rgba(0,0,0,.3)}',
-  '.market-header{display:flex;justify-content:space-between;gap:18px;align-items:flex-end}.market-title-group{max-width:64ch}.market-title-group h3{margin:0 0 5px;font-size:1.4rem;letter-spacing:-.025em}.market-title-group p{margin:0;color:var(--muted);line-height:1.45}.market-controls{display:flex;gap:10px;align-items:flex-end}.market-name-field{min-width:190px}.market-name-field label{display:block;margin-bottom:5px;color:var(--muted);font-size:.78rem}.market-name-field input{width:100%;box-sizing:border-box;border:1px solid #536a59;border-radius:8px;background:#080d0a;color:var(--ink);padding:9px 10px}.market-reset{min-height:40px;border:1px solid #6d8673;border-radius:8px;background:#1a2820;color:var(--ink);padding:8px 12px;font-weight:700;cursor:pointer}',
-  '.market-ticker-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:16px 0 0;border:1px solid #33483a;background:#33483a}.market-ticker-rail span{background:#111a15;color:#bfd0c2;padding:8px 10px;font-size:.72rem;letter-spacing:.04em}.market-ticker-rail strong{color:var(--green)}',
-  '.market-live-row{display:flex;justify-content:space-between;gap:14px;align-items:center;margin:12px 0;padding:10px 12px;background:#17231c;border:1px solid #3c5344;border-radius:10px}.market-status{margin:0;color:#f3d990;font-weight:750}.market-progress{margin:0;color:#9ee0b5;font-size:.9rem;white-space:nowrap}',
-  '.market-layout{display:grid;grid-template-columns:minmax(250px,.9fr) minmax(390px,1.25fr);gap:16px;align-items:stretch}.market-watchlist,.market-index-panel{min-width:0}.market-panel-title{margin:0 0 8px;color:#dce8de;font-size:.88rem}.market-company-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.market-company{position:relative;min-height:88px;border:1px solid #405747;border-radius:10px;background:#121c16;color:var(--ink);padding:11px;text-align:left;cursor:grab;transition:transform 160ms ease-out,border-color 160ms ease-out,background 160ms ease-out}.market-company:hover{transform:translateY(-2px);border-color:#78d398;background:#17261c}.market-company[disabled]{cursor:not-allowed;transform:none}.market-company-ticker{display:block;color:var(--green);font-size:1rem;font-weight:850;letter-spacing:.04em}.market-company-name{display:block;margin-top:3px;font-size:.74rem;font-weight:700}.market-company-meta{display:flex;justify-content:space-between;gap:6px;margin-top:9px;color:var(--muted);font-size:.65rem}.market-company:after{content:"";position:absolute;right:10px;top:12px;width:30px;height:15px;border-bottom:2px solid var(--green);clip-path:polygon(0 75%,18% 44%,35% 62%,54% 18%,72% 42%,100% 0,100% 100%,0 100%);background:#234b31}',
-  '.market-index-board{box-sizing:border-box;width:100%;min-height:400px;border:1px solid #496250;background:#090f0b;box-shadow:inset 0 0 0 5px #111a15}.market-board-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #33483a;background:#152219}.market-board-header strong{font-size:1.05rem;letter-spacing:.08em}.market-board-header span{min-width:0;color:var(--muted);font-size:.7rem;overflow-wrap:anywhere}.market-rank-list{display:grid;gap:5px;padding:10px}.market-rank{position:relative;min-width:0;min-height:39px;overflow:hidden;border:1px dashed #506756;background:#111a15;color:var(--ink);padding:7px 10px;display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:8px;align-items:center;text-align:left;cursor:pointer}.market-rank:hover{border-style:solid;border-color:#78d398}.market-rank-number{position:relative;z-index:2;color:var(--amber);font-weight:850}.market-rank-label{position:relative;z-index:2;min-width:0;color:#c8d7cb;font-size:.78rem;font-weight:700;overflow-wrap:anywhere}.market-rank-cap{position:relative;z-index:2;color:#8fa394;font-size:.7rem}.market-rank-bar{position:absolute;inset:0;background:#1f5632;transform:scaleX(0);transform-origin:left center;transition:transform 260ms cubic-bezier(.16,1,.3,1)}',
-  '.market-company:focus-visible,.market-rank:focus-visible,.market-reset:focus-visible,.market-name-field input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}.market-note{margin:8px 0 0;color:#839589;font-size:.67rem}',
-  '@media(max-width:760px){.market-header{align-items:stretch;flex-direction:column}.market-controls{align-items:stretch}.market-name-field{flex:1}.market-ticker-rail{grid-template-columns:1fr}.market-layout{grid-template-columns:1fr}.market-company-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:minmax(150px,72vw);overflow-x:auto;padding-bottom:5px}.market-index-board{min-height:390px}.market-live-row{align-items:flex-start;flex-direction:column}.market-progress{white-space:normal}}',
-  '@media(max-width:480px){.market-lab{padding:12px}.market-controls{flex-direction:column}.market-reset{width:100%}.market-board-header{align-items:flex-start;flex-direction:column}.market-rank{grid-template-columns:36px minmax(0,1fr)}.market-rank-cap{display:none}}',
-  '@media(prefers-reduced-motion:reduce){.market-company,.market-rank-bar{transition:none}}'
+  '.market-lab{--ink:#edf5ef;--muted:#a9b9ad;--line:#3d5545;--panel:#111a15;--deep:#090e0b;--green:#78d398;--amber:#f1c568;--red:#ff9a86;box-sizing:border-box;max-width:100%;overflow:hidden;color:var(--ink);background:#0c130f;border:1px solid #33483a;border-radius:14px;padding:18px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;box-shadow:0 12px 30px rgba(0,0,0,.3)}',
+  '.market-header{display:flex;justify-content:space-between;gap:18px;align-items:flex-end}.market-title-group{max-width:65ch}.market-title-group h3{margin:0 0 6px;font-size:1.45rem;letter-spacing:-.025em}.market-title-group p{margin:0;color:var(--muted);line-height:1.45}.market-controls{display:flex;gap:8px;flex-wrap:wrap}.market-action{min-height:40px;border:1px solid #66806d;border-radius:8px;background:#1a2820;color:var(--ink);padding:8px 12px;font-weight:750;cursor:pointer}.market-action:hover{border-color:var(--green);background:#213227}.market-action:disabled{cursor:wait;opacity:.55}',
+  '.market-source-row{display:flex;justify-content:space-between;gap:14px;align-items:center;margin:16px 0 10px;padding:10px 12px;background:#17231c;border:1px solid #3c5344;border-radius:10px}.market-source-copy{min-width:0}.market-source-badge{display:inline-block;margin-right:8px;border:1px solid #5e856a;border-radius:999px;padding:3px 8px;color:#a7edbb;font-size:.7rem;font-weight:850;letter-spacing:.05em;text-transform:uppercase}.market-source-badge[data-state="fallback"]{border-color:#8a7444;color:#f5d889}.market-source-detail{color:var(--muted);font-size:.75rem}.market-source-links{display:flex;gap:10px;flex-wrap:wrap}.market-source-links a{color:#a9e7bc;font-size:.74rem;text-underline-offset:3px}',
+  '.market-live-row{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:12px;padding:10px 12px;border:1px solid #344a3b;background:#101a14}.market-status{margin:0;color:#f3d990;font-weight:750}.market-progress{margin:0;color:#9ee0b5;font-size:.9rem;white-space:nowrap}',
+  '.market-layout{display:grid;grid-template-columns:minmax(280px,.95fr) minmax(390px,1.25fr);gap:16px}.market-layout>*{min-width:0}.market-panel-title{margin:0 0 8px;color:#dce8de;font-size:.9rem}.market-panel-help{margin:-3px 0 10px;color:#87998c;font-size:.72rem;line-height:1.4}.market-company-grid{display:grid;min-width:0;max-width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.market-company{position:relative;min-height:104px;border:1px solid #405747;border-radius:10px;background:#121c16;color:var(--ink);padding:11px;text-align:left;cursor:grab;transition:transform 160ms ease-out,border-color 160ms ease-out,background 160ms ease-out}.market-company:hover{transform:translateY(-2px);border-color:var(--green);background:#17261c}.market-company[aria-pressed="true"]{border-color:var(--amber);box-shadow:0 0 0 2px rgba(241,197,104,.28)}.market-company[disabled]{cursor:not-allowed;opacity:.3;transform:none}.market-company-ticker{display:block;color:var(--green);font-size:1rem;font-weight:850;letter-spacing:.04em}.market-company-name{display:block;margin-top:3px;font-size:.78rem;font-weight:750}.market-company-meta{display:block;margin-top:9px;color:var(--muted);font-size:.66rem;line-height:1.35}.market-company:after{content:"";position:absolute;right:10px;top:12px;width:30px;height:15px;border-bottom:2px solid var(--green);clip-path:polygon(0 75%,18% 44%,35% 62%,54% 18%,72% 42%,100% 0,100% 100%,0 100%);background:#234b31}',
+  '.market-sector-board{border:1px solid #496250;background:#090f0b;box-shadow:inset 0 0 0 5px #111a15}.market-board-header{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid #33483a;background:#152219}.market-board-header strong{font-size:1rem;letter-spacing:.07em}.market-board-header span{color:var(--muted);font-size:.7rem}.market-sector-list{display:grid;gap:6px;padding:10px}.market-sector{position:relative;min-height:52px;border:1px dashed #506756;background:#111a15;color:var(--ink);padding:8px 10px;display:grid;grid-template-columns:minmax(145px,.8fr) minmax(0,1.2fr);gap:10px;align-items:center;text-align:left;cursor:pointer}.market-sector:hover{border-style:solid;border-color:var(--green)}.market-sector[disabled]{cursor:default;border-style:solid;border-color:#4f8a61}.market-sector-name{color:var(--amber);font-size:.78rem;font-weight:850}.market-sector-slot{min-width:0;color:#aebdb2;font-size:.74rem;overflow-wrap:anywhere}.market-sector[disabled] .market-sector-slot{color:#a8e8ba}',
+  '.market-footnote{margin:9px 0 0;color:#839589;font-size:.68rem;line-height:1.45}.market-company:focus-visible,.market-sector:focus-visible,.market-action:focus-visible,.market-source-links a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}',
+  '@media(max-width:760px){.market-header,.market-source-row,.market-live-row{align-items:flex-start;flex-direction:column}.market-layout{grid-template-columns:1fr}.market-company-grid{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:minmax(158px,72vw);overflow-x:auto;padding-bottom:6px}.market-progress{white-space:normal}}',
+  '@media(max-width:480px){.market-lab{padding:12px}.market-controls,.market-action{width:100%}.market-sector{grid-template-columns:1fr;gap:3px}.market-board-header{flex-direction:column}.market-source-links{flex-direction:column;gap:4px}}',
+  '@media(prefers-reduced-motion:reduce){.market-company{transition:none}}'
 ].join('\\n');
 
-heading.textContent = 'Mini 500 Rebalance Desk';
-directions.textContent = 'Rank the fictional companies from largest to smallest illustrative market cap. Drag a company to its rank, or select both controls.';
-nameLabel.textContent = 'Analyst name';
-nameLabel.htmlFor = 'market-analyst-name';
-analystName.id = 'market-analyst-name';
-analystName.type = 'text';
-analystName.placeholder = 'Enter your name';
-analystName.autocomplete = 'name';
-resetButton.type = 'button';
-resetButton.textContent = 'Reset rebalance';
-watchlistTitle.textContent = 'Market watchlist';
-indexTitle.textContent = 'Capitalization-ranked index';
-status.setAttribute('role', 'status');
-status.setAttribute('aria-live', 'polite');
-
-app.className = 'market-lab';
-header.className = 'market-header';
-titleGroup.className = 'market-title-group';
-controls.className = 'market-controls';
-liveRow.className = 'market-live-row';
-status.className = 'market-status';
-progress.className = 'market-progress';
-resetButton.className = 'market-reset';
-layout.className = 'market-layout';
-watchlistTitle.className = 'market-panel-title';
-watchlist.className = 'market-watchlist';
-companyGrid.className = 'market-company-grid';
-indexTitle.className = 'market-panel-title';
-indexPanel.className = 'market-index-panel';
-indexBoard.className = 'market-index-board';
-boardHeader.className = 'market-board-header';
-rankList.className = 'market-rank-list';
-
-function calculateAccuracy(results) {
-  let correctAttempts = 0;
-  for (const result of results) {
-    if (result === true) correctAttempts += 1;
-  }
-  return Math.round((correctAttempts / results.length) * 100);
-}
-
-function isCorrectRank(companyIndex, rankIndex) {
-  return companyIndex === currentRank && rankIndex === currentRank;
-}
-
-function updateProgress() {
-  const accuracy = attempts.length === 0 ? 100 : calculateAccuracy(attempts);
-  progress.textContent = 'Ranked ' + currentRank + ' of ' + companies.length + ' • Accuracy ' + accuracy + '%';
-}
-
-function updateStatus(message) {
-  const name = analystName.value.trim();
-  status.textContent = name === '' ? message : name + ': ' + message;
-}
-
-const companyCards = [];
-const rankButtons = [];
-const rankLabels = [];
-const rankCaps = [];
-const rankBars = [];
-
-function selectCompany(index) {
-  if (index < currentRank || companyCards[index].disabled) return;
-  selectedCompany = index;
-  companyCards.forEach(function(card, cardIndex) {
-    card.style.outline = cardIndex === index ? '3px solid #f1c568' : 'none';
-    card.setAttribute('aria-pressed', cardIndex === index ? 'true' : 'false');
-  });
-  updateStatus(companies[index].ticker + ' selected. Choose its index rank.');
-}
-
-function updateRankGuidance() {
-  rankButtons.forEach(function(rankButton, index) {
-    if (rankButton.disabled) return;
-    const isNext = index === currentRank;
-    rankButton.style.borderColor = isNext ? '#f1c568' : '#506756';
-    rankButton.setAttribute('aria-current', isNext ? 'step' : 'false');
-  });
-}
-
-function placeCompany(companyIndex, rankIndex) {
-  const validCompany = Number.isInteger(companyIndex) && companyIndex >= 0 && companyIndex < companies.length;
-  if (!validCompany || companyCards[companyIndex].disabled) {
-    updateStatus('Choose a company from the watchlist first.');
-    return;
-  }
-
-  const correct = isCorrectRank(companyIndex, rankIndex);
-  attempts.push(correct);
-
-  if (correct) {
-    const company = companies[companyIndex];
-    companyCards[companyIndex].disabled = true;
-    companyCards[companyIndex].draggable = false;
-    companyCards[companyIndex].style.opacity = '0.34';
-    rankButtons[rankIndex].disabled = true;
-    rankLabels[rankIndex].textContent = company.ticker + ' · ' + company.name;
-    rankCaps[rankIndex].textContent = '$' + company.marketCap + 'B';
-    rankBars[rankIndex].style.transform = 'scaleX(' + (company.marketCap / companies[0].marketCap) + ')';
-    rankButtons[rankIndex].style.borderColor = '#78d398';
-    rankButtons[rankIndex].style.pointerEvents = 'none';
-    currentRank += 1;
-    updateStatus('Correct! ' + company.ticker + ' entered the index.');
-  } else {
-    updateStatus('Incorrect. ' + companies[companyIndex].ticker + ' returned to the watchlist. Rank ' + companies[currentRank].ticker + ' next.');
-  }
-
-  selectedCompany = -1;
-  companyCards.forEach(function(card) {
-    card.style.outline = 'none';
-    card.setAttribute('aria-pressed', 'false');
-  });
-  updateProgress();
-  updateRankGuidance();
-  if (currentRank === companies.length) updateStatus('Index rebalance complete!');
-}
-
-companies.forEach(function(company, index) {
-  const card = document.createElement('button');
-  const ticker = document.createElement('span');
-  const name = document.createElement('span');
-  const meta = document.createElement('span');
-  const sector = document.createElement('span');
-  const cap = document.createElement('span');
-  card.type = 'button';
-  card.className = 'market-company';
-  card.draggable = true;
-  card.setAttribute('data-company-index', String(index));
-  card.setAttribute('aria-label', 'Candidate company ' + company.ticker + ', illustrative market cap $' + company.marketCap + ' billion');
-  card.setAttribute('aria-pressed', 'false');
-  ticker.className = 'market-company-ticker';
-  ticker.textContent = company.ticker;
-  name.className = 'market-company-name';
-  name.textContent = company.name;
-  meta.className = 'market-company-meta';
-  sector.textContent = company.sector;
-  cap.textContent = '$' + company.marketCap + 'B';
-  meta.appendChild(sector);
-  meta.appendChild(cap);
-  card.appendChild(ticker);
-  card.appendChild(name);
-  card.appendChild(meta);
-  card.addEventListener('click', function() { selectCompany(index); });
-  card.addEventListener('dragstart', function(event) {
-    selectCompany(index);
-    event.dataTransfer.setData('text/plain', String(index));
-    event.dataTransfer.effectAllowed = 'move';
-  });
-  companyCards.push(card);
-  companyGrid.appendChild(card);
-
-  const rankButton = document.createElement('button');
-  const bar = document.createElement('span');
-  const rankNumber = document.createElement('span');
-  const rankLabel = document.createElement('span');
-  const rankCap = document.createElement('span');
-  rankButton.type = 'button';
-  rankButton.className = 'market-rank';
-  rankButton.setAttribute('data-rank-index', String(index));
-  rankButton.setAttribute('aria-label', 'Place a company at index rank ' + (index + 1));
-  bar.className = 'market-rank-bar';
-  rankNumber.className = 'market-rank-number';
-  rankNumber.textContent = '#' + (index + 1);
-  rankLabel.className = 'market-rank-label';
-  rankLabel.textContent = index === 0 ? 'Largest market cap' : 'Next-largest market cap';
-  rankCap.className = 'market-rank-cap';
-  rankCap.textContent = 'Open rank';
-  rankButton.appendChild(bar);
-  rankButton.appendChild(rankNumber);
-  rankButton.appendChild(rankLabel);
-  rankButton.appendChild(rankCap);
-  rankButton.addEventListener('click', function() { placeCompany(selectedCompany, index); });
-  rankButton.addEventListener('dragover', function(event) {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-  });
-  rankButton.addEventListener('drop', function(event) {
-    event.preventDefault();
-    placeCompany(Number.parseInt(event.dataTransfer.getData('text/plain'), 10), index);
-  });
-  rankButtons.push(rankButton);
-  rankLabels.push(rankLabel);
-  rankCaps.push(rankCap);
-  rankBars.push(bar);
-  rankList.appendChild(rankButton);
-});
-
-resetButton.addEventListener('click', function() {
-  attempts.length = 0;
-  currentRank = 0;
-  selectedCompany = -1;
-  companyCards.forEach(function(card) {
-    card.disabled = false;
-    card.draggable = true;
-    card.style.opacity = '1';
-    card.style.outline = 'none';
-    card.setAttribute('aria-pressed', 'false');
-  });
-  rankButtons.forEach(function(rankButton, index) {
-    rankButton.disabled = false;
-    rankButton.style.borderColor = '#506756';
-    rankButton.style.pointerEvents = 'auto';
-    rankLabels[index].textContent = index === 0 ? 'Largest market cap' : 'Next-largest market cap';
-    rankCaps[index].textContent = 'Open rank';
-    rankBars[index].style.transform = 'scaleX(0)';
-  });
-  updateStatus('Next company: ' + companies[0].ticker);
-  updateProgress();
-  updateRankGuidance();
-});
-
-const nameField = document.createElement('div');
-nameField.className = 'market-name-field';
-nameField.appendChild(nameLabel);
-nameField.appendChild(analystName);
+const app = createElement('section', 'market-lab');
+const header = createElement('div', 'market-header');
+const titleGroup = createElement('div', 'market-title-group');
+const heading = createElement('h3', '', 'S&P 500 Sector Exchange');
+const directions = createElement('p', '', 'Match eight current constituents to their GICS sectors. Drag a company to a sector, or select a company and then a sector.');
+const controls = createElement('div', 'market-controls');
+const newButton = createElement('button', 'market-action', 'New challenge');
+const retryButton = createElement('button', 'market-action', 'Retry live data');
+newButton.type = 'button';
+retryButton.type = 'button';
 titleGroup.appendChild(heading);
 titleGroup.appendChild(directions);
-controls.appendChild(nameField);
-controls.appendChild(resetButton);
+controls.appendChild(newButton);
+controls.appendChild(retryButton);
 header.appendChild(titleGroup);
 header.appendChild(controls);
-['<strong>SAMPLE SESSION</strong> · not live market data', '<strong>METHOD</strong> · capitalization ranked', '<strong>TARGET</strong> · 8 holdings'].forEach(function(item) {
-  const railItem = document.createElement('span');
-  railItem.innerHTML = item;
-  tickerRail.appendChild(railItem);
-});
-tickerRail.className = 'market-ticker-rail';
+
+const sourceRow = createElement('div', 'market-source-row');
+const sourceCopy = createElement('div', 'market-source-copy');
+const sourceBadge = createElement('span', 'market-source-badge', 'Connecting');
+const sourceDetail = createElement('span', 'market-source-detail', 'Requesting the current constituent table…');
+const sourceLinks = createElement('div', 'market-source-links');
+const sourceLink = createElement('a', '', 'View constituent source');
+const officialLink = createElement('a', '', 'Official S&P index page');
+sourceLink.href = SOURCE_PAGE;
+sourceLink.target = '_blank';
+sourceLink.rel = 'noopener noreferrer';
+officialLink.href = OFFICIAL_PAGE;
+officialLink.target = '_blank';
+officialLink.rel = 'noopener noreferrer';
+sourceCopy.appendChild(sourceBadge);
+sourceCopy.appendChild(sourceDetail);
+sourceLinks.appendChild(sourceLink);
+sourceLinks.appendChild(officialLink);
+sourceRow.appendChild(sourceCopy);
+sourceRow.appendChild(sourceLinks);
+
+const liveRow = createElement('div', 'market-live-row');
+const status = createElement('p', 'market-status');
+const progress = createElement('p', 'market-progress');
+status.setAttribute('role', 'status');
+status.setAttribute('aria-live', 'polite');
 liveRow.appendChild(status);
 liveRow.appendChild(progress);
+
+const layout = createElement('div', 'market-layout');
+const watchlist = createElement('section');
+const watchlistTitle = createElement('h4', 'market-panel-title', 'Constituent watchlist');
+const watchlistHelp = createElement('p', 'market-panel-help', 'Sector labels stay hidden until you make a match. Company details come from the source table.');
+const companyGrid = createElement('div', 'market-company-grid');
 watchlist.appendChild(watchlistTitle);
+watchlist.appendChild(watchlistHelp);
 watchlist.appendChild(companyGrid);
-boardName.textContent = 'MINI 500';
-boardMethod.textContent = 'ILLUSTRATIVE MARKET-CAP ORDER';
-boardHeader.appendChild(boardName);
-boardHeader.appendChild(boardMethod);
-indexBoard.appendChild(boardHeader);
-indexBoard.appendChild(rankList);
-const note = document.createElement('p');
-note.className = 'market-note';
-note.textContent = 'All company names and market-cap values are fictional classroom data, not investment information.';
-indexPanel.appendChild(indexTitle);
-indexPanel.appendChild(indexBoard);
-indexPanel.appendChild(note);
+
+const sectorPanel = createElement('section');
+const sectorTitle = createElement('h4', 'market-panel-title', 'GICS sector board');
+const board = createElement('div', 'market-sector-board');
+const boardHeader = createElement('div', 'market-board-header');
+boardHeader.appendChild(createElement('strong', '', 'SECTOR MATCH'));
+boardHeader.appendChild(createElement('span', '', 'ONE COMPANY PER SAMPLED SECTOR'));
+const sectorList = createElement('div', 'market-sector-list');
+board.appendChild(boardHeader);
+board.appendChild(sectorList);
+const footnote = createElement('p', 'market-footnote', 'Educational constituent classification activity. It does not use prices, predict returns, or provide investment advice.');
+sectorPanel.appendChild(sectorTitle);
+sectorPanel.appendChild(board);
+sectorPanel.appendChild(footnote);
 layout.appendChild(watchlist);
-layout.appendChild(indexPanel);
+layout.appendChild(sectorPanel);
+
 app.appendChild(header);
-app.appendChild(tickerRail);
+app.appendChild(sourceRow);
 app.appendChild(liveRow);
 app.appendChild(layout);
 outputElement.appendChild(styleElement);
 outputElement.appendChild(app);
 
-updateStatus('Next company: ' + companies[currentRank].ticker);
-updateProgress();
-updateRankGuidance();
+function accuracy() {
+  if (attempts.length === 0) return 100;
+  const correct = attempts.filter(function(result) { return result === true; }).length;
+  return Math.round((correct / attempts.length) * 100);
+}
+
+function updateProgress() {
+  progress.textContent = 'Matched ' + matchedCount + ' of ' + challengeCompanies.length + ' • Accuracy ' + accuracy() + '%';
+}
+
+function setStatus(message) {
+  status.textContent = message;
+}
+
+function chooseChallenge(companies) {
+  const groups = new Map();
+  companies.forEach(function(company) {
+    if (!groups.has(company.sector)) groups.set(company.sector, []);
+    groups.get(company.sector).push(company);
+  });
+  const sectors = Array.from(groups.keys()).sort();
+  const chosen = [];
+  for (let offset = 0; offset < Math.min(8, sectors.length); offset += 1) {
+    const sector = sectors[(challengeNumber + offset) % sectors.length];
+    const candidates = groups.get(sector);
+    chosen.push(candidates[(challengeNumber + offset) % candidates.length]);
+  }
+  return chosen;
+}
+
+function clearElement(element) {
+  while (element.firstChild) element.removeChild(element.firstChild);
+}
+
+function selectCompany(index, cards) {
+  if (!cards[index] || cards[index].disabled) return;
+  selectedCompany = index;
+  cards.forEach(function(card, cardIndex) {
+    card.setAttribute('aria-pressed', cardIndex === index ? 'true' : 'false');
+  });
+  setStatus(challengeCompanies[index].ticker + ' selected. Choose its GICS sector.');
+}
+
+function renderChallenge() {
+  challengeCompanies = chooseChallenge(sourceCompanies);
+  sectorTargets = challengeCompanies.map(function(company) { return company.sector; });
+  sectorTargets = sectorTargets.slice(3).concat(sectorTargets.slice(0, 3));
+  attempts = [];
+  matchedCount = 0;
+  selectedCompany = -1;
+  clearElement(companyGrid);
+  clearElement(sectorList);
+  const cards = [];
+  const sectorButtons = [];
+
+  function placeCompany(companyIndex, sectorIndex) {
+    const card = cards[companyIndex];
+    const sectorButton = sectorButtons[sectorIndex];
+    if (!card || card.disabled) {
+      setStatus('Choose a company from the watchlist first.');
+      return;
+    }
+    if (!sectorButton || sectorButton.disabled) {
+      setStatus('That sector already has a company. Choose an open sector.');
+      return;
+    }
+    const company = challengeCompanies[companyIndex];
+    const correct = company.sector === sectorTargets[sectorIndex];
+    attempts.push(correct);
+    if (correct) {
+      card.disabled = true;
+      card.draggable = false;
+      sectorButton.disabled = true;
+      sectorButton.querySelector('.market-sector-slot').textContent = company.ticker + ' · ' + company.name;
+      matchedCount += 1;
+      setStatus('Correct! ' + company.ticker + ' matched ' + company.sector + '.');
+    } else {
+      setStatus('Incorrect. ' + company.ticker + ' returned to the watchlist.');
+    }
+    selectedCompany = -1;
+    cards.forEach(function(item) { item.setAttribute('aria-pressed', 'false'); });
+    updateProgress();
+    if (matchedCount === challengeCompanies.length) setStatus('Sector challenge complete!');
+  }
+
+  challengeCompanies.forEach(function(company, index) {
+    const card = createElement('button', 'market-company');
+    card.type = 'button';
+    card.draggable = true;
+    card.setAttribute('data-company-index', String(index));
+    card.setAttribute('data-sector', company.sector);
+    card.setAttribute('aria-pressed', 'false');
+    card.setAttribute('aria-label', company.ticker + ', ' + company.name + '. Choose this company, then select its sector.');
+    card.appendChild(createElement('span', 'market-company-ticker', company.ticker));
+    card.appendChild(createElement('span', 'market-company-name', company.name));
+    card.appendChild(createElement('span', 'market-company-meta', company.subIndustry + ' • ' + company.headquarters));
+    card.addEventListener('click', function() { selectCompany(index, cards); });
+    card.addEventListener('dragstart', function(event) {
+      selectCompany(index, cards);
+      event.dataTransfer.setData('text/plain', String(index));
+      event.dataTransfer.effectAllowed = 'move';
+    });
+    cards.push(card);
+    companyGrid.appendChild(card);
+  });
+
+  sectorTargets.forEach(function(sector, index) {
+    const sectorButton = createElement('button', 'market-sector');
+    sectorButton.type = 'button';
+    sectorButton.setAttribute('data-sector-index', String(index));
+    sectorButton.setAttribute('data-sector', sector);
+    sectorButton.setAttribute('aria-label', 'Match selected company to ' + sector);
+    sectorButton.appendChild(createElement('span', 'market-sector-name', sector));
+    sectorButton.appendChild(createElement('span', 'market-sector-slot', 'Open sector'));
+    sectorButton.addEventListener('click', function() { placeCompany(selectedCompany, index); });
+    sectorButton.addEventListener('dragover', function(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+    });
+    sectorButton.addEventListener('drop', function(event) {
+      event.preventDefault();
+      placeCompany(Number.parseInt(event.dataTransfer.getData('text/plain'), 10), index);
+    });
+    sectorButtons.push(sectorButton);
+    sectorList.appendChild(sectorButton);
+  });
+
+  setStatus('Choose a company, then match its GICS sector.');
+  updateProgress();
+}
+
+function normalizeCell(value) {
+  return value
+    .split('[')[0]
+    .replaceAll(String.fromCharCode(10), ' ')
+    .replaceAll(String.fromCharCode(9), ' ')
+    .split(' ')
+    .filter(Boolean)
+    .join(' ')
+    .trim();
+}
+
+function parseCompanies(tableHtml) {
+  const parsed = new DOMParser().parseFromString(tableHtml, 'text/html');
+  const table = parsed.querySelector('table.wikitable');
+  if (!table) throw new Error('Constituent table was not found.');
+  const companies = [];
+  table.querySelectorAll('tbody tr').forEach(function(row) {
+    const cells = row.querySelectorAll('th, td');
+    if (cells.length < 6) return;
+    const company = {
+      ticker: normalizeCell(cells[0].textContent),
+      name: normalizeCell(cells[1].textContent),
+      sector: normalizeCell(cells[2].textContent),
+      subIndustry: normalizeCell(cells[3].textContent),
+      headquarters: normalizeCell(cells[4].textContent),
+      dateAdded: normalizeCell(cells[5].textContent)
+    };
+    const isHeader = company.ticker.toLowerCase() === 'symbol' || company.sector.toLowerCase() === 'gics sector';
+    if (!isHeader && company.ticker && company.name && company.sector && company.subIndustry) companies.push(company);
+  });
+  const sectorCount = new Set(companies.map(function(company) { return company.sector; })).size;
+  if (companies.length < 400 || sectorCount < 8) throw new Error('The returned table did not pass validation.');
+  return companies;
+}
+
+function showFallback(reason) {
+  sourceCompanies = fallbackCompanies.slice();
+  sourceBadge.textContent = 'Verified snapshot';
+  sourceBadge.setAttribute('data-state', 'fallback');
+  sourceDetail.textContent = 'Live data unavailable — Wikipedia revision ' + FALLBACK_REVISION + ', checked Aug 21, 2026.';
+  retryButton.disabled = false;
+  challengeNumber += 1;
+  renderChallenge();
+  setStatus('Snapshot ready. ' + reason);
+}
+
+async function loadLiveData() {
+  if (activeController) activeController.abort();
+  activeController = new AbortController();
+  const timeoutId = setTimeout(function() { activeController.abort(); }, 8000);
+  sourceBadge.textContent = 'Connecting';
+  sourceBadge.setAttribute('data-state', 'loading');
+  sourceDetail.textContent = 'Requesting the current constituent table…';
+  retryButton.disabled = true;
+  try {
+    const response = await fetch(DATA_URL, { signal: activeController.signal });
+    if (!response.ok) throw new Error('Source returned HTTP ' + response.status + '.');
+    const payload = await response.json();
+    if (!payload.parse || !payload.parse.text || !payload.parse.text['*']) throw new Error('Source response was incomplete.');
+    sourceCompanies = parseCompanies(payload.parse.text['*']);
+    sourceBadge.textContent = 'Live constituents';
+    sourceBadge.setAttribute('data-state', 'live');
+    sourceDetail.textContent = sourceCompanies.length + ' securities loaded • Wikipedia revision ' + payload.parse.revid;
+    challengeNumber += 1;
+    renderChallenge();
+    setStatus('Live data ready. Match a company to its sector.');
+  } catch (error) {
+    const reason = error && error.name === 'AbortError' ? 'The live request timed out.' : 'The live request failed.';
+    showFallback(reason);
+  } finally {
+    clearTimeout(timeoutId);
+    retryButton.disabled = false;
+  }
+}
+
+newButton.addEventListener('click', function() {
+  challengeNumber += 1;
+  renderChallenge();
+});
+retryButton.addEventListener('click', loadLiveData);
+
+renderChallenge();
+loadLiveData();
+
+return {
+  stop: function() {
+    if (activeController) activeController.abort();
+  }
+};
 {% endcapture %}
+
 
 {% include runners/ui.html
   runner_id="sp500-javascript"
@@ -1179,98 +1206,94 @@ updateRankGuidance();
   output_height="1100px"
 %}
 
-**Example output (initial UI state)**
+**Example output (after data loads)**
 
 ```text
-Next company: APX
-Ranked 0 of 8 • Accuracy 100%
+Live data ready. Match a company to its sector.
+Matched 0 of 8 • Accuracy 100%
 ```
 
 ---
 
 # Full Program Prototype
 
-The full program uses the same lists, procedure, selection, iteration, Boolean logic, and accuracy calculation. It starts in Python, and the dropdown also provides complete Pseudocode and Java versions. The editable sample attempts supply input because this web runner does not provide terminal standard input.
+The full program uses the same verified snapshot, procedure, selection, iteration, Boolean logic, and accuracy calculation. It starts in Python, and the dropdown also provides complete Pseudocode and Java versions. The editable sample sectors supply input because this web runner does not provide terminal standard input.
 
 {% capture sp_python_challenge %}
-Run the complete sample rebalance. Change the sample attempts to test different correct and incorrect choices.
+Run the complete sample sector challenge. Change the sample sectors to test different correct and incorrect choices.
 {% endcapture %}
 
 {% capture sp_python_code %}
-companies = ["APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
-ranks = [1, 2, 3, 4, 5, 6, 7, 8]
+companies = ["AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"]
+expected_sectors = [
+    "Information Technology", "Financials", "Energy", "Health Care",
+    "Consumer Staples", "Industrials", "Utilities", "Consumer Discretionary"
+]
 attempts = []
-current_rank = 0
+current_company = 0
 
-# Change these sample choices to test a different rebalance.
-sample_attempts = [
-    ("HBR", 7),
-    ("APX", 1),
-    ("NVA", 2),
-    ("UFN", 3),
-    ("CRST", 4),
-    ("FRGE", 5),
-    ("ORBT", 6),
-    ("HBR", 7),
-    ("SOLR", 8),
+# Change these choices to test a different match sequence.
+sample_sectors = [
+    "Financials", "Information Technology", "Financials", "Energy",
+    "Health Care", "Consumer Staples", "Industrials", "Utilities",
+    "Consumer Discretionary",
 ]
 
-def is_correct_rank(company_name, rank_number):
-    correct_company = company_name.lower() == companies[current_rank].lower()
-    correct_rank = rank_number == ranks[current_rank]
-    return correct_company and correct_rank
+def is_correct_sector(selected_sector, expected_sector):
+    return selected_sector.lower() == expected_sector.lower()
 
-for selected_company, selected_rank in sample_attempts:
-    print("Next company:", companies[current_rank])
-    print("Choose a ticker:", selected_company)
-    print("Choose its index rank:", selected_rank)
-    correct = is_correct_rank(selected_company, selected_rank)
+for selected_sector in sample_sectors:
+    ticker = companies[current_company]
+    expected_sector = expected_sectors[current_company]
+    print("Company:", ticker)
+    print("Selected sector:", selected_sector)
+    correct = is_correct_sector(selected_sector, expected_sector)
     attempts.append(correct)
 
     if correct:
-        print(selected_company, "entered the index!")
-        current_rank += 1
+        print(ticker, "matched", expected_sector + "!")
+        current_company += 1
     else:
-        print("Incorrect ranking. The company returned to the watchlist.")
+        print("Incorrect sector. The company returned to the watchlist.")
 
-    if current_rank == len(companies):
+    if current_company == len(companies):
         break
 
 accuracy = round((sum(attempts) / len(attempts)) * 100)
-print("Index rebalance complete!")
+print("Sector challenge complete!")
 print("Accuracy:", str(accuracy) + "%")
 {% endcapture %}
 
 {% capture sp_prototype_pseudocode %}
-companies ← ["APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
-ranks ← [1, 2, 3, 4, 5, 6, 7, 8]
+companies ← ["AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"]
+expectedSectors ← ["Information Technology", "Financials", "Energy", "Health Care", "Consumer Staples", "Industrials", "Utilities", "Consumer Discretionary"]
 attempts ← []
-currentRank ← 1
+currentCompany ← 1
 
-sampleCompanies ← ["HBR", "APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"]
-sampleRanks ← [7, 1, 2, 3, 4, 5, 6, 7, 8]
+sampleSectors ← ["Financials", "Information Technology", "Financials", "Energy", "Health Care", "Consumer Staples", "Industrials", "Utilities", "Consumer Discretionary"]
 sampleIndex ← 1
 
-PROCEDURE isCorrectRank(companyName, rankNumber)
+PROCEDURE isCorrectSector(selectedSector, expectedSector)
 {
-  RETURN(companyName = companies[currentRank] AND rankNumber = ranks[currentRank])
+  RETURN(selectedSector = expectedSector)
 }
 
-REPEAT UNTIL (currentRank > LENGTH(companies))
+REPEAT UNTIL (currentCompany > LENGTH(companies))
 {
-  selectedCompany ← sampleCompanies[sampleIndex]
-  selectedRank ← sampleRanks[sampleIndex]
-  correct ← isCorrectRank(selectedCompany, selectedRank)
+  selectedSector ← sampleSectors[sampleIndex]
+  expectedSector ← expectedSectors[currentCompany]
+  ticker ← companies[currentCompany]
+  correct ← isCorrectSector(selectedSector, expectedSector)
   APPEND(attempts, correct)
 
   IF (correct)
   {
-    DISPLAY("Correct: " + selectedCompany + " entered rank " + selectedRank + ".")
-    currentRank ← currentRank + 1
+    DISPLAY("Correct: " + ticker + " matched " + expectedSector + ".")
+    currentCompany ← currentCompany + 1
   }
   ELSE
   {
-    DISPLAY("Incorrect: " + selectedCompany + " returned to the watchlist.")
+    DISPLAY("Incorrect: " + ticker + " returned to the watchlist.")
   }
   sampleIndex ← sampleIndex + 1
 }
@@ -1284,40 +1307,41 @@ FOR EACH result IN attempts
   }
 }
 
-DISPLAY("Index rebalance complete!")
+DISPLAY("Sector challenge complete!")
 DISPLAY("Accuracy: " + correctAttempts + " of " + LENGTH(attempts))
 {% endcapture %}
 
 {% capture sp_prototype_java %}
 public class Main {
-    static String[] companies = {"APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"};
-    static int currentRank = 0;
+    static String[] companies = {"AAPL", "JPM", "XOM", "JNJ", "PG", "CAT", "NEE", "AMZN"};
+    static String[] expectedSectors = {"Information Technology", "Financials", "Energy", "Health Care", "Consumer Staples", "Industrials", "Utilities", "Consumer Discretionary"};
+    static int currentCompany = 0;
 
-    static boolean isCorrectRank(String ticker, int rank) {
-        return ticker.equalsIgnoreCase(companies[currentRank]) && rank == currentRank + 1;
+    static boolean isCorrectSector(String selectedSector, String expectedSector) {
+        return selectedSector.equalsIgnoreCase(expectedSector);
     }
 
     public static void main(String[] args) {
-        String[] selectedCompanies = {"HBR", "APX", "NVA", "UFN", "CRST", "FRGE", "ORBT", "HBR", "SOLR"};
-        int[] selectedRanks = {7, 1, 2, 3, 4, 5, 6, 7, 8};
+        String[] selectedSectors = {"Financials", "Information Technology", "Financials", "Energy", "Health Care", "Consumer Staples", "Industrials", "Utilities", "Consumer Discretionary"};
         int correctAttempts = 0;
 
-        for (int index = 0; index < selectedCompanies.length && currentRank < companies.length; index++) {
-            String selectedCompany = selectedCompanies[index];
-            int selectedRank = selectedRanks[index];
-            boolean correct = isCorrectRank(selectedCompany, selectedRank);
+        for (String selectedSector : selectedSectors) {
+            if (currentCompany == companies.length) break;
+            String ticker = companies[currentCompany];
+            String expectedSector = expectedSectors[currentCompany];
+            boolean correct = isCorrectSector(selectedSector, expectedSector);
 
             if (correct) {
-                System.out.println("Correct: " + selectedCompany + " entered rank " + selectedRank + ".");
+                System.out.println("Correct: " + ticker + " matched " + expectedSector + ".");
                 correctAttempts++;
-                currentRank++;
+                currentCompany++;
             } else {
-                System.out.println("Incorrect: " + selectedCompany + " returned to the watchlist.");
+                System.out.println("Incorrect: " + ticker + " returned to the watchlist.");
             }
         }
 
-        System.out.println("Index rebalance complete!");
-        System.out.println("Accuracy: " + correctAttempts + " of " + selectedCompanies.length);
+        System.out.println("Sector challenge complete!");
+        System.out.println("Accuracy: " + correctAttempts + " of " + selectedSectors.length);
     }
 }
 {% endcapture %}
@@ -1338,18 +1362,16 @@ public class Main {
 **Example output (shortened)**
 
 ```text
-Next company: APX
-Choose a ticker: HBR
-Choose its index rank: 7
-Incorrect ranking. The company returned to the watchlist.
+Company: AAPL
+Selected sector: Financials
+Incorrect sector. The company returned to the watchlist.
 
-Next company: APX
-Choose a ticker: APX
-Choose its index rank: 1
-APX entered the index!
+Company: AAPL
+Selected sector: Information Technology
+AAPL matched Information Technology!
 
 ...
-Index rebalance complete!
+Sector challenge complete!
 Accuracy: 89%
 ```
 
@@ -1357,6 +1379,6 @@ Accuracy: 89%
 
 # Reflection
 
-JavaScript felt most natural for the interactive market board because it connects directly to drag-and-drop, buttons, and visible status updates. Python made the rebalance algorithm shorter and easier to read, while pseudocode showed the lists, procedure, selection, iteration, and Boolean logic without extra syntax.
+JavaScript felt most natural for the interactive market board because it connects the live table to drag-and-drop, buttons, status updates, and an offline fallback. Python made the sector algorithm shorter and easier to read, while pseudocode showed the lists, procedure, selection, iteration, and Boolean logic without extra syntax.
 
-The main challenge was keeping the correct rank synchronized with the ordered company list. The program solves this with `currentRank`: it changes only after both the selected ticker and rank are correct. That single rule makes wrong choices return safely without skipping a company.
+The main challenge was keeping online data useful without making the assignment depend on the network. The program validates the returned table before using it and labels its source revision. If validation or the request fails, the verified snapshot is shown explicitly so a wrong choice still returns safely and the lesson still works.
