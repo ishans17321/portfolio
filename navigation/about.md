@@ -248,6 +248,30 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     color: var(--about-muted);
     font-size: 0.9rem;
   }
+
+  @media (max-width: 760px) {
+    .about-page { padding-top: 0.5rem; }
+
+    .about-hero {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 2rem 1.35rem;
+      border-radius: 22px;
+    }
+
+    .about-title { font-size: clamp(3rem, 18vw, 5.2rem); }
+    .about-location-card { min-height: 220px; }
+
+    .about-section-head {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .about-cards, .about-gallery { grid-template-columns: 1fr; }
+    .about-card { min-height: 230px; }
+    .about-photo { min-height: 260px; }
+  }
 </style>
 
 <main class="about-page">
