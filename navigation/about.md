@@ -223,6 +223,31 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
 
   .about-photo-label strong { color: #fff; font-size: 1.05rem; }
   .about-photo-label span { color: var(--about-muted); font-size: 0.78rem; }
+
+  .about-quote {
+    margin-top: clamp(4rem, 9vw, 7rem);
+    padding: clamp(2rem, 6vw, 4.5rem);
+    border-left: 4px solid var(--about-accent);
+    border-radius: 0 24px 24px 0;
+    background: linear-gradient(90deg, rgba(255,184,77,.09), transparent);
+  }
+
+  .about-quote p {
+    max-width: 850px;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.6rem, 4vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+  }
+
+  .about-quote span {
+    display: block;
+    margin-top: 1rem;
+    color: var(--about-muted);
+    font-size: 0.9rem;
+  }
 </style>
 
 <main class="about-page">
@@ -301,5 +326,10 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
         <div class="about-photo-label"><strong>In the workshop</strong><span>Photo coming soon</span></div>
       </div>
     </div>
+  </section>
+
+  <section class="about-quote" aria-label="Personal philosophy">
+    <p>Build it. Test it. Learn what broke. Make the next version better.</p>
+    <span>My approach to engineering, coding, and just about everything else.</span>
   </section>
 </main>
