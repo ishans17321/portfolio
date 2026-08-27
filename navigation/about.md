@@ -3,6 +3,12 @@ layout: page
 title: About Me
 permalink: /about/
 description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast, and computer science student."
+photos:
+  portrait: "/images/ishan/portrait.jpg"
+  rc_plane: "/images/ishan/rc-plane.jpg"
+  drone: "/images/ishan/drone-build.jpg"
+  engineering: "/images/ishan/engineering-cs.jpg"
+  san_diego: "/images/ishan/san-diego.jpg"
 ---
 
 <style>
