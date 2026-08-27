@@ -210,6 +210,80 @@ photos:
     line-height: 1.65;
   }
 
+  .about-stories {
+    display: grid;
+    gap: clamp(5rem, 10vw, 9rem);
+  }
+
+  .about-story {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    gap: clamp(2rem, 7vw, 6rem);
+    align-items: center;
+  }
+
+  .about-story-media {
+    position: relative;
+    min-height: 520px;
+    overflow: hidden;
+    border: 1px solid var(--about-line);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(117,213,255,.12), rgba(255,255,255,.025));
+  }
+
+  .about-story-media img {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+  }
+
+  .about-photo-empty {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+  }
+
+  .about-photo-empty svg { width: 82px; color: rgba(255,255,255,.42); }
+
+  .about-photo-path {
+    color: var(--about-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .about-photo-path code {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--about-blue);
+    overflow-wrap: anywhere;
+  }
+
+  .about-story-copy { max-width: 520px; }
+
+  .about-story-copy h3 {
+    margin: 0 0 1.5rem;
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  .about-story-copy p {
+    margin: 0;
+    color: #c4ccd4;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .about-story-copy p + p { margin-top: 1.25rem; }
+
   .about-gallery {
     display: grid;
     grid-template-columns: 1.4fr 0.8fr 0.8fr;
@@ -346,6 +420,33 @@ photos:
         <span class="about-card-number">03 / CODE</span>
         <h3>Engineering + CS</h3>
         <p>I love combining software with real hardware, using code not just on a screen but as a tool for creating useful, responsive systems.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about-section" aria-labelledby="project-stories">
+    <div class="about-section-head">
+      <p class="about-eyebrow">A closer look</p>
+      <h2 id="project-stories">The hobbies that keep me curious.</h2>
+    </div>
+
+    <div class="about-stories">
+      <article class="about-story">
+        <div class="about-story-media">
+          <img src="{{ page.photos.rc_plane | relative_url }}" alt="Ishan with one of his RC planes" loading="lazy" onerror="this.style.display='none'">
+          <div class="about-photo-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <path d="m3 14 8.5-4V5.5a.5.5 0 0 1 1 0V10l8.5 4v1.5l-8.5-2v4l2 1.5v1l-2.5-.7-2.5.7v-1l2-1.5v-4l-8.5 2V14Z"/>
+            </svg>
+            <span class="about-photo-path">Add the flying photo here:<code>{{ page.photos.rc_plane }}</code></span>
+          </div>
+        </div>
+        <div class="about-story-copy">
+          <p class="about-eyebrow">01 · RC planes</p>
+          <h3>Flying makes engineering feel real.</h3>
+          <p>I fly RC planes because there is always something to pay attention to. A small adjustment can change how a plane feels in the air, and every flight teaches me a little more about control, balance, and staying patient.</p>
+          <p>I also just like being outside and seeing something I worked on leave the ground. Not every landing is perfect, but fixing what went wrong is part of what makes the next flight better.</p>
+        </div>
       </article>
     </div>
   </section>
