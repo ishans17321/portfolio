@@ -24,7 +24,9 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
 
   .about-hero {
     min-height: 520px;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: 3rem;
     align-items: end;
     padding: clamp(2rem, 6vw, 5rem);
     border: 1px solid var(--about-line);
@@ -59,6 +61,40 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     color: #c7ced6;
     font-size: clamp(1.05rem, 2vw, 1.28rem);
     line-height: 1.7;
+  }
+
+  .about-location-card {
+    align-self: stretch;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem;
+    border: 1px solid var(--about-line);
+    border-radius: 22px;
+    background: rgba(5, 8, 12, 0.52);
+  }
+
+  .about-location-card svg {
+    width: 54px;
+    height: 54px;
+    margin-bottom: auto;
+    color: var(--about-accent);
+  }
+
+  .about-location-card small {
+    color: var(--about-muted);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .about-location-card strong {
+    display: block;
+    margin-top: 0.55rem;
+    color: #fff;
+    font-size: clamp(1.65rem, 3vw, 2.35rem);
+    line-height: 1.05;
   }
 
   .about-section { padding: clamp(4rem, 9vw, 7rem) 0 0; }
@@ -131,6 +167,15 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
         I'm a San Diego–raised student who loves turning ideas into things that move, fly, and work. My world sits where engineering, computer science, and hands-on building meet.
       </p>
     </div>
+
+    <aside class="about-location-card" aria-label="Home location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/>
+        <circle cx="12" cy="10" r="2.5"/>
+      </svg>
+      <small>Home base</small>
+      <strong>San Diego,<br>California</strong>
+    </aside>
   </section>
 
   <section class="about-section" aria-labelledby="what-i-build">
