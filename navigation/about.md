@@ -17,7 +17,10 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     --about-blue: #75d5ff;
     color: var(--about-ink);
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    padding: 1.5rem 0 4rem;
+    width: min(1280px, calc(100vw - 40px));
+    margin-left: 50%;
+    padding: 2rem 0 6rem;
+    transform: translateX(-50%);
   }
 
   .about-page * { box-sizing: border-box; }
@@ -25,12 +28,12 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
   .about-hero {
     position: relative;
     overflow: hidden;
-    min-height: 520px;
+    min-height: 650px;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-    gap: 3rem;
+    gap: clamp(3rem, 7vw, 7rem);
     align-items: end;
-    padding: clamp(2rem, 6vw, 5rem);
+    padding: clamp(2.5rem, 6vw, 6rem);
     border: 1px solid var(--about-line);
     border-radius: 30px;
     background:
@@ -126,14 +129,14 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     line-height: 1.05;
   }
 
-  .about-section { padding: clamp(4rem, 9vw, 7rem) 0 0; }
+  .about-section { padding: clamp(6rem, 11vw, 10rem) clamp(0rem, 2vw, 1.5rem) 0; }
 
   .about-section-head {
     display: grid;
-    grid-template-columns: 0.75fr 1.25fr;
-    gap: 2rem;
+    grid-template-columns: minmax(180px, 0.6fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 7vw, 7rem);
     align-items: start;
-    margin-bottom: 2.5rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
   }
 
   .about-eyebrow {
