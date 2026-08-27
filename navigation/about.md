@@ -470,6 +470,24 @@ photos:
           <p>That troubleshooting can take a while, but it is usually the part I remember. When a drone finally works, I understand it much better because I had to work through the mistakes instead of only seeing the finished result.</p>
         </div>
       </article>
+
+      <article class="about-story">
+        <div class="about-story-media">
+          <img src="{{ page.photos.engineering | relative_url }}" alt="Ishan working on an engineering or computer science project" loading="lazy" onerror="this.style.display='none'">
+          <div class="about-photo-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="13" rx="2"/><path d="m8 10-2 2 2 2m8-4 2 2-2 2m-5 3h2"/>
+            </svg>
+            <span class="about-photo-path">Add a project photo here:<code>{{ page.photos.engineering }}</code></span>
+          </div>
+        </div>
+        <div class="about-story-copy">
+          <p class="about-eyebrow">03 · Engineering + CS</p>
+          <h3>Code is another way for me to build.</h3>
+          <p>Computer science gives me a different kind of workshop. I can start with an idea, break it into smaller pieces, and keep improving it until the result feels useful. I like that the same thinking can apply to a website, a program, or hardware that needs software to control it.</p>
+          <p>Engineering and CS make the most sense to me when they connect. One helps me understand the physical system, and the other gives me a way to add logic, interaction, and control.</p>
+        </div>
+      </article>
     </div>
   </section>
 
