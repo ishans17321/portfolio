@@ -23,6 +23,8 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
   .about-page * { box-sizing: border-box; }
 
   .about-hero {
+    position: relative;
+    overflow: hidden;
     min-height: 520px;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
@@ -31,16 +33,43 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     padding: clamp(2rem, 6vw, 5rem);
     border: 1px solid var(--about-line);
     border-radius: 30px;
-    background: linear-gradient(145deg, #111820 0%, #090c10 72%);
+    background:
+      radial-gradient(circle at 85% 15%, rgba(117, 213, 255, 0.16), transparent 28%),
+      radial-gradient(circle at 15% 95%, rgba(255, 184, 77, 0.13), transparent 28%),
+      linear-gradient(145deg, #111820 0%, #090c10 72%);
+    isolation: isolate;
+  }
+
+  .about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, black, transparent 80%);
   }
 
   .about-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     margin: 0 0 1.5rem;
     color: var(--about-blue);
     font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+  }
+
+  .about-kicker::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    background: currentColor;
   }
 
   .about-title {
