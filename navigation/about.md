@@ -165,6 +165,13 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     border: 1px solid var(--about-line);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.055);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .about-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(117, 213, 255, 0.42);
+    background: rgba(117, 213, 255, 0.07);
   }
 
   .about-card-number {
@@ -271,6 +278,10 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     .about-cards, .about-gallery { grid-template-columns: 1fr; }
     .about-card { min-height: 230px; }
     .about-photo { min-height: 260px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-card { transition: none; }
   }
 </style>
 
