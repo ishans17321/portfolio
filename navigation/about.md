@@ -156,6 +156,44 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     color: var(--about-muted);
     line-height: 1.65;
   }
+
+  .about-gallery {
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr 0.8fr;
+    gap: 1rem;
+  }
+
+  .about-photo {
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+    overflow: hidden;
+    border: 1px dashed rgba(255,255,255,.25);
+    border-radius: 22px;
+    background: radial-gradient(circle at 70% 20%, rgba(117,213,255,.13), transparent 35%), rgba(255,255,255,.035);
+  }
+
+  .about-photo:nth-child(2) {
+    background: radial-gradient(circle at 20% 70%, rgba(255,184,77,.15), transparent 40%), rgba(255,255,255,.035);
+  }
+
+  .about-photo svg {
+    width: 64px;
+    height: 64px;
+    color: rgba(255,255,255,.5);
+  }
+
+  .about-photo-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+  }
+
+  .about-photo-label strong { color: #fff; font-size: 1.05rem; }
+  .about-photo-label span { color: var(--about-muted); font-size: 0.78rem; }
 </style>
 
 <main class="about-page">
@@ -202,6 +240,37 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
         <h3>Engineering + CS</h3>
         <p>I love combining software with real hardware, using code not just on a screen but as a tool for creating useful, responsive systems.</p>
       </article>
+    </div>
+  </section>
+
+  <section class="about-section" aria-labelledby="field-notes">
+    <div class="about-section-head">
+      <p class="about-eyebrow">Field notes</p>
+      <h2 id="field-notes">Projects are better when you can see the story behind them.</h2>
+    </div>
+
+    <div class="about-gallery" aria-label="Future photo gallery">
+      <div class="about-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="m3 14 8.5-4V5.5a.5.5 0 0 1 1 0V10l8.5 4v1.5l-8.5-2v4l2 1.5v1l-2.5-.7-2.5.7v-1l2-1.5v-4l-8.5 2V14Z"/>
+        </svg>
+        <div class="about-photo-label"><strong>At the flying field</strong><span>Photo coming soon</span></div>
+      </div>
+
+      <div class="about-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/>
+          <path d="m7 8 10 8m0-8L7 16m5-6v4"/>
+        </svg>
+        <div class="about-photo-label"><strong>Drone builds</strong><span>Photo coming soon</span></div>
+      </div>
+
+      <div class="about-photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="13" rx="2"/><path d="m8 10-2 2 2 2m8-4 2 2-2 2m-5 3h2"/>
+        </svg>
+        <div class="about-photo-label"><strong>In the workshop</strong><span>Photo coming soon</span></div>
+      </div>
     </div>
   </section>
 </main>
