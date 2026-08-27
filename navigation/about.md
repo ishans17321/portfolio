@@ -60,6 +60,66 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     font-size: clamp(1.05rem, 2vw, 1.28rem);
     line-height: 1.7;
   }
+
+  .about-section { padding: clamp(4rem, 9vw, 7rem) 0 0; }
+
+  .about-section-head {
+    display: grid;
+    grid-template-columns: 0.75fr 1.25fr;
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-eyebrow {
+    margin: 0;
+    color: var(--about-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .about-section h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 3.7rem);
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+  }
+
+  .about-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .about-card {
+    min-height: 270px;
+    padding: 1.65rem;
+    border: 1px solid var(--about-line);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.055);
+  }
+
+  .about-card-number {
+    color: var(--about-blue);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .about-card h3 {
+    margin: 3.5rem 0 0.8rem;
+    color: #fff;
+    font-size: 1.45rem;
+  }
+
+  .about-card p {
+    margin: 0;
+    color: var(--about-muted);
+    line-height: 1.65;
+  }
 </style>
 
 <main class="about-page">
@@ -70,6 +130,33 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
       <p class="about-intro">
         I'm a San Diego–raised student who loves turning ideas into things that move, fly, and work. My world sits where engineering, computer science, and hands-on building meet.
       </p>
+    </div>
+  </section>
+
+  <section class="about-section" aria-labelledby="what-i-build">
+    <div class="about-section-head">
+      <p class="about-eyebrow">What drives me</p>
+      <h2 id="what-i-build">I like understanding how things work—then building my own.</h2>
+    </div>
+
+    <div class="about-cards">
+      <article class="about-card">
+        <span class="about-card-number">01 / FLIGHT</span>
+        <h3>RC Planes</h3>
+        <p>I fly radio-controlled planes and enjoy the mix of precision, patience, aerodynamics, and pure fun that comes with every flight.</p>
+      </article>
+
+      <article class="about-card">
+        <span class="about-card-number">02 / BUILD</span>
+        <h3>RC Drones</h3>
+        <p>Building drones lets me work across electronics, mechanics, tuning, and troubleshooting—exactly the kind of challenge I enjoy.</p>
+      </article>
+
+      <article class="about-card">
+        <span class="about-card-number">03 / CODE</span>
+        <h3>Engineering + CS</h3>
+        <p>I love combining software with real hardware, using code not just on a screen but as a tool for creating useful, responsive systems.</p>
+      </article>
     </div>
   </section>
 </main>
