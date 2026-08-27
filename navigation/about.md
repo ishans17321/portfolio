@@ -284,6 +284,9 @@ photos:
 
   .about-story-copy p + p { margin-top: 1.25rem; }
 
+  .about-story:nth-child(even) .about-story-media { order: 2; }
+  .about-story:nth-child(even) .about-story-copy { justify-self: end; }
+
   .about-gallery {
     display: grid;
     grid-template-columns: 1.4fr 0.8fr 0.8fr;
@@ -446,6 +449,25 @@ photos:
           <h3>Flying makes engineering feel real.</h3>
           <p>I fly RC planes because there is always something to pay attention to. A small adjustment can change how a plane feels in the air, and every flight teaches me a little more about control, balance, and staying patient.</p>
           <p>I also just like being outside and seeing something I worked on leave the ground. Not every landing is perfect, but fixing what went wrong is part of what makes the next flight better.</p>
+        </div>
+      </article>
+
+      <article class="about-story">
+        <div class="about-story-media">
+          <img src="{{ page.photos.drone | relative_url }}" alt="An RC drone built by Ishan" loading="lazy" onerror="this.style.display='none'">
+          <div class="about-photo-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="5" cy="18" r="3"/><circle cx="19" cy="18" r="3"/>
+              <path d="m7 8 10 8m0-8L7 16m5-6v4"/>
+            </svg>
+            <span class="about-photo-path">Add the drone photo here:<code>{{ page.photos.drone }}</code></span>
+          </div>
+        </div>
+        <div class="about-story-copy">
+          <p class="about-eyebrow">02 · RC drones</p>
+          <h3>I like building the whole thing, not only flying it.</h3>
+          <p>Drones bring several kinds of problem solving together. There is the physical build, the electronics, the setup, and then the process of figuring out why something does not behave the way I expected.</p>
+          <p>That troubleshooting can take a while, but it is usually the part I remember. When a drone finally works, I understand it much better because I had to work through the mistakes instead of only seeing the finished result.</p>
         </div>
       </article>
     </div>
