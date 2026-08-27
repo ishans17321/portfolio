@@ -95,6 +95,14 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     line-height: 1.7;
   }
 
+  .about-intro p { margin: 0; }
+  .about-intro p + p { margin-top: 1rem; }
+
+  .about-intro-note {
+    color: var(--about-muted);
+    font-size: 0.95rem;
+  }
+
   .about-location-card {
     align-self: stretch;
     min-height: 260px;
@@ -293,9 +301,10 @@ description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast,
     <div>
       <p class="about-kicker">Builder · Pilot · Programmer</p>
       <h1 class="about-title" id="about-title">Hi, I'm<br><span>Ishan.</span></h1>
-      <p class="about-intro">
-        I'm a San Diego–raised student who loves turning ideas into things that move, fly, and work. My world sits where engineering, computer science, and hands-on building meet.
-      </p>
+      <div class="about-intro">
+        <p>I'm Ishan. I've lived in San Diego my whole life, and most of the things I enjoy involve figuring out how something works and then trying to build a version of it myself.</p>
+        <p class="about-intro-note">A lot of my time goes into RC planes, homemade drones, engineering, and computer science. This page is a place for the projects, photos, and lessons that come out of all of that.</p>
+      </div>
     </div>
 
     <aside class="about-location-card" aria-label="Home location">
