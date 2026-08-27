@@ -287,6 +287,43 @@ photos:
   .about-story:nth-child(even) .about-story-media { order: 2; }
   .about-story:nth-child(even) .about-story-copy { justify-self: end; }
 
+  .about-home {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 7vw, 6rem);
+    align-items: stretch;
+    padding: clamp(2rem, 5vw, 4rem);
+    border: 1px solid var(--about-line);
+    border-radius: 30px;
+    background: linear-gradient(135deg, rgba(255,184,77,.1), rgba(117,213,255,.055));
+  }
+
+  .about-home-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .about-home-copy h2 {
+    margin: 1rem 0 1.5rem;
+    font-size: clamp(2.3rem, 5vw, 4.5rem);
+  }
+
+  .about-home-copy p {
+    margin: 0;
+    color: #c4ccd4;
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .about-home-copy p + p { margin-top: 1.2rem; }
+
+  .about-home-photo {
+    min-height: 500px;
+    background: linear-gradient(155deg, rgba(255,184,77,.15), rgba(255,255,255,.03));
+  }
+
   .about-gallery {
     display: grid;
     grid-template-columns: 1.4fr 0.8fr 0.8fr;
@@ -488,6 +525,26 @@ photos:
           <p>Engineering and CS make the most sense to me when they connect. One helps me understand the physical system, and the other gives me a way to add logic, interaction, and control.</p>
         </div>
       </article>
+    </div>
+  </section>
+
+  <section class="about-section" aria-labelledby="san-diego-story">
+    <div class="about-home">
+      <div class="about-home-copy">
+        <p class="about-eyebrow">Always home</p>
+        <h2 id="san-diego-story">San Diego is part of my story.</h2>
+        <p>I have lived in San Diego my whole life. It is the place where I learned, found the hobbies I care about, and started making projects of my own.</p>
+        <p>Because it has always been home, I do not think of it as just a location to list in a bio. It is the background to everything on this page—from going out to fly to coming back inside with a new idea I want to try.</p>
+      </div>
+      <div class="about-story-media about-home-photo">
+        <img src="{{ page.photos.san_diego | relative_url }}" alt="A San Diego place that matters to Ishan" loading="lazy" onerror="this.style.display='none'">
+        <div class="about-photo-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/>
+          </svg>
+          <span class="about-photo-path">Add a San Diego photo here:<code>{{ page.photos.san_diego }}</code></span>
+        </div>
+      </div>
     </div>
   </section>
 
