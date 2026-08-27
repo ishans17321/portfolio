@@ -203,12 +203,12 @@ photos:
   .about-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .about-card {
-    min-height: 270px;
-    padding: 1.65rem;
+    min-height: 320px;
+    padding: 2.2rem;
     border: 1px solid var(--about-line);
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.055);
@@ -379,8 +379,30 @@ photos:
     font-size: 0.9rem;
   }
 
+  @media (max-width: 980px) {
+    .about-hero,
+    .about-story,
+    .about-home {
+      grid-template-columns: 1fr;
+    }
+
+    .about-hero { min-height: auto; }
+    .about-location-card { min-height: 500px; }
+
+    .about-story { gap: 2.5rem; }
+    .about-story-media { min-height: 460px; }
+    .about-story-copy { max-width: 680px; }
+    .about-story:nth-child(even) .about-story-media { order: 0; }
+    .about-story:nth-child(even) .about-story-copy { justify-self: start; }
+
+    .about-home-photo { min-height: 440px; }
+  }
+
   @media (max-width: 760px) {
-    .about-page { padding-top: 0.5rem; }
+    .about-page {
+      width: min(100% - 24px, 1280px);
+      padding-top: 0.5rem;
+    }
 
     .about-hero {
       min-height: auto;
@@ -391,7 +413,7 @@ photos:
     }
 
     .about-title { font-size: clamp(3rem, 18vw, 5.2rem); }
-    .about-location-card { min-height: 220px; }
+    .about-location-card { min-height: 460px; }
 
     .about-section-head {
       grid-template-columns: 1fr;
@@ -399,7 +421,10 @@ photos:
     }
 
     .about-cards { grid-template-columns: 1fr; }
-    .about-card { min-height: 230px; }
+    .about-card { min-height: 260px; }
+    .about-story-media, .about-home-photo { min-height: 340px; }
+    .about-home { padding: 1rem; border-radius: 22px; }
+    .about-story-copy p, .about-home-copy p { font-size: 1rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -545,7 +570,7 @@ photos:
   </section>
 
   <section class="about-quote" aria-label="Personal philosophy">
-    <p>Build it. Test it. Learn what broke. Make the next version better.</p>
-    <span>My approach to engineering, coding, and just about everything else.</span>
+    <p>Most of what I know has come from trying something, getting part of it wrong, and going back to figure out why.</p>
+    <span>That is honestly one of my favorite parts of building.</span>
   </section>
 </main>
