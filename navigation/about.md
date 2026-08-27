@@ -111,7 +111,7 @@ photos:
 
   .about-location-card {
     align-self: stretch;
-    min-height: 260px;
+    min-height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -121,10 +121,40 @@ photos:
     background: rgba(5, 8, 12, 0.52);
   }
 
-  .about-location-card svg {
+  .about-portrait {
+    position: relative;
+    min-height: 250px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    border-radius: 16px;
+    background: linear-gradient(145deg, rgba(117,213,255,.16), rgba(255,184,77,.12));
+  }
+
+  .about-portrait img {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+  }
+
+  .about-portrait-placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgba(255,255,255,.55);
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -0.08em;
+  }
+
+  .about-location-card > svg {
     width: 54px;
     height: 54px;
-    margin-bottom: auto;
+    margin-bottom: 1rem;
     color: var(--about-accent);
   }
 
@@ -428,12 +458,17 @@ photos:
     </div>
 
     <aside class="about-location-card" aria-label="Home location">
+      <div class="about-portrait">
+        <img src="{{ page.photos.portrait | relative_url }}" alt="Portrait of Ishan Shrivastava" onerror="this.style.display='none'">
+        <span class="about-portrait-placeholder" aria-hidden="true">IS</span>
+      </div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
         <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/>
         <circle cx="12" cy="10" r="2.5"/>
       </svg>
       <small>Home base</small>
       <strong>San Diego,<br>California</strong>
+      <span class="about-photo-path"><code>{{ page.photos.portrait }}</code></span>
     </aside>
   </section>
 
