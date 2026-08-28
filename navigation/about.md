@@ -5,10 +5,14 @@ permalink: /about/
 description: "Meet Ishan Shrivastava: San Diego builder, RC aviation enthusiast, and computer science student."
 photos:
   portrait: "/images/ishan/portrait.jpg"
-  rc_plane: "/images/ishan/rc-plane.jpg"
-  drone: "/images/ishan/drone-build.jpg"
-  engineering: "/images/ishan/engineering-cs.jpg"
+  rc_plane: "/images/ishan/rc-plane.png"
+  drone: "/images/ishan/drone-build.png"
+  engineering: "/images/ishan/engineering-cs.png"
   san_diego: "/images/ishan/san-diego.jpg"
+  prison_break: "/images/ishan/prison-break.png"
+  netflix: "/images/ishan/netflix.png"
+  warriors: "/images/ishan/warriors.png"
+  money: "/images/ishan/money.png"
 ---
 
 <style>
@@ -354,6 +358,27 @@ photos:
     background: linear-gradient(155deg, rgba(255,184,77,.15), rgba(255,255,255,.03));
   }
 
+  .about-interests {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr 1.25fr;
+    gap: 1rem;
+  }
+
+  .about-interest {
+    min-height: 240px;
+    overflow: hidden;
+    border: 1px solid var(--about-line);
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  .about-interest img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: contain;
+  }
+
   .about-quote {
     margin-top: clamp(4rem, 9vw, 7rem);
     padding: clamp(2rem, 6vw, 4.5rem);
@@ -396,6 +421,7 @@ photos:
     .about-story:nth-child(even) .about-story-copy { justify-self: start; }
 
     .about-home-photo { min-height: 440px; }
+    .about-interests { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 760px) {
@@ -425,6 +451,8 @@ photos:
     .about-story-media, .about-home-photo { min-height: 340px; }
     .about-home { padding: 1rem; border-radius: 22px; }
     .about-story-copy p, .about-home-copy p { font-size: 1rem; }
+    .about-interests { grid-template-columns: 1fr; }
+    .about-interest { min-height: 220px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -546,6 +574,19 @@ photos:
           <p>Engineering and CS make the most sense to me when they connect. One helps me understand the physical system, and the other gives me a way to add logic, interaction, and control.</p>
         </div>
       </article>
+    </div>
+  </section>
+
+  <section class="about-section" aria-labelledby="more-interests">
+    <div class="about-section-head">
+      <p class="about-eyebrow">Beyond building</p>
+      <h2 id="more-interests">A few more things I enjoy.</h2>
+    </div>
+    <div class="about-interests">
+      <div class="about-interest"><img src="{{ page.photos.prison_break | relative_url }}" alt="Prison Break" loading="lazy"></div>
+      <div class="about-interest"><img src="{{ page.photos.netflix | relative_url }}" alt="Netflix" loading="lazy"></div>
+      <div class="about-interest"><img src="{{ page.photos.warriors | relative_url }}" alt="Golden State Warriors" loading="lazy"></div>
+      <div class="about-interest"><img src="{{ page.photos.money | relative_url }}" alt="Money and finance" loading="lazy"></div>
     </div>
   </section>
 
