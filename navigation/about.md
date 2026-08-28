@@ -579,7 +579,7 @@ photos:
 
   <section class="about-section" aria-labelledby="more-interests">
     <div class="about-section-head">
-      <p class="about-eyebrow">Beyond building</p>
+      <p class="about-eyebrow">Beyond building · 🇺🇸</p>
       <h2 id="more-interests">A few more things I enjoy.</h2>
     </div>
     <div class="about-interests">
