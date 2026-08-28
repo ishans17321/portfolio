@@ -7,10 +7,10 @@ comments: true
 
 ## As a conversation Starter
 
-Here are some things I enjoy.
+Here are some places I have lived.
 
 <comment>
-Images are from my custom image folder
+Flags are made using Wikipedia images
 </comment>
 
 <style>
@@ -58,11 +58,12 @@ Images are from my custom image folder
     var container = document.getElementById("grid_container"); // This container connects to the HTML div
 
     // 2. Define a JavaScript object for our http source and our data rows for the Living in the World grid
-    var http_source = "{{site.baseurl}}/images/ishan/";
+    var http_source = "https://upload.wikimedia.org/wikipedia/commons/";
     var living_in_the_world = [
-        {"flag": "rc-plane.png", "greeting": "RC Planes", "description": "Flying and aerodynamics"},
-        {"flag": "drone-build.png", "greeting": "RC Drones", "description": "Building and tuning"},
-        {"flag": "engineering-cs.png", "greeting": "Engineering + CS", "description": "Hardware and code"},
+        {"flag": "0/01/Flag_of_California.svg", "greeting": "Hey", "description": "California - forever"},
+        {"flag": "b/b9/Flag_of_Oregon.svg", "greeting": "Hi", "description": "Oregon - 9 years"},
+        {"flag": "b/be/Flag_of_England.svg", "greeting": "Alright mate", "description": "England - 2 years"},
+        {"flag": "e/ef/Flag_of_Hawaii.svg", "greeting": "Aloha", "description": "Hawaii - 2 years"},
     ];
 
     // 3a. Consider how to update style count for size of container
@@ -76,7 +77,7 @@ Images are from my custom image folder
         // Add "img" HTML tag for the flag
         var img = document.createElement("img");
         img.src = http_source + location.flag; // concatenate the source and flag
-        img.alt = location.flag + " Image"; // add alt text for accessibility
+        img.alt = location.flag + " Flag"; // add alt text for accessibility
 
         // Add "p" HTML tag for the description
         var description = document.createElement("p");
@@ -98,33 +99,40 @@ Images are from my custom image folder
 
 ### Journey through Life
 
-Here are some things about me
+Here is what I did at those places
 
-- 📍 I have lived in San Diego my whole life
-- ✈️ I fly radio-controlled planes and enjoy learning about control, balance, and aerodynamics
-- 🚁 I build RC drones and work with electronics, mechanics, setup, and tuning
-- 💻 I study computer science and like turning ideas into programs and websites
-- 🛠️ I enjoy engineering and connecting software with real hardware
-- 🧠 I learn by trying things, making mistakes, and figuring out how to improve them
+- 🏫 Lots of Elementary Schools in Tucson, LA, Honolulu, and Glendale (CA)
+- 🏫 Middle and High School in Glendale (CA), Hoover High graduated '77
+- 🎓 Glendale CA Community College, UCLA Extension, LA Wilshire Computer Tech School '77 to '79
+- ⛪ England, London Missionary for Church of Jesus Christ of Latter-day Saints '79 to '81
+- 💼 Culver City, Glendale CA founder at Ashton-Tate, original PC's dBase 2 and 3 '82 to '87
+- 🎓 Eugene Oregon Undergraduate CompSci Degree at University of Oregon (Go Ducks!) '89 to '91
+- 💼 Eugene Oregon, founder and owner @ Microniche `88, Point Control CAD CAM developer '91 to '96
+- 🏢 San Diego CA Qualcomm, Satellite Comm and 1st Mobile OS (BREW) '96 to '19
+- 👨‍🏫 San Diego CA Teacher of Computer Science @ Del Norte High School San Diego '19 to present
 
 ### Culture, Family, and Fun
 
-A lot of my interests involve building, learning, and having fun.
+Everything for me, as for many others, revolves around family and faith.
 
-- I enjoy watching Prison Break and Netflix
-- I follow the Golden State Warriors
-- I am interested in money and finance
-- The gallery has some of my favorite projects and interests
+- My mother told me that I was Danish, English. and Irish, here is my researched [family tree]({{site.baseurl}}/images/about/familytree.png)
+- My family is pretty big as I have been married twice, my 1st wife passed away.  We have had 5 kids, 4 adopted by me, 1 biological.  Plus, there are three grandkids.  My name to my grandkids is Abuilito.
+- The gallery of pics has some of my family, fun, culture and faith memories.
 
 <comment>
 Gallery of Pics, scroll to the right for more ...
 </comment>
 <div class="image-gallery">
-  <img src="{{site.baseurl}}/images/ishan/rc-plane.png" alt="RC Plane">
-  <img src="{{site.baseurl}}/images/ishan/drone-build.png" alt="RC Drone">
-  <img src="{{site.baseurl}}/images/ishan/engineering-cs.png" alt="Engineering and Computer Science">
-  <img src="{{site.baseurl}}/images/ishan/prison-break.png" alt="Prison Break">
-  <img src="{{site.baseurl}}/images/ishan/netflix.png" alt="Netflix">
-  <img src="{{site.baseurl}}/images/ishan/warriors.png" alt="Golden State Warriors">
-  <img src="{{site.baseurl}}/images/ishan/money.png" alt="Money and Finance">
+  <img src="{{site.baseurl}}/images/about/missionary.jpg" alt="Image 1">
+  <img src="{{site.baseurl}}/images/about/john_tamara.jpg" alt="Image 2">
+  <img src="{{site.baseurl}}/images/about/tamara_fam.jpg" alt="Image 3">
+  <img src="{{site.baseurl}}/images/about/surf.jpg" alt="Image 4">
+  <img src="{{site.baseurl}}/images/about/john_lora.jpg" alt="Image 5">
+  <img src="{{site.baseurl}}/images/about/lora_fam.jpg" alt="Image 6">
+  <img src="{{site.baseurl}}/images/about/lora_fam2.jpg" alt="Image 7">
+  <img src="{{site.baseurl}}/images/about/pj_party.jpg" alt="Image 8">
+  <img src="{{site.baseurl}}/images/about/trent_family.png" alt="Image 9">
+  <img src="{{site.baseurl}}/images/about/claire.jpg" alt="Image 10">
+  <img src="{{site.baseurl}}/images/about/grandkids.jpg" alt="Image 11">
+  <img src="{{site.baseurl}}/images/about/farm.jpg" alt="Image 12">
 </div>
