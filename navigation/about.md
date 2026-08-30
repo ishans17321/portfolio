@@ -9,92 +9,71 @@ comments: true
 
 Here are some things I enjoy.
 
-<comment>
-Images are from my custom image folder
-</comment>
-
-<style>
-    /* Style looks pretty compact, 
-       - grid-container and grid-item are referenced the code 
-    */
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Dynamic columns */
-        gap: 10px;
-    }
-    .grid-item {
-        text-align: center;
-    }
-    .grid-item img {
-        width: 100%;
-        height: 100px; /* Fixed height for uniformity */
-        object-fit: contain; /* Ensure the image fits within the fixed height */
-    }
-    .grid-item p {
-        margin: 5px 0; /* Add some margin for spacing */
-    }
-
-    .image-gallery {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        gap: 10px;
-        }
-
-    .image-gallery img {
-        max-height: 150px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-</style>
-
-<!-- This grid_container class is used by CSS styling and the id is used by JavaScript connection -->
-<div class="grid-container" id="grid_container">
-    <!-- content will be added here by JavaScript -->
-</div>
+<!-- SECTION 1: Images are loaded with JavaScript from my custom image folder -->
+<div id="grid_container"></div>
 
 <script>
-    // 1. Make a connection to the HTML container defined in the HTML div
-    var container = document.getElementById("grid_container"); // This container connects to the HTML div
+var outputElement = document.getElementById("grid_container");
 
-    // 2. Define a JavaScript object for our http source and our data rows for the Living in the World grid
-    var http_source = "{{site.baseurl}}/images/ishan/";
-    var living_in_the_world = [
-        {"flag": "rc-plane.png", "greeting": "RC Planes", "description": "Flying and aerodynamics"},
-        {"flag": "drone-build.png", "greeting": "RC Drones", "description": "Building and tuning"},
-        {"flag": "engineering-cs.png", "greeting": "Engineering + CS", "description": "Hardware and code"},
-    ];
+// Clear the output
+outputElement.innerHTML = '';
 
-    // 3a. Consider how to update style count for size of container
-    // The grid-template-columns has been defined as dynamic with auto-fill and minmax
+// Data array
+const living_in_the_world = [
+  {flag: "{{site.baseurl}}/images/ishan/rc-plane.png", greeting: "RC Planes", description: "Flying and aerodynamics"},
+  {flag: "{{site.baseurl}}/images/ishan/drone-build.png", greeting: "RC Drones", description: "Building and tuning"},
+  {flag: "{{site.baseurl}}/images/ishan/engineering-cs.png", greeting: "Engineering + CS", description: "Hardware and code"}
+];
 
-    // 3b. Build grid items inside of our container for each row of data
-    for (const location of living_in_the_world) {
-        // Create a "div" with "class grid-item" for each row
-        var gridItem = document.createElement("div");
-        gridItem.className = "grid-item";  // This class name connects the gridItem to the CSS style elements
-        // Add "img" HTML tag for the flag
-        var img = document.createElement("img");
-        img.src = http_source + location.flag; // concatenate the source and flag
-        img.alt = location.flag + " Image"; // add alt text for accessibility
+// Create grid container
+const container = document.createElement('div');
+container.id = 'grid_container';
+container.style.display = 'grid';
+container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(150px, 1fr))';
+container.style.gap = '10px';
 
-        // Add "p" HTML tag for the description
-        var description = document.createElement("p");
-        description.textContent = location.description; // extract the description
+// Loop through each location
+for (const location of living_in_the_world) {
+  // Create grid item
+  const gridItem = document.createElement('div');
+  gridItem.style.textAlign = 'center';
 
-        // Add "p" HTML tag for the greeting
-        var greeting = document.createElement("p");
-        greeting.textContent = location.greeting;  // extract the greeting
+  // Create and add flag image
+  const img = document.createElement('img');
+  img.src = location.flag;
+  img.alt = location.description + ' Flag';
+  img.style.width = '100%';
+  img.style.height = '100px';
+  img.style.objectFit = 'contain';
 
-        // Append img and p HTML tags to the grid item DIV
-        gridItem.appendChild(img);
-        gridItem.appendChild(description);
-        gridItem.appendChild(greeting);
+  // Create description
+  const description = document.createElement('p');
+  description.textContent = location.description;
+  description.style.margin = '5px 0';
+  description.style.fontWeight = 'bold';
 
-        // Append the grid item DIV to the container DIV
-        container.appendChild(gridItem);
-    }
+  // Create greeting
+  const greeting = document.createElement('p');
+  greeting.textContent = location.greeting;
+  greeting.style.margin = '5px 0';
+  greeting.style.fontStyle = 'italic';
+  greeting.style.opacity = '0.7';
+
+  // Add all elements to grid item
+  gridItem.appendChild(img);
+  gridItem.appendChild(description);
+  gridItem.appendChild(greeting);
+
+  // Add grid item to container
+  container.appendChild(gridItem);
+}
+
+outputElement.appendChild(container);
 </script>
+
+---
+
+<!-- SECTION 2: Journey descriptions are made with Markdown -->
 
 ### Journey through Life
 
@@ -116,9 +95,25 @@ A lot of my interests involve building, learning, and having fun.
 - I am interested in money and finance
 - The gallery has some of my favorite projects and interests
 
-<comment>
-Gallery of Pics, scroll to the right for more ...
-</comment>
+---
+
+<!-- SECTION 3: Image Gallery is made using Style and HTML and GitHub /images -->
+
+<style>
+    .image-gallery {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+        }
+
+    .image-gallery img {
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+</style>
+
 <div class="image-gallery">
   <img src="{{site.baseurl}}/images/ishan/rc-plane.png" alt="RC Plane">
   <img src="{{site.baseurl}}/images/ishan/drone-build.png" alt="RC Drone">
