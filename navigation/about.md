@@ -3,7 +3,7 @@ layout: post
 show_reading_time: false
 title: About
 permalink: /about/
-description: My name is John, often referred to as "Mr M(ort)" in my CompSci classes. I am primary author and keeper of these CompSci materials.
+description: My name is Ishan.
 ---
 
 ## As a conversation Starter
@@ -21,10 +21,7 @@ outputElement.innerHTML = '';
 
 // Data array
 const living_in_the_world = [
-  {flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg", greeting: "Hey", description: "California - forever"},
-  {flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Oregon.svg", greeting: "Hi", description: "Oregon - 9 years"},
-  {flag: "https://upload.wikimedia.org/wikipedia/commons/b/be/Flag_of_England.svg", greeting: "Alright mate", description: "England - 2 years"},
-  {flag: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Hawaii.svg", greeting: "Aloha", description: "Hawaii - 2 years"}
+  {flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg", greeting: "Hey", description: "San Diego, CA"}
 ];
 
 // Create grid container
@@ -81,23 +78,25 @@ outputElement.appendChild(container);
 
 Here is what I did at those places
 
-- 🏫 Lots of Elementary Schools in Tucson, LA, Honolulu, and Glendale (CA)
-- 🏫 Middle and High School in Glendale (CA), Hoover High graduated '77
-- 🎓 Glendale CA Community College, UCLA Extension, LA Wilshire Computer Tech School '77 to '79
-- ⛪ England, London Missionary for Church of Jesus Christ of Latter-day Saints '79 to '81
-- 💼 Culver City, Glendale CA founder at Ashton-Tate, original PC's dBase 2 and 3 '82 to '87
-- 🎓 Eugene Oregon Undergraduate CompSci Degree at University of Oregon (Go Ducks!) '89 to '91
-- 💼 Eugene Oregon, founder and owner @ Microniche `88, Point Control CAD CAM developer '91 to '96
-- 🏢 San Diego CA Qualcomm, Satellite Comm and 1st Mobile OS (BREW) '96 to '19
-- 👨‍🏫 San Diego CA Teacher of Computer Science @ Del Norte High School San Diego '19 to present
+- 🏫 Monterey Ridge Elementary School in San Diego, CA
+- 🏫 Oak Valley Middle School in San Diego, CA
+- 🏫 Del Norte High School in San Diego, CA
+- 🏆 Won the CyberPatriot National Championship
+- 💻 Two-time ACSL national competitor
+- 👨‍🏫 Founder and owner of CoreMinds Tutoring LLC, teaching kids online
 
 ### Culture, Family, and Fun
 
-Everything for me, as for many others, revolves around family and faith. Oh, to stay in context of this site ... don't forget I like code, code, coding.
+My family, faith, hobbies, and favorite things are a big part of who I am.
 
-- My mother told me that I was Danish, English. and Irish, here is my researched [family tree]({{site.baseurl}}/images/about/familytree.png)
-- My family is pretty big as I have been married twice, my 1st wife passed away.  We have had 5 kids, 4 adopted by me, 1 biological.  Plus, there are three grandkids.  My name to my grandkids is Abuilito.
-- The gallery of pics has some of my family, fun, culture and faith memories.
+- I live with my mom and dad, my sister, and my brother
+- I am Hindu, and my faith is important to me
+- I love flying RC planes and drones, and I enjoy building, tuning, and learning how they work
+- I enjoy watching Prison Break and Netflix
+- I follow the Golden State Warriors
+- I am interested in money and finance
+- I also love eating at In-N-Out and Taco Bell
+- The gallery has pictures of my favorite projects, interests, culture, and food
 
 ---
 
@@ -124,16 +123,15 @@ Everything for me, as for many others, revolves around family and faith. Oh, to 
 </div>
 
 <div class="image-gallery">
-  <img src="{{site.baseurl}}/images/about/missionary.jpg" alt="Image 1">
-  <img src="{{site.baseurl}}/images/about/john_tamara.jpg" alt="Image 2">
-  <img src="{{site.baseurl}}/images/about/tamara_fam.jpg" alt="Image 3">
-  <img src="{{site.baseurl}}/images/about/surf.jpg" alt="Image 4">
-  <img src="{{site.baseurl}}/images/about/john_lora.jpg" alt="Image 5">
-  <img src="{{site.baseurl}}/images/about/lora_fam.jpg" alt="Image 6">
-  <img src="{{site.baseurl}}/images/about/lora_fam2.jpg" alt="Image 7">
-  <img src="{{site.baseurl}}/images/about/pj_party.jpg" alt="Image 8">
-  <img src="{{site.baseurl}}/images/about/trent_family.png" alt="Image 9">
-  <img src="{{site.baseurl}}/images/about/claire.jpg" alt="Image 10">
-  <img src="{{site.baseurl}}/images/about/grandkids.jpg" alt="Image 11">
-  <img src="{{site.baseurl}}/images/about/farm.jpg" alt="Image 12">
+  <img src="{{site.baseurl}}/images/ishan/rc-plane.png" alt="RC Plane">
+  <img src="{{site.baseurl}}/images/ishan/drone-build.png" alt="RC Drone">
+  <img src="{{site.baseurl}}/images/ishan/engineering-cs.png" alt="Engineering and Computer Science">
+  <img src="{{site.baseurl}}/images/ishan/prison-break.png" alt="Prison Break">
+  <img src="{{site.baseurl}}/images/ishan/netflix.png" alt="Netflix">
+  <img src="{{site.baseurl}}/images/ishan/warriors.png" alt="Golden State Warriors">
+  <img src="{{site.baseurl}}/images/ishan/money.png" alt="Money and Finance">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg" alt="Flag of India">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Om.svg" alt="Om symbol">
+  <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/File-In-N-Out_Burger_hamburgers_and_cheeseburgers.jpg?width=960" alt="In-N-Out burgers">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Exterior_of_a_modern_Taco_Bell_fast_food_restaurant_chain_location_in_Murphy%2C_North_Carolina_01.jpg/960px-Exterior_of_a_modern_Taco_Bell_fast_food_restaurant_chain_location_in_Murphy%2C_North_Carolina_01.jpg" alt="Taco Bell restaurant">
 </div>
