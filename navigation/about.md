@@ -21,7 +21,7 @@ outputElement.innerHTML = '';
 
 // Data array
 const living_in_the_world = [
-  {flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg", greeting: "Hey", description: "San Diego, CA"}
+  {flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg", greeting: "Hey!", description: "San Diego, CA"}
 ];
 
 // Create grid container
