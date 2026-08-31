@@ -5,7 +5,7 @@ hide: true
 show_reading_time: false
 ---
 
-Hi! My name is Ishan Shrivastava. I'm into engineering, computer science, and building things that fly. [Learn more about me]({{ site.baseurl }}/about/).
+Hi! My name is [Your Full Name]
 
 ### Development Environment
 
@@ -17,7 +17,7 @@ Hi! My name is Ishan Shrivastava. I'm into engineering, computer science, and bu
         <img src="{{ '/favicon.ico' | relative_url }}" alt="OCS logo" style="width: 16px; height: 16px;">
         OCS
     </a>
-    <a href="https://github.com/ishans17321/portfolio" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #FFF; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
+    <a href="https://github.com/Open-Coding-Society/portfolio" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid #FFF; border-radius: 6px; font-weight: 700; transition: all 0.3s;">
         <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
         </svg>
@@ -33,35 +33,12 @@ Hi! My name is Ishan Shrivastava. I'm into engineering, computer science, and bu
 
 <br>
 
-### Featured Project
-
-> Explore a real online dataset through an interactive AP CSP project.
-
-<a href="{{site.baseurl}}/sp500-index-lab" style="display: block; max-width: 760px; box-sizing: border-box; color: inherit; text-decoration: none; background-color: #101b14; border: 1px solid #5f8d6d; border-radius: 12px; padding: 20px; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;">
-        <span style="display: block; color: #8bd3a2; font-size: 0.8rem; font-weight: 800; margin-bottom: 6px;">LIVE DATA · PSEUDOCODE · PYTHON · JAVA</span>
-        <strong style="display: block; color: #f4f7f4; font-size: 1.35rem; margin-bottom: 8px;">S&amp;P 500 Sector Challenge</strong>
-        <span style="display: block; color: #c0cec3; line-height: 1.5; margin-bottom: 14px;">Match current S&amp;P 500 companies to their real GICS sectors, test wrong answers, and track your accuracy.</span>
-        <span style="color: #f0cb72; font-weight: 800;">Open the project →</span>
-</a>
-
-<br>
-
 ### My Lessons
 
 > Foundations in Tech are essential, click to see some of my lesson creations.
 
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{site.baseurl}}/sp500-index-lab" style="text-decoration: none;">
-        <div style="background-color: #2f6b45; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
-           S&amp;P 500 CPT 2.0
-        </div>
-    </a>
-    <a href="{{site.baseurl}}/pc-assembly" style="text-decoration: none;">
-        <div style="background-color: var(--blue); color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
-           PC Assembly CPT
-        </div>
-    </a>
     <a href="{{site.baseurl}}/code/javascript" style="text-decoration: none;">
         <div style="background-color: var(--green); color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
            JS Basics

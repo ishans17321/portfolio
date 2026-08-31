@@ -14,10 +14,10 @@
 #   in _config.yml. It will appear in your document head meta (for Google search
 #   results) and in your feed.xml site description.
 
-title: Ishan's Portfolio
-description: "Engineering, computer science, and RC aviation projects by Ishan Shrivastava."
-owner_name: Ishan Shrivastava
-github_username: ishans17321
+title: Open Coding 
+description: "Class of 2026"
+owner_name: John Mortensen
+github_username: jm1021 
 github_repo: "portfolio" 
 baseurl: "/portfolio" 
 future: true
@@ -106,7 +106,9 @@ plugins:
 minima:
   skin: dark
   social_links:
-    - { platform: github, user_url: "https://github.com/ishans17321" }
+    - { platform: github, user_url: "https://github.com/open-coding-society" }
+    - { platform: x, user_url: "https://x.com/Open_Coding" }
+    - { platform: youtube, user_url: "https://www.youtube.com/@OpenCodingSociety" } 
   nav_pages:
     - navigation/blog.md
     - navigation/search.md
