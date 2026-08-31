@@ -3,7 +3,7 @@ layout: post
 show_reading_time: false
 title: About
 permalink: /about/
-description: My name is Ishan.
+description: My name is Ishan Shrivastava.
 ---
 
 ## As a conversation Starter
