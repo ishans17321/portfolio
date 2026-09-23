@@ -63,6 +63,19 @@ Hi! My name is [Your Full Name]
 
 <br>
 
+### My Homework
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <a href="{{ '/homework/math-expressions' | relative_url }}" class="btn">
+        Math Expressions
+    </a>
+    <a href="{{ '/python/strings-intercepters-hw' | relative_url }}" class="btn">
+        Strings
+    </a>
+</div>
+
+<br>
+
 ### Class Progress
 
 > Here is my game progress through coding, click to see these in the browser
