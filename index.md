@@ -66,7 +66,7 @@ Hi! My name is [Your Full Name]
 ### My Homework
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{ '/homework/math-expressions' | relative_url }}" class="btn">
+    <a href="{{ '/csp/python/math-expressions/hw' | relative_url }}" class="btn">
         Math Expressions
     </a>
     <a href="{{ '/python/strings-intercepters-hw' | relative_url }}" class="btn">
