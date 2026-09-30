@@ -2,6 +2,8 @@ const DEFAULT_INDEX_URL = 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/';
 
 let runtimePromise = null;
 let loaderPromise = null;
+let executionQueue = Promise.resolve();
+let flaskPromise = null;
 
 function ensureLoader(indexURL) {
   if (typeof globalThis.loadPyodide === 'function') {
@@ -55,7 +57,14 @@ export class PyodideExecutor {
     this.indexURL = indexURL;
   }
 
-  async run(code = '') {
+  run(code = '') {
+    // All editors share one runtime and its stdout, so serialize execution.
+    const pending = executionQueue.then(() => this.execute(code));
+    executionQueue = pending.catch(() => {});
+    return pending;
+  }
+
+  async execute(code) {
     if (!this.outputElement) {
       throw new Error('PyodideExecutor requires an output element');
     }
@@ -67,36 +76,52 @@ export class PyodideExecutor {
     let runtime;
     let executionError = null;
     let output = '';
+    let namespace;
 
     try {
       runtime = await loadRuntime(this.indexURL);
+      if (/^\s*(?:from\s+flask\b|import\s+flask\b)/m.test(code)) {
+        this.outputElement.textContent = '⏳ Loading Flask for the route exercise...';
+        if (!flaskPromise) {
+          flaskPromise = (async () => {
+            await runtime.loadPackage('micropip');
+            await runtime.runPythonAsync('import micropip\nawait micropip.install("Flask==3.1.2")');
+          })().catch(error => { flaskPromise = null; throw error; });
+        }
+        await flaskPromise;
+      }
       this.outputElement.textContent = '⏳ Running...';
+
+      // Each Run starts fresh, like the standalone homework submission.
+      namespace = runtime.toPy({ __name__: '__main__' });
 
       runtime.runPython([
         'import sys',
         'from io import StringIO',
+        '__runner_stdout, __runner_stderr = sys.stdout, sys.stderr',
         '__runner_output = StringIO()',
         'sys.stdout = __runner_output',
         'sys.stderr = __runner_output',
-      ].join('\n'));
+      ].join('\n'), { globals: namespace });
 
       try {
-        runtime.runPython(code);
+        await runtime.runPythonAsync(code, { globals: namespace });
       } catch (error) {
         executionError = error;
       }
 
-      output = runtime.runPython('__runner_output.getvalue()');
+      output = runtime.runPython('__runner_output.getvalue()', { globals: namespace });
     } catch (error) {
       executionError = error;
     } finally {
-      if (runtime) {
+      if (runtime && namespace) {
         try {
-          runtime.runPython('sys.stdout = sys.__stdout__\nsys.stderr = sys.__stderr__');
+          runtime.runPython('import sys\nsys.stdout = __runner_stdout\nsys.stderr = __runner_stderr', { globals: namespace });
         } catch (restoreError) {
           if (!executionError) executionError = restoreError;
         }
       }
+      namespace?.destroy();
     }
 
     if (executionError) {

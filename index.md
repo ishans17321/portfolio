@@ -65,6 +65,10 @@ Hi! My name is [Your Full Name]
 
 ### My Homework
 
+[**Python Homework Portfolio — all lessons, popcorn hacks, and notebooks**]({{ "/python/homework/" | relative_url }})
+
+Browse the organized lesson index, run Python in the page, or download each notebook.
+
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <a href="{{ '/csp/python/math-expressions/hw' | relative_url }}" class="btn">
         Math Expressions
