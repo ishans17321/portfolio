@@ -4,111 +4,208 @@
     "title": "3.01 Variables and Assignments HW",
     "path": "_notebooks/homework/2026-09-30-variables-hw.ipynb",
     "permalink": "/homework/3-1/",
-    "download_name": "variables-hw.ipynb"
+    "download_name": "variables-hw.ipynb",
+    "required_sections": [
+      "Popcorn",
+      "MCQ",
+      "Homework",
+      "Tests",
+      "Design Thinking"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/data-abstractions/2027",
     "title": "3.02 Data Abstractions HW",
     "path": "_notebooks/homework/2026-09-30-data-abstractions-hw.ipynb",
     "permalink": "/homework/3-2/",
-    "download_name": "data-abstractions-hw.ipynb"
+    "download_name": "data-abstractions-hw.ipynb",
+    "required_sections": [
+      "Popcorn",
+      "MCQ",
+      "Homework",
+      "Tests",
+      "Design Thinking"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/navigation/py-reference/",
     "title": "3.03 Math Expressions HW",
     "path": "_notebooks/homework/2026-09-22-math-expressions-hw.ipynb",
     "permalink": "/csp/python/math-expressions/hw",
-    "download_name": "math-expressions-hw.ipynb"
+    "download_name": "math-expressions-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Basic Arithmetic Operators",
+      "Popcorn Hack 2",
+      "Homework Hack \u2014 Recovery Center Cost Report"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/strings-intercepters/2027",
     "title": "3.04 Strings HW",
     "path": "_notebooks/homework/2026-09-22-strings-hw.ipynb",
     "permalink": "/python/strings-intercepters-hw",
-    "download_name": "strings-hw.ipynb"
+    "download_name": "strings-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Extract the Hidden Message",
+      "Popcorn Hack 2 \u2014 Scrub and Search a Noisy Transmission",
+      "Popcorn Hack 3 \u2014 Build a Decoded Report",
+      "Homework Hack \u2014 Crack the Final Transmission"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/boolean/2027",
     "title": "3.05 Boolean Expressions HW",
     "path": "_notebooks/homework/2026-09-30-boolean-expressions-hw.ipynb",
     "permalink": "/python/boolean-hw",
-    "download_name": "boolean-expressions-hw.ipynb"
+    "download_name": "boolean-expressions-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Check One SFI Part Record",
+      "Popcorn Hack 2 \u2014 Backend Create Rule",
+      "Popcorn Hack 3 \u2014 SFI Search Filter",
+      "MCQ Answer Key",
+      "Homework Hack \u2014 SFI Backend Validator"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/conditionals/py",
     "title": "3.06 Conditionals HW",
     "path": "_notebooks/homework/2026-09-30-conditionals-hw.ipynb",
     "permalink": "/python/conditionals-hw",
-    "download_name": "conditionals-hw.ipynb"
+    "download_name": "conditionals-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 The Silent Failure",
+      "Popcorn Hack 2 \u2014 The Chain in the Wrong Order",
+      "Homework Hack \u2014 Build the Trainer\u2019s Scoring Step"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/nested-conditionals/student-life",
     "title": "3.07 Nested Conditionals HW",
     "path": "_notebooks/homework/2026-09-30-nested-conditionals-hw.ipynb",
     "permalink": "/python/nested-conditionals-hw",
-    "download_name": "nested-conditionals-hw.ipynb"
+    "download_name": "nested-conditionals-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 After-School Homework Plan",
+      "Popcorn Hack 2 \u2014 Repair the Student Account Check",
+      "Popcorn Hack 3 \u2014 Lunch and Sports Practice",
+      "Homework Hack \u2014 High School Daily Routine Dashboard"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/iterations/2027",
     "title": "3.08 Iterations HW",
     "path": "_notebooks/homework/2026-09-30-iterations-hw.ipynb",
     "permalink": "/python/iterations-hw",
-    "download_name": "iterations-hw.ipynb"
+    "download_name": "iterations-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack \u2014 Wildfire Dispatch Scanner",
+      "MCQ Answer Key",
+      "Homework Hack \u2014 Themed Loop-Based Checker"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/csp/python/developing-algorithms/lesson",
     "title": "3.09 Developing Algorithms HW",
     "path": "_notebooks/homework/2026-09-30-developing-algorithms-hw.ipynb",
     "permalink": "/python/developing-algorithms-hw",
-    "download_name": "developing-algorithms-hw.ipynb"
+    "download_name": "developing-algorithms-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Translate Pseudocode to Python",
+      "Popcorn Hack 2 \u2014 Predict, Then Fix",
+      "Popcorn Hack 3 \u2014 Modify the Counter into a Collector",
+      "MCQ Answer Key",
+      "Homework Hack \u2014 Supply Closet Restock Report"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/developing-algorithms/2026",
     "title": "3.09 Peppa Maze Algorithm Practice",
     "path": "_notebooks/homework/2026-09-30-peppa-maze-algorithms-hw.ipynb",
     "permalink": "/python/peppa-maze-hw",
-    "download_name": "peppa-maze-algorithms-hw.ipynb"
+    "download_name": "peppa-maze-algorithms-hw.ipynb",
+    "required_sections": [
+      "Algorithm Practice \u2014 Arithmetic, Booleans, and Comparisons",
+      "Maze Practice \u2014 Movement, Boundaries, and the Finish"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/lists/2027",
     "title": "3.10 Lists HW",
     "path": "_notebooks/homework/2026-09-30-lists-hw.ipynb",
     "permalink": "/csp/big-idea-3/lists/",
-    "download_name": "lists-hw.ipynb"
+    "download_name": "lists-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Creating and Indexing Lists",
+      "Popcorn Hack 2 \u2014 Sum and Average",
+      "Popcorn Hack 3 \u2014 Counting Frequencies and Filtering",
+      "Homework \u2014 Donation Indexing, Accumulator, Count, and Filter",
+      "Tests"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/calling-procedures/2027",
     "title": "3.12 Calling Procedures HW",
     "path": "_notebooks/homework/2026-09-30-calling-procedures-hw.ipynb",
     "permalink": "/csp/python/calling-procedures/hw",
-    "download_name": "calling-procedures-hw.ipynb"
+    "download_name": "calling-procedures-hw.ipynb",
+    "required_sections": [
+      "Quick Knowledge Check \u2014 Answer Key",
+      "Popcorn Hack 1 \u2014 Simple Procedure Call and Parameters",
+      "Popcorn Hack 2 \u2014 Decomposition and Helper Procedures",
+      "Homework Hack \u2014 Emergency-Response Program"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/developing-procedures/2026",
     "title": "3.13 Developing Procedures Practice",
     "path": "_notebooks/homework/2026-09-30-developing-procedures-hw.ipynb",
     "permalink": "/python/developing-procedures-hw",
-    "download_name": "developing-procedures-hw.ipynb"
+    "download_name": "developing-procedures-hw.ipynb",
+    "required_sections": [
+      "Exercise 1 \u2014 Descriptive Names and the Naming Mini-Game",
+      "Exercise 2 \u2014 Python Procedure Interface",
+      "Exercise 3 \u2014 Decomposition and Tests"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/libraries/2027",
     "title": "3.14 Libraries HW",
     "path": "_notebooks/homework/2026-09-30-libraries-hw.ipynb",
     "permalink": "/python/libraries-hw",
-    "download_name": "libraries-hw.ipynb"
+    "download_name": "libraries-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Read the API, Then Use It",
+      "Popcorn Hack 2 \u2014 Write a Flask Route",
+      "Homework Hack \u2014 Season Stats Report",
+      "Tests and Submission Notes"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/random/2027",
     "title": "3.15 Random Values HW",
     "path": "_notebooks/homework/2026-09-30-random-values-hw.ipynb",
     "permalink": "/python/random-hw",
-    "download_name": "random-values-hw.ipynb"
+    "download_name": "random-values-hw.ipynb",
+    "required_sections": [
+      "Popcorn Hack 1 \u2014 Random SFI Record Number",
+      "Popcorn Hack 2 \u2014 Random Structured SFI Car Part",
+      "Popcorn Hack 3 \u2014 Random SFI API Test",
+      "MCQ Answer Key",
+      "Homework Hack \u2014 SFI Backend QA Simulator"
+    ]
   },
   {
     "source": "https://pages.opencodingsociety.com/python/algorithmic-efficiency/",
     "title": "3.17 Algorithmic Efficiency HW",
     "path": "_notebooks/homework/2026-09-30-algorithmic-efficiency-hw.ipynb",
     "permalink": "/homework/3-17/",
-    "download_name": "algorithmic-efficiency-hw.ipynb"
+    "download_name": "algorithmic-efficiency-hw.ipynb",
+    "required_sections": [
+      "Popcorn",
+      "MCQ",
+      "Homework",
+      "Tests",
+      "Design Thinking"
+    ]
   }
 ]

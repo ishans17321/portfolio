@@ -12,12 +12,18 @@ import nbformat
 
 ROOT = Path(__file__).resolve().parents[1]
 entries = json.loads((ROOT / 'assets/python-homework/manifest.json').read_text())
+assert len({entry['path'] for entry in entries}) == len(entries), 'Each lesson needs its own source notebook'
+assert len({entry['download_name'] for entry in entries}) == len(entries), 'Each lesson needs one unique download'
 count = 0
 for entry in entries:
     path = ROOT / entry['path']
     notebook = nbformat.read(path, as_version=4)
     notebook.nbformat_minor = 5
     notebook.cells = [cell for cell in notebook.cells if not cell.metadata.get('recorded_homework_output')]
+    headings = {line[3:] for cell in notebook.cells if cell.cell_type == 'markdown'
+                for line in cell.source.splitlines() if line.startswith('## ')}
+    missing = set(entry.get('required_sections', [])) - headings
+    assert not missing, f'{path.name} is missing lesson sections: {sorted(missing)}'
     cells = []
     execution = 0
     for cell in notebook.cells:
