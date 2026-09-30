@@ -25,9 +25,11 @@
       <button type="button" class="ocs__btn utility clear" data-hook="clear" title="Clear Storage" aria-label="Clear Storage"></button>
       <select class="languageSelect">
         <option value="python">Python</option>
+        {% unless page.python_only %}
         <option value="java">Java</option>
         <option value="javascript">JavaScript</option>
         <option value="pseudocode">Pseudocode</option>
+        {% endunless %}
       </select>
       <select class="fontSizeSelect">
         <option value="14">14px</option>

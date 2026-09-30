@@ -3,96 +3,112 @@
     "source": "https://pages.opencodingsociety.com/python/variables",
     "title": "3.01 Variables and Assignments HW",
     "path": "_notebooks/homework/2026-09-30-variables-hw.ipynb",
-    "permalink": "/homework/3-1/"
+    "permalink": "/homework/3-1/",
+    "download_name": "variables-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/data-abstractions/2027",
     "title": "3.02 Data Abstractions HW",
     "path": "_notebooks/homework/2026-09-30-data-abstractions-hw.ipynb",
-    "permalink": "/homework/3-2/"
+    "permalink": "/homework/3-2/",
+    "download_name": "data-abstractions-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/navigation/py-reference/",
     "title": "3.03 Math Expressions HW",
     "path": "_notebooks/homework/2026-09-22-math-expressions-hw.ipynb",
-    "permalink": "/csp/python/math-expressions/hw"
+    "permalink": "/csp/python/math-expressions/hw",
+    "download_name": "math-expressions-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/strings-intercepters/2027",
     "title": "3.04 Strings HW",
     "path": "_notebooks/homework/2026-09-22-strings-hw.ipynb",
-    "permalink": "/python/strings-intercepters-hw"
+    "permalink": "/python/strings-intercepters-hw",
+    "download_name": "strings-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/boolean/2027",
     "title": "3.05 Boolean Expressions HW",
     "path": "_notebooks/homework/2026-09-30-boolean-expressions-hw.ipynb",
-    "permalink": "/python/boolean-hw"
+    "permalink": "/python/boolean-hw",
+    "download_name": "boolean-expressions-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/conditionals/py",
     "title": "3.06 Conditionals HW",
     "path": "_notebooks/homework/2026-09-30-conditionals-hw.ipynb",
-    "permalink": "/python/conditionals-hw"
+    "permalink": "/python/conditionals-hw",
+    "download_name": "conditionals-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/nested-conditionals/student-life",
     "title": "3.07 Nested Conditionals HW",
     "path": "_notebooks/homework/2026-09-30-nested-conditionals-hw.ipynb",
-    "permalink": "/python/nested-conditionals-hw"
+    "permalink": "/python/nested-conditionals-hw",
+    "download_name": "nested-conditionals-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/iterations/2027",
     "title": "3.08 Iterations HW",
     "path": "_notebooks/homework/2026-09-30-iterations-hw.ipynb",
-    "permalink": "/python/iterations-hw"
+    "permalink": "/python/iterations-hw",
+    "download_name": "iterations-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/csp/python/developing-algorithms/lesson",
     "title": "3.09 Developing Algorithms HW",
     "path": "_notebooks/homework/2026-09-30-developing-algorithms-hw.ipynb",
-    "permalink": "/python/developing-algorithms-hw"
+    "permalink": "/python/developing-algorithms-hw",
+    "download_name": "developing-algorithms-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/developing-algorithms/2026",
     "title": "3.09 Peppa Maze Algorithm Practice",
     "path": "_notebooks/homework/2026-09-30-peppa-maze-algorithms-hw.ipynb",
-    "permalink": "/python/peppa-maze-hw"
+    "permalink": "/python/peppa-maze-hw",
+    "download_name": "peppa-maze-algorithms-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/lists/2027",
     "title": "3.10 Lists HW",
     "path": "_notebooks/homework/2026-09-30-lists-hw.ipynb",
-    "permalink": "/csp/big-idea-3/lists/"
+    "permalink": "/csp/big-idea-3/lists/",
+    "download_name": "lists-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/calling-procedures/2027",
     "title": "3.12 Calling Procedures HW",
     "path": "_notebooks/homework/2026-09-30-calling-procedures-hw.ipynb",
-    "permalink": "/csp/python/calling-procedures/hw"
+    "permalink": "/csp/python/calling-procedures/hw",
+    "download_name": "calling-procedures-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/developing-procedures/2026",
     "title": "3.13 Developing Procedures Practice",
     "path": "_notebooks/homework/2026-09-30-developing-procedures-hw.ipynb",
-    "permalink": "/python/developing-procedures-hw"
+    "permalink": "/python/developing-procedures-hw",
+    "download_name": "developing-procedures-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/libraries/2027",
     "title": "3.14 Libraries HW",
     "path": "_notebooks/homework/2026-09-30-libraries-hw.ipynb",
-    "permalink": "/python/libraries-hw"
+    "permalink": "/python/libraries-hw",
+    "download_name": "libraries-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/random/2027",
     "title": "3.15 Random Values HW",
     "path": "_notebooks/homework/2026-09-30-random-values-hw.ipynb",
-    "permalink": "/python/random-hw"
+    "permalink": "/python/random-hw",
+    "download_name": "random-values-hw.ipynb"
   },
   {
     "source": "https://pages.opencodingsociety.com/python/algorithmic-efficiency/",
     "title": "3.17 Algorithmic Efficiency HW",
     "path": "_notebooks/homework/2026-09-30-algorithmic-efficiency-hw.ipynb",
-    "permalink": "/homework/3-17/"
+    "permalink": "/homework/3-17/",
+    "download_name": "algorithmic-efficiency-hw.ipynb"
   }
 ]

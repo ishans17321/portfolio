@@ -1124,6 +1124,7 @@ Check if this is a course lesson and determine which course context to use
     {% endfor %}
     {% endif %}
     <p class="post-meta post-meta-title">
+      {%- unless page.hide_date -%}
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
         {{ page.date | date: date_format }}
@@ -1135,8 +1136,9 @@ Check if this is a course lesson and determine which course context to use
         {{ mdate | date: date_format }}
       </time>
       {%- endif -%}
+      {%- endunless -%}
       {%- if page.author -%}
-      • {% for author in page.author %}
+      {% unless page.hide_date %}• {% endunless %}{% for author in page.author %}
       <span itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span class="p-author h-card" itemprop="name">{{ author }}</span></span>
       {%- if forloop.last == false %}, {% endif -%}

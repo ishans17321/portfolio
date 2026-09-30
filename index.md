@@ -33,39 +33,15 @@ Hi! My name is [Your Full Name]
 
 <br>
 
-### My Lessons
+### Python Lessons
 
-> Foundations in Tech are essential, click to see some of my lesson creations.
-
-
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    <a href="{{site.baseurl}}/code/javascript" style="text-decoration: none;">
-        <div style="background-color: var(--green); color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
-           JS Basics
-        </div>
-    </a>
-    <a href="{{site.baseurl}}/game/essentials/variables" style="text-decoration: none;">
-        <div style="background-color: var(--blue); color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
-           JS Variables
-        </div>
-    </a>
-    <a href="{{site.baseurl}}/gamerunner" style="text-decoration: none;">
-        <div style="background-color: var(--warn); color: black; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
-           Gamerunner
-        </div>
-    </a>
-    <a href="{{site.baseurl}}/network/stack" style="text-decoration: none;">
-        <div style="background-color: var(--orange); color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: transform 0.2s, box-shadow 0.2s;">
-           Networking
-        </div>
-    </a>
-</div>
+[Browse the Python reference lessons](https://pages.opencodingsociety.com/navigation/py-reference/)
 
 <br>
 
 ### My Homework
 
-[**Python Homework Portfolio — all lessons, popcorn hacks, and notebooks**]({{ "/python/homework/" | relative_url }})
+[**Python Homework Portfolio — all lessons, popcorn hacks, and notebooks**]({{ "/homework/" | relative_url }})
 
 Browse the organized lesson index, run Python in the page, or download each notebook.
 
