@@ -1,0 +1,208 @@
+[
+  {
+    "slug": "grids",
+    "title": "Grids",
+    "url": "https://pages.opencodingsociety.com/sass/grids/",
+    "intro": "Lab layouts using the OCS grid grammar. All measurements are sample data.",
+    "notes": "## Knowledge check answers\n\n**Answer key: A, B, C, D (4 correct answers).** This is a worked answer key, not a claim of a submitted quiz attempt.\n\n1. **A \u2014 `cols-4`:** four equal tracks in a standard grid.\n2. **B \u2014 two boxes, first twice as wide:** `2fr 1fr` divides the available space into three shares.\n3. **C \u2014 `ocs__grid-cell--header`:** spans all columns; `--wide` spans only two.\n4. **D \u2014 the hand-styled row:** a made-up class and an inline layout break the class-only rule.\n\n## Design explanation\n\nThe standard variant fits comparable readings. A header names the trial, while an accent flags the unusually high reading. The calculator variant gives the keypad four columns. In the fraction exercise only, an inline `grid-template-columns` declaration is intentionally allowed by the lesson. The final homework contains no inline styles or invented classes.",
+    "examples": [
+      {
+        "id": "grids-popcorn-1",
+        "title": "Popcorn 1 \u2014 repair the beaker row",
+        "file": "sass-homework/grids-popcorn-1.html",
+        "explanation": "One standard grid, three cells, and no inline styles."
+      },
+      {
+        "id": "grids-popcorn-2",
+        "title": "Popcorn 2 \u2014 four fractional tracks",
+        "file": "sass-homework/grids-popcorn-2.html",
+        "explanation": "Four values create four columns. The final 2fr track is twice as wide as each 1fr track, excluding the gaps."
+      },
+      {
+        "id": "grids-homework",
+        "title": "Homework \u2014 readings and keypad",
+        "file": "sass-homework/grids-homework.html",
+        "explanation": "The live checklist evaluates the markup above it; all eight rules should pass. The keypad demonstrates layout only."
+      },
+      {
+        "id": "grids-practice",
+        "title": "Practice \u2014 column counts and cell types",
+        "file": "sass-homework/grids-practice.html",
+        "explanation": "This extension moves the accent to Beaker 1 and demonstrates four columns, a muted control, and a wide notes cell. Change the variant in the editor to try color, holographic, or gallery."
+      },
+      {
+        "id": "grids-wrap",
+        "title": "Practice \u2014 fourth beaker wraps",
+        "explanation": "Four readings in a standard three-track grid put the fourth reading on the next row. On a phone, the grid has two tracks.",
+        "file": "sass-homework/grids-wrap.html"
+      },
+      {
+        "id": "grids-conclusion",
+        "title": "Practice \u2014 complete lab card",
+        "explanation": "A third cell adds the requested conclusion. Each report section has a heading and paragraph.",
+        "file": "sass-homework/grids-conclusion.html"
+      }
+    ]
+  },
+  {
+    "slug": "containers",
+    "title": "Containers",
+    "url": "https://pages.opencodingsociety.com/navigation/sass/containers/lesson",
+    "intro": "A repaired invite and a complete Poway Scripps Rotary Parade hub. Dates and schedule details below are fictional classroom examples, not event announcements.",
+    "notes": "## Structure and responsive behavior\n\nEach required example has exactly one container around one card. The homework adds a three-column grid with header, accent, and muted roles, a wrapped table with two body rows, and a closing callout. Below 600px the standard grid uses two columns; the table wrapper scrolls if it needs more room.\n\n## Optional Sass extension\n\nThe separate bonus preview uses the following variant, compiled in the homework stylesheet. It leaves the required solution class-only.\n\n```scss\n.parade-container--tinted {\n  border-left: 4px solid var(--lab-accent);\n  background: var(--lab-panel);\n}\n```",
+    "examples": [
+      {
+        "id": "containers-popcorn",
+        "title": "Popcorn \u2014 parade invite rescue",
+        "file": "sass-homework/containers-popcorn.html",
+        "explanation": "Replaces the unstyled wrapper and hand-built flex row with the shared container grammar."
+      },
+      {
+        "id": "containers-homework",
+        "title": "Homework \u2014 Rotary Parade hub",
+        "file": "sass-homework/containers-homework.html",
+        "explanation": "The required solution uses only OCS container grammar, including the table and callout."
+      },
+      {
+        "id": "containers-bonus",
+        "title": "Optional hack \u2014 tinted container",
+        "file": "sass-homework/containers-bonus.html",
+        "explanation": "The custom modifier is limited to this optional example."
+      }
+    ]
+  },
+  {
+    "slug": "typography",
+    "title": "Semantic HTML & Typography",
+    "url": "https://pages.opencodingsociety.com/sass/typography",
+    "intro": "Semantic refactors that let headings, paragraphs, and lists communicate the structure.",
+    "notes": "## Why these tags work\n\n`h2` starts the topic; `h3` introduces subsections; `h4` names the steps inside a subsection. Paragraphs hold prose, `strong` marks an important instruction, and an ordered list preserves the sequence. OCS typography roles use a **single underscore** in this lesson (`ocs_card`, `ocs_lead`); the container lesson uses two.\n\nThe refactor removes the hand-written font rules and fake numbered divs. A screen reader can now navigate the headings and recognize a three-step list.",
+    "examples": [
+      {
+        "id": "typography-popcorn",
+        "title": "Popcorn \u2014 replace presentation-only divs",
+        "file": "sass-homework/typography-popcorn.html",
+        "explanation": "One topic heading, one supporting heading, and one lead paragraph; no custom CSS."
+      },
+      {
+        "id": "typography-homework",
+        "title": "Homework \u2014 semantic cat instructions",
+        "file": "sass-homework/typography-homework.html",
+        "explanation": "Includes a meaningful heading hierarchy, prose, strong emphasis, and one ordered list with exactly three items."
+      }
+    ]
+  },
+  {
+    "slug": "buttons",
+    "title": "Buttons",
+    "url": "https://pages.opencodingsociety.com/sass/buttons",
+    "intro": "Three popcorn hacks and both assigned homework refactors. These are classroom interface demos; sample actions report their result locally.",
+    "notes": "## Design explanation\n\nThe base class gives every action consistent spacing. `pill` changes its shape, `fill` gives an action visual weight, and `outline` supports a secondary action. Semantic tone classes express urgency without hardcoding colors into markup. Text labels communicate intent even when colors are difficult to distinguish.\n\nThe second homework follows the written requirement **Crisis Hotline** where the starter inconsistently says Mental Health Blog. Resource links use a normal URL rather than Markdown embedded inside an HTML href.",
+    "examples": [
+      {
+        "id": "buttons-popcorn-1",
+        "title": "Popcorn 1 \u2014 base class",
+        "file": "sass-homework/buttons-popcorn-1.html",
+        "explanation": "The base button class replaces the missing styling hook."
+      },
+      {
+        "id": "buttons-popcorn-2",
+        "title": "Popcorn 2 \u2014 modifiers and group",
+        "file": "sass-homework/buttons-popcorn-2.html",
+        "explanation": "The primary action has both pill and fill; both actions share one links container."
+      },
+      {
+        "id": "buttons-popcorn-3",
+        "title": "Popcorn 3 \u2014 status tones and wide bar",
+        "file": "sass-homework/buttons-popcorn-3.html",
+        "explanation": "The second action uses green, the group is wide, and the support action has fill."
+      },
+      {
+        "id": "buttons-homework-1",
+        "title": "Homework 1 \u2014 adaptive resource toolbar",
+        "file": "sass-homework/buttons-homework-1.html",
+        "explanation": "All three resource categories use the exact requested tone, fill/outline, and shape modifiers."
+      },
+      {
+        "id": "buttons-homework-2",
+        "title": "Homework 2 \u2014 primary and secondary actions",
+        "file": "sass-homework/buttons-homework-2.html",
+        "explanation": "The filled primary action stands out from the outlined secondary and alert actions. The links preserve the lesson\u2019s resource destination."
+      }
+    ]
+  },
+  {
+    "slug": "inputs",
+    "title": "Inputs",
+    "url": "https://pages.opencodingsociety.com/sass/inputs/",
+    "intro": "PVO input refactors with explicit labels, size modifiers, and a class-based gradient.",
+    "notes": "## Input grammar and behavior\n\n`ocs__input` supplies the shared appearance; `small`, `medium`, and `large` communicate size. `gradient` adds a reusable background. The name field is compact, the email field standard, and the assistance field large.\n\nThe bonus form reads strings from `.value`, uses the browser's required/email validation, and writes output with `textContent`. It does not transmit data or create a real signup. Use fictional values when trying it.\n\n## Code runner answers\n\nFor `rawAge = \"21\"`, `rawAge + 1` produces `\"211\"`, whereas `Number(rawAge) + 1` produces `22`. Convert before arithmetic, and reject blank input first because `Number(\"\")` is zero. A malformed number converts to `NaN`.\n\nThe email practice accepts `alex@example.com`; it rejects `alex`, `alex@`, and `alex @example.com`. Its pattern requires nonempty parts around `@`, a dot in the domain, and no whitespace. This is only a teaching check.\n\nThe browser input/output flow can also be expressed in AP CSP pseudocode:\n\n```text\nDISPLAY(\"Enter a volunteer skill\")\nskill \u2190 INPUT()\nDISPLAY(skill)\n```",
+    "examples": [
+      {
+        "id": "inputs-popcorn",
+        "title": "Popcorn \u2014 large gradient and compact plain input",
+        "file": "sass-homework/inputs-popcorn.html",
+        "explanation": "Removes both the inline styling and the made-up class while preserving the purpose of each field."
+      },
+      {
+        "id": "inputs-homework",
+        "title": "Homework \u2014 signup field refactor",
+        "file": "sass-homework/inputs-homework.html",
+        "explanation": "All three fields have labels and the requested size classes; only the assistance field uses gradient."
+      },
+      {
+        "id": "inputs-bonus",
+        "title": "Practice \u2014 local signup preview",
+        "file": "sass-homework/inputs-bonus.html",
+        "explanation": "The separate extension connects styled input controls to visible output and native form validation."
+      },
+      {
+        "id": "inputs-values",
+        "title": "Practice \u2014 values, conversion, and validation",
+        "explanation": "The resource field updates as you type. The skill button reads a value on click. Age demonstrates string concatenation versus numeric addition; blank and invalid values are handled separately. Email checks illustrate a simple format check, not proof that an address exists.",
+        "file": "sass-homework/inputs-values.html"
+      }
+    ]
+  },
+  {
+    "slug": "toggles",
+    "title": "Toggles",
+    "url": "https://pages.opencodingsociety.com/sass/toggles",
+    "intro": "Three independent settings control an RC flight project preview and update a live enabled-count.",
+    "notes": "## Popcorn \u2014 fill in the blanks\n\n1. **Checkbox:** stores whether the setting is enabled.\n2. **Slider:** the visible track reflects the state.\n3. **Alignment:** the switch wrapper aligns the control and label.\n4. **border-radius:** rounds the track and thumb.\n5. **White circle:** the `::before` pseudo-element draws the thumb. It is a pseudo-element, not a class.\n\n## How the homework works\n\nJavaScript reads each checkbox's boolean `.checked` property. The detail setting shows or hides the project notes; light mode changes the preview's palette; compact mode changes card spacing. Every change also recomputes the enabled count, so the count cannot drift out of sync. Labels stay clickable, native checkboxes support keyboard input, and the decorative track is hidden from assistive technology.",
+    "examples": [
+      {
+        "id": "toggles-bug",
+        "title": "Practice \u2014 fix the missing track",
+        "file": "sass-homework/toggles-bug.html",
+        "explanation": "The missing ocs__toggle-track class is restored, with aria-hidden on the decorative span."
+      },
+      {
+        "id": "toggles-color",
+        "title": "Practice \u2014 customize the checked color",
+        "file": "sass-homework/toggles-color.html",
+        "explanation": "The original green has been replaced by purple. This exercise intentionally permits custom styling."
+      },
+      {
+        "id": "toggles-connect",
+        "title": "Practice \u2014 connect a toggle to content",
+        "file": "sass-homework/toggles-connect.html",
+        "explanation": "The checkbox and content have separate IDs, and a change handler connects the state to visibility."
+      },
+      {
+        "id": "toggles-homework",
+        "title": "Homework \u2014 interactive flight project settings",
+        "file": "sass-homework/toggles-homework.html",
+        "explanation": "Three labeled toggles have different working purposes. The count initializes to 1 and updates through every combination."
+      }
+    ]
+  },
+  {
+    "slug": "refactoring",
+    "title": "CSS to Sass Refactoring",
+    "url": "https://pages.opencodingsociety.com/sass/guide",
+    "intro": "Applied the reference guide to the real image gallery on my About page.",
+    "notes": "## Completed refactor\n\nThe guide is a reference tutorial rather than a separately scored homework. I applied its workflow to `navigation/about.md`: moved the gallery's embedded CSS into `_sass/open-coding/about-gallery.scss`, registered that partial in `_sass/open-coding/_main.scss`, and removed the old style block. The existing image content stays in About.\n\nThe nested `img` rule becomes `.image-gallery img` when Sass compiles. `$gallery-gap` and `$gallery-radius` centralize reusable values, and `$gallery-gap * 15` preserves the original 150px image height. This gallery has no hardcoded colors to replace. The new homework stylesheet uses the repository's root color variables.\n\n### Before: embedded CSS\n\n```css\n.image-gallery { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 10px; }\n.image-gallery img { max-height: 150px; object-fit: cover; border-radius: 5px; }\n```\n\n### After: a registered Sass partial\n\n```scss\n$gallery-gap: 10px;\n$gallery-radius: 5px;\n.image-gallery {\n  display: flex;\n  flex-wrap: nowrap;\n  overflow-x: auto;\n  gap: $gallery-gap;\n  img {\n    max-height: $gallery-gap * 15;\n    object-fit: cover;\n    border-radius: $gallery-radius;\n  }\n}\n```\n\n### Import chain\n\n`minima/custom-styles.scss` \u2192 `open-coding/_main.scss` \u2192 `about-gallery.scss` \u2192 compiled site CSS.\n\n[View the actual About gallery]({{ \"/about/\" | relative_url }}).\n\n### Sass features in the homework implementation\n\nThe homework stylesheet also uses a reusable `lab-panel` mixin, a map of button tones generated with `@each`, nested hover/focus rules, and spacing arithmetic. These choices keep the repeated components consistent. CSS custom properties handle runtime theme changes; Sass variables supply build-time defaults.",
+    "examples": []
+  }
+]

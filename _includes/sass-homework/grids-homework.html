@@ -1,0 +1,35 @@
+<section id="grid-homework">
+<div class="ocs__grid ocs__grid--standard">
+<div class="ocs__grid-cell ocs__grid-cell--header">Trial 1 — sample beaker readings</div>
+<div class="ocs__grid-cell">Beaker 1: 22.4</div>
+<div class="ocs__grid-cell">Beaker 2: 22.9</div>
+<div class="ocs__grid-cell ocs__grid-cell--accent">Beaker 3: 31.6</div>
+</div>
+<div class="ocs__grid ocs__grid--calculator">
+<div class="ocs__grid-cell">7</div>
+<div class="ocs__grid-cell">8</div>
+<div class="ocs__grid-cell">9</div>
+<div class="ocs__grid-cell ocs__grid-cell--accent">Avg</div>
+</div>
+</section>
+<ul id="grid-checks" aria-label="Homework validation"></ul>
+<script>
+const work = document.getElementById('grid-homework');
+const grids = [...work.querySelectorAll('.ocs__grid')];
+const classes = [...work.querySelectorAll('[class]')].flatMap(el => [...el.classList]);
+const checks = [
+  ['No inline styles', !work.querySelector('[style]')],
+  ['Only OCS grammar classes', classes.every(c => c.startsWith('ocs__') || c.startsWith('cols-'))],
+  ['Two grids with one variant each', grids.length === 2 && grids.every(g => [...g.classList].filter(c => c.startsWith('ocs__grid--')).length === 1)],
+  ['Standard readings grid', grids[0]?.classList.contains('ocs__grid--standard')],
+  ['Calculator keypad', grids[1]?.classList.contains('ocs__grid--calculator')],
+  ['Every box is a cell', grids.every(g => [...g.children].every(c => c.classList.contains('ocs__grid-cell')))],
+  ['Title spans the row', grids[0]?.firstElementChild?.classList.contains('ocs__grid-cell--header')],
+  ['Outlier and Avg have accents', grids[0]?.lastElementChild?.classList.contains('ocs__grid-cell--accent') && grids[1]?.lastElementChild?.classList.contains('ocs__grid-cell--accent')]
+];
+for (const [label, ok] of checks) {
+  const item = document.createElement('li');
+  item.textContent = `${ok ? 'PASS' : 'FIX'} — ${label}`;
+  document.getElementById('grid-checks').append(item);
+}
+</script>

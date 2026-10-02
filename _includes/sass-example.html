@@ -1,0 +1,16 @@
+{% capture example_source %}{% include {{ include.file }} %}{% endcapture %}
+<section class="sass-example" data-sass-example>
+  <h3>{{ include.title | escape }}</h3>
+  <details>
+    <summary>View or edit the completed source</summary>
+    <label for="{{ include.id }}-editor">HTML, including any JavaScript</label>
+    <textarea class="sass-editor" id="{{ include.id }}-editor" spellcheck="false">{{ example_source | escape }}</textarea>
+  </details>
+  <div class="ocs__links">
+    <button type="button" class="ocs__btn accent fill" data-run>Run code</button>
+    <button type="button" class="ocs__btn outline" data-reset>Reset solution</button>
+    <button type="button" class="ocs__btn outline" data-width aria-pressed="false">Phone preview</button>
+  </div>
+  <p data-run-status role="status"></p>
+  <iframe class="sass-output" title="{{ include.title | escape }} preview" sandbox="allow-scripts allow-forms allow-popups" loading="lazy"></iframe>
+</section>

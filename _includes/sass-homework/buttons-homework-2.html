@@ -1,0 +1,14 @@
+<div class="ocs__links">
+  <button type="button" class="ocs__btn accent fill" data-message="Sample mood entry logged in this preview.">Log Mood Entry</button>
+  <a class="ocs__btn outline" href="https://www.mygoodbrain.org/resources" target="_blank" rel="noopener">View Weekly Trends</a>
+  <a class="ocs__btn alert-red outline" href="https://www.mygoodbrain.org/resources" target="_blank" rel="noopener">Crisis Hotline</a>
+</div>
+<p id="button-result" role="status">No demo action selected.</p>
+<script>
+// This classroom demo provides feedback without storing or sending personal data.
+document.querySelectorAll('button[data-message]').forEach(button => {
+  button.addEventListener('click', () => {
+    document.getElementById('button-result').textContent = button.dataset.message;
+  });
+});
+</script>

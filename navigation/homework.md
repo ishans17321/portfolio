@@ -6,6 +6,10 @@ hide_date: true
 toc: true
 ---
 
+## Sass Homework & Hacks
+
+[Open all Sass homework and hacks]({{ "/homework/sass/" | relative_url }}) — seven lessons with completed popcorn hacks, homework solutions, interactive previews, source code, and notebook downloads.
+
 ## Python Homework
 
 Completed Python work for the [OCS Python reference](https://pages.opencodingsociety.com/navigation/py-reference/). The live reference lists 15 lessons; the table also keeps my existing Math Expressions homework. Each notebook includes runnable Python, explanations, and saved execution results.

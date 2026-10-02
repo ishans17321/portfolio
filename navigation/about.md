@@ -102,21 +102,6 @@ My family, faith, hobbies, and favorite things are a big part of who I am.
 
 <!-- Section 3: Image Galley is made using Style and HTML and GitHub /images -->
 
-<style>
-    .image-gallery {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        gap: 10px;
-        }
-
-    .image-gallery img {
-        max-height: 150px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-</style>
-
 <!-- This grid_container class is used by CSS styling and the id is used by JavaScript connection -->
 <div class="grid-container" id="grid_container">
     <!-- content will be added here by JavaScript -->

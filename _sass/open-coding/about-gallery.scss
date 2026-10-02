@@ -1,0 +1,16 @@
+// Refactored from navigation/about.md; keep the horizontal photo gallery.
+$gallery-gap: 10px;
+$gallery-radius: 5px;
+
+.image-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: $gallery-gap;
+
+  img {
+    max-height: $gallery-gap * 15;
+    object-fit: cover;
+    border-radius: $gallery-radius;
+  }
+}

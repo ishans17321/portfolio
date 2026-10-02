@@ -1,0 +1,11 @@
+<label class="ocs__toggle ocs__toggle--green">
+  <input id="notes-toggle" class="ocs__toggle-input" type="checkbox">
+  <span class="ocs__toggle-track" aria-hidden="true"></span>
+  <span class="ocs__toggle-label">Show flight notes</span>
+</label>
+<p id="flight-notes" hidden>Check the control surfaces before the sample flight.</p>
+<script>
+const control = document.getElementById('notes-toggle');
+const notes = document.getElementById('flight-notes');
+control.addEventListener('change', () => { notes.hidden = !control.checked; });
+</script>

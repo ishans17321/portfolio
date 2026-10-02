@@ -1,0 +1,104 @@
+// Local implementation of the public OCS lesson grammar.
+// Loaded only by homework pages / previews, leaving other site components alone.
+$lab-space: 0.75rem;
+$lab-radius: 0.75rem;
+$lab-tones: (accent: $accent, alert-red: $red, alert-green: $green, alert-yellow: $warn);
+
+@mixin lab-panel {
+  border: 1px solid var(--lab-border);
+  border-radius: $lab-radius;
+  padding: $lab-space * 2;
+}
+
+.sass-homework, .sass-preview {
+  --lab-bg: #{$background};
+  --lab-panel: #{$bg-2};
+  --lab-text: #{$text};
+  --lab-muted: #{$text-muted};
+  --lab-border: #{$text-muted};
+  --lab-accent: #{$accent};
+  color: var(--lab-text);
+  line-height: 1.6;
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  a { color: var(--lab-accent); }
+  :focus-visible { outline: 3px solid var(--lab-accent); outline-offset: 3px; }
+  pre { overflow: auto; }
+  .ocs__container { max-width: 64rem; margin: auto; padding: $lab-space; }
+  .ocs__card, .ocs_card, .ocs_visual { @include lab-panel; background: var(--lab-panel); margin-bottom: $lab-space; }
+  .ocs__section-title, .ocs_section-title { margin: 0 0 $lab-space; line-height: 1.25; }
+  .ocs__description, .ocs_description { color: var(--lab-muted); }
+  .ocs_lead { font-size: 1.2rem; }
+  .ocs_text { font-size: 1rem; }
+  .ocs_badge, .ocs_status { border: 1px solid currentColor; border-radius: $lab-radius; padding: 0.2rem 0.5rem; }
+  .ocs__callout { border-left: 4px solid var(--lab-accent); padding: $lab-space; }
+  .ocs__grid { display: grid; gap: $lab-space; margin: $lab-space 0; }
+  .ocs__grid--standard { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ocs__grid--standard.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ocs__grid--standard.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ocs__grid--card { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .ocs__grid--card.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ocs__grid--gallery, .ocs__grid--color, .ocs__grid--holographic { grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); }
+  .ocs__grid--calculator { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ocs__grid-cell { @include lab-panel; min-width: 0; overflow-wrap: anywhere; padding: $lab-space; background: var(--lab-panel); }
+  .ocs__grid-cell--header { grid-column: 1 / -1; font-weight: bold; }
+  .ocs__grid-cell--wide { grid-column: span 2; }
+  .ocs__grid-cell--accent { border: 2px solid var(--lab-accent); }
+  .ocs__grid-cell--muted { color: var(--lab-muted); }
+  .ocs__grid--gallery .ocs__grid-cell, .ocs__grid--calculator .ocs__grid-cell { aspect-ratio: 1; display: grid; place-content: center; }
+  .ocs__grid--color .ocs__grid-cell:hover { background: $accent-700; color: $text; }
+  .ocs__grid--holographic .ocs__grid-cell { animation: lab-spectrum 6s linear infinite; }
+  @for $i from 1 through 6 { .ocs__grid--holographic .ocs__grid-cell:nth-child(#{$i}) { animation-delay: -$i * 0.6s; } }
+  .ocs__table-wrap { overflow-x: auto; }
+  .ocs__table { width: 100%; border-collapse: collapse; color: var(--lab-text); }
+  .ocs__table th, .ocs__table td { padding: $lab-space; border: 1px solid var(--lab-border); text-align: left; background: var(--lab-panel); }
+  .ocs__links, .ocs__links--wide { display: flex; flex-wrap: wrap; gap: $lab-space; margin: $lab-space 0; }
+  .ocs__links--wide > * { flex: 1 1 10rem; }
+  .ocs__btn {
+    --lab-tone: var(--lab-accent);
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0.65rem 1rem; min-height: 44px; border: 2px solid var(--lab-tone);
+    border-radius: 0.4rem; background: transparent; color: var(--lab-text);
+    font: inherit; text-decoration: none; cursor: pointer; white-space: normal;
+    &.pill { border-radius: 2rem; }
+    &.fill { background: var(--lab-tone); color: $bg-0; }
+    &.outline { background: transparent; color: var(--lab-text); }
+    &:hover { box-shadow: 0 0 0 2px var(--lab-tone); }
+    &:active { transform: translateY(1px); }
+    @each $name, $color in $lab-tones { &.#{$name} { --lab-tone: #{$color}; } }
+  }
+  .ocs__input {
+    display: block; width: 100%; max-width: 100%; margin: 0.3rem 0 1rem;
+    border: 1px solid var(--lab-border); border-radius: 0.5rem;
+    color: var(--lab-text); background: var(--lab-panel); font: inherit; filter: none;
+    &.small { max-width: 15rem; padding: 0.4rem; }
+    &.medium { max-width: 24rem; padding: 0.65rem; }
+    &.large { max-width: 32rem; padding: 0.9rem; }
+    &.gradient { background: linear-gradient(110deg, $bg-2, $accent-700); color: $text; }
+    &::placeholder { color: inherit; opacity: 0.8; }
+  }
+  .ocs__toggle { position: relative; display: flex; align-items: center; gap: $lab-space; margin: 1rem 0; cursor: pointer; }
+  .ocs__toggle-input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .ocs__toggle-track {
+    flex: 0 0 3rem; height: 1.7rem; border-radius: 2rem; background: $surface; border: 1px solid var(--lab-border); position: relative;
+    &::before { content: ''; position: absolute; width: 1.25rem; height: 1.25rem; top: 0.15rem; left: 0.15rem; background: $text; border-radius: 50%; transition: transform 150ms; }
+  }
+  .ocs__toggle-input:checked + .ocs__toggle-track { background: var(--lab-accent); &::before { transform: translateX(1.3rem); } }
+  .ocs__toggle--green .ocs__toggle-input:checked + .ocs__toggle-track { background: $green; }
+  .ocs__toggle-input:focus-visible + .ocs__toggle-track { outline: 3px solid var(--lab-accent); outline-offset: 3px; }
+  .parade-container--tinted { border-left: 4px solid var(--lab-accent); background: var(--lab-panel); }
+  .sass-example { @include lab-panel; margin: 1.5rem 0; }
+  .sass-editor { width: 100%; min-height: 18rem; padding: 1rem; font: 0.85rem/1.5 monospace; color: var(--lab-text); background: var(--lab-bg); }
+  .sass-output { width: 100%; height: 420px; border: 1px solid var(--lab-border); border-radius: 0.5rem; background: var(--lab-bg); }
+  .sass-output.is-narrow { max-width: 375px; }
+  .sass-output.is-wide { max-width: 100%; }
+  @media (max-width: 600px) {
+    .ocs__grid--standard, .ocs__grid--standard.cols-4, .ocs__grid--card.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ocs__card, .ocs_card, .sass-example { padding: $lab-space; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+}
+.sass-preview { margin: 0; padding: 1rem; background: var(--lab-bg); font-family: system-ui, sans-serif; }
+.sass-preview.light-mode { --lab-bg: #f7f8fa; --lab-panel: #fff; --lab-text: #18212e; --lab-muted: #495463; --lab-border: #687587; --lab-accent: #005fa3; }
+.sass-preview.compact-mode .ocs__card { padding: $lab-space; }
+@keyframes lab-spectrum { 0%, 100% { border-color: $accent; } 50% { border-color: $green; } }

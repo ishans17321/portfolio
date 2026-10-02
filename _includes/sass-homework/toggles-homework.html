@@ -1,0 +1,44 @@
+<section aria-label="Project settings">
+<label class="ocs__toggle ocs__toggle--green">
+  <input id="details-toggle" class="ocs__toggle-input" type="checkbox" checked>
+  <span class="ocs__toggle-track" aria-hidden="true"></span>
+  <span class="ocs__toggle-label">Show project notes</span>
+</label>
+<label class="ocs__toggle ocs__toggle--green">
+  <input id="theme-toggle" class="ocs__toggle-input" type="checkbox">
+  <span class="ocs__toggle-track" aria-hidden="true"></span>
+  <span class="ocs__toggle-label">Light theme</span>
+</label>
+<label class="ocs__toggle ocs__toggle--green">
+  <input id="compact-toggle" class="ocs__toggle-input" type="checkbox">
+  <span class="ocs__toggle-track" aria-hidden="true"></span>
+  <span class="ocs__toggle-label">Compact cards</span>
+</label>
+<p id="enabled-count" role="status" aria-live="polite"></p>
+</section>
+<section class="ocs__card">
+  <h2 class="ocs__section-title">RC flight project</h2>
+  <p class="ocs__description">An interface demo inspired by my RC planes and drones.</p>
+  <div id="project-notes">
+    <h3>Project notes</h3>
+    <ul><li>Inspect the airframe.</li><li>Check battery level.</li><li>Review the practice route.</li></ul>
+  </div>
+</section>
+<script>
+const details = document.getElementById('details-toggle');
+const theme = document.getElementById('theme-toggle');
+const compact = document.getElementById('compact-toggle');
+const settings = [details, theme, compact];
+function updateSettings() {
+  // .checked is a boolean representing the live state, unlike the initial HTML attribute.
+  document.getElementById('project-notes').hidden = !details.checked;
+  document.body.classList.toggle('light-mode', theme.checked);
+  document.body.classList.toggle('compact-mode', compact.checked);
+  // Recount the state on every change instead of incrementing a potentially stale counter.
+  const enabled = settings.filter(input => input.checked).length;
+  document.getElementById('enabled-count').textContent = `${enabled} of ${settings.length} toggles on`;
+}
+settings.forEach(input => input.addEventListener('change', updateSettings));
+// Initialize both the visible features and the count before any user interaction.
+updateSettings();
+</script>

@@ -1,0 +1,40 @@
+<label for="resource">Resource need (large gradient variant)</label>
+<input id="resource" class="ocs__input large gradient" placeholder="Describe a resource need">
+<p id="resource-result" role="status">No resource entered.</p>
+<label for="skill">Volunteer skill (compact variant)</label>
+<input id="skill" class="ocs__input small" placeholder="Example: organizing">
+<button id="skill-submit" type="button" class="ocs__btn accent fill">Show skill</button>
+<p id="skill-result" role="status">No skill entered.</p>
+<label for="age">Sample age</label>
+<input id="age" class="ocs__input medium" type="number" min="0" value="18">
+<p id="age-result" role="status"></p>
+<label for="practice-email">Sample email</label>
+<input id="practice-email" class="ocs__input medium" type="email" placeholder="alex@example.com">
+<p id="email-result" role="status"></p>
+<script>
+const resource = document.getElementById('resource');
+resource.addEventListener('input', () => {
+  document.getElementById('resource-result').textContent = resource.value || 'No resource entered.';
+});
+document.getElementById('skill-submit').addEventListener('click', () => {
+  document.getElementById('skill-result').textContent = document.getElementById('skill').value.trim() || 'Enter a skill first.';
+});
+const age = document.getElementById('age');
+function showAge() {
+  const rawAge = age.value;
+  // HTML input values are strings, even when the input type is number.
+  document.getElementById('age-result').textContent = rawAge.trim() === '' || !age.validity.valid
+    ? 'Enter a nonnegative age.'
+    : 'String + 1: ' + (rawAge + 1) + '; Number(value) + 1: ' + (Number(rawAge) + 1);
+}
+age.addEventListener('input', showAge);
+showAge();
+const email = document.getElementById('practice-email');
+function showEmail() {
+  const value = email.value.trim();
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  document.getElementById('email-result').textContent = valid ? 'PASS: simple email format.' : 'FIX: use a name, @, domain, and domain suffix without spaces.';
+}
+email.addEventListener('input', showEmail);
+showEmail();
+</script>

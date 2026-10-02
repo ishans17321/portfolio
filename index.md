@@ -45,6 +45,10 @@ Hi! My name is [Your Full Name]
 
 Browse the organized lesson index, run Python in the page, or download each notebook.
 
+[**Sass Homework & Hacks — all seven lessons**]({{ "/homework/sass/" | relative_url }})
+
+Explore completed popcorn hacks, homework solutions, editable live previews, and downloadable notebooks for grids, containers, typography, buttons, inputs, toggles, and CSS refactoring.
+
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
     <a href="{{ '/csp/python/math-expressions/hw' | relative_url }}" class="btn">
         Math Expressions
