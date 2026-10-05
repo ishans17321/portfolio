@@ -38,78 +38,94 @@
     margin-bottom: 1em;
   }
 }
-// Independent blog index, scoped so other post lists keep their own styling.
+// Blog-only components: a personal journal with searchable entries.
 .journal {
-  --journal-inset: 15.2px;
-  --journal-spacing: 22.8px;
+  --journal-accent: #a8dec9;
   font-size: .95rem;
 
-  &__entries {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  [hidden] { display: none !important; }
+
+  &__intro {
+    padding: 22px 0 32px;
+    border-bottom: 1px solid #343d3a;
+    margin-bottom: 28px;
+
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.15; letter-spacing: -.04em; margin: 12px 0 18px; max-width: 620px; }
+    p { max-width: 540px; }
   }
 
-  &__entry {
-    margin: 0 0 var(--journal-spacing);
+  &__eyebrow, &__number {
+    font-family: monospace;
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    font-size: .75rem;
+    color: var(--journal-accent);
   }
+
+  &__intro &__collection { color: var(--journal-accent); font-size: .9rem; }
+  &__tools { margin-bottom: 24px; }
+  &__tools label { display: block; margin-bottom: 8px; font-weight: 600; }
+  &__tools input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--bg-1);
+    color: inherit;
+    border: 1px solid #46564f;
+    border-radius: 10px;
+    font: inherit;
+  }
+  &__count { margin: 10px 0 0; font-size: .8rem; opacity: .8; }
+  &__entries { list-style: none; margin: 0; padding: 0; }
+  &__entry { margin: 0 0 16px; }
 
   &__card {
-    padding: var(--journal-inset);
-    border: 1px solid var(--accent);
-    border-radius: .5em;
-    background: var(--bg-1);
+    padding: 24px;
+    border: 1px solid #343d3a;
+    border-left: 3px solid var(--journal-accent);
+    border-radius: 4px 16px 16px 4px;
+    background: linear-gradient(120deg, #202926, var(--bg-1) 70%);
 
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
-    }
+    &:hover { border-color: var(--journal-accent); }
   }
-
   &__card--illustrated {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     gap: 1rem;
     align-items: center;
   }
-
-  &__image { width: 100%; height: auto; }
+  &__image { width: 100%; height: auto; border-radius: 8px; }
   &__text { min-width: 0; }
-
+  &__number { margin: 0 0 10px; }
   &__title {
-    margin: 24px 0 16px;
-
-    a {
-      display: block;
-      font-size: 1.5rem;
-      line-height: 1.6;
+    margin: 0 0 16px;
+    a, a:visited {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: #e3eee9;
+      font-size: 1.35rem;
+      line-height: 1.45;
       overflow-wrap: anywhere;
-
-      &:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 4px;
-      }
     }
+    a:hover { color: var(--journal-accent); }
   }
-
+  &__arrow { color: var(--journal-accent); flex-shrink: 0; }
   &__description { margin: 0 0 16px; }
-
   &__date {
-    display: block;
-    margin-bottom: 16px;
-    font-size: 14px;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #ffffff08;
+    font-size: .75rem;
     line-height: 1.6;
   }
+  a:focus-visible, input:focus-visible { outline: 2px solid var(--journal-accent); outline-offset: 4px; }
 
-  @media (max-width: 767px) {
-    --journal-inset: 8.55px;
-    --journal-spacing: 11.4px;
-    font-size: .7125rem;
-
-    &__entries { padding: 10px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    &__card:hover { transform: none; }
+  @media (max-width: 600px) {
+    &__intro { padding-top: 8px; }
+    &__card { padding: 18px; }
+    &__card--illustrated { grid-template-columns: 1fr; }
+    &__title a { font-size: 1.2rem; }
   }
 }
