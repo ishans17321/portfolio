@@ -1,51 +1,39 @@
 ---
-layout: opencs 
+layout: opencs
 ---
-
-<!-- This inserts content from the page using this layout -->
 {{ content | markdownify }}
 
-<!-- Get all posts -->
-{% assign rawposts = site.posts %}
+{% comment %}Keep ranked entries first; ordinary entries retain newest-first order.{% endcomment %}
+{% assign dated_entries = site.posts | sort: 'date' | reverse %}
+{% assign featured_entries = dated_entries | where_exp: 'entry', 'entry.sticky_rank != nil' | sort: 'sticky_rank' %}
+{% assign regular_entries = dated_entries | where_exp: 'entry', 'entry.sticky_rank == nil' %}
+{% assign entries = featured_entries | concat: regular_entries %}
+{% assign published_keys = '' | split: '' %}
+{% assign display_date = site.minima.date_format | default: '%b %-d, %Y' %}
 
-<!-- Hide posts if front matter flag hide:true -->
-{% assign posts = '' | split:'' %}
-{% for post in rawposts %}
-  {% if post.hide != true %}
-    {% assign posts = posts | push: post %}
-  {% endif %}
-{% endfor %}
-
-<!-- Sort posts by rank, then date, put posts with "sticky_posts: 1" front matter at the top -->
-{% assign grouped_posts = posts | group_by: "sticky_rank" | sort: "name", "last" %}
-{% assign sticky_posts = '' | split:'' %}
-{% assign non_sticky_posts = '' | split:'' %}
-<!-- Split posts into sticky and non-sticky -->
-{% for gp in grouped_posts %}
-  {%- if gp.name == "" -%}
-    {% assign non_sticky_posts = gp.items | sort: "date" | reverse %}
-  {%- else %}
-    {% assign sticky_posts = sticky_posts | concat: gp.items %}
-  {%- endif %}
-{% endfor %}
-
-<!-- Generate Card for each Post -->
-{% assign sticky_posts = sticky_posts | sort: "sticky_rank", "last" %}
-{% assign posts = sticky_posts | concat: non_sticky_posts %}
-{%- if posts.size > 0 -%}
-  {%- if page.list_title -%}
-    <h2 class="post-list-heading">{{ page.list_title }}</h2>
-  {%- endif -%}
-  <ul class="post-list">
-    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-    {% assign seen_ids = "" | split: "" %}
-    {%- for post in posts -%}
-      {% unless seen_ids contains post.canonical_id or post.title contains "_content" %}
-        <li>
-          {%- include post_list_image_card.html -%}
+<section class="journal" aria-label="Blog posts">
+  {% if page.list_title %}<h2 class="journal__heading">{{ page.list_title | escape }}</h2>{% endif %}
+  <ul class="journal__entries" role="list">
+    {% for entry in entries %}
+      {% assign entry_key = entry.canonical_id | default: entry.url %}
+      {% unless entry.hide == true or entry.title contains '_content' or published_keys contains entry_key %}
+        <li class="journal__entry">
+          <article class="journal__card{% if entry.image %} journal__card--illustrated{% endif %}">
+            {% if entry.image %}
+              <img class="journal__image" src="{{ entry.image | relative_url }}" alt="" loading="lazy">
+            {% endif %}
+            <div class="journal__text">
+              <h3 class="journal__title"><a href="{{ entry.url | relative_url }}">{{ entry.title | escape }}</a></h3>
+              {% if entry.description and entry.description != '' %}
+                <p class="journal__description">{{ entry.description }}</p>
+              {% endif %}
+              <time class="journal__date" datetime="{{ entry.date | date_to_xmlschema }}">{{ entry.date | date: display_date }}</time>
+            </div>
+          </article>
         </li>
-        {% assign seen_ids = seen_ids | push: post.canonical_id %}
+        {% assign published_keys = published_keys | push: entry_key %}
       {% endunless %}
-    {%- endfor -%}
+    {% endfor %}
   </ul>
-    {%- endif -%}
+  {% if published_keys.size == 0 %}<p>No posts yet.</p>{% endif %}
+</section>

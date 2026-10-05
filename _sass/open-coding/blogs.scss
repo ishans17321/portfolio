@@ -38,3 +38,78 @@
     margin-bottom: 1em;
   }
 }
+// Independent blog index, scoped so other post lists keep their own styling.
+.journal {
+  --journal-inset: 15.2px;
+  --journal-spacing: 22.8px;
+  font-size: .95rem;
+
+  &__entries {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__entry {
+    margin: 0 0 var(--journal-spacing);
+  }
+
+  &__card {
+    padding: var(--journal-inset);
+    border: 1px solid var(--accent);
+    border-radius: .5em;
+    background: var(--bg-1);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+    }
+  }
+
+  &__card--illustrated {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &__image { width: 100%; height: auto; }
+  &__text { min-width: 0; }
+
+  &__title {
+    margin: 24px 0 16px;
+
+    a {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+
+      &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+    }
+  }
+
+  &__description { margin: 0 0 16px; }
+
+  &__date {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 767px) {
+    --journal-inset: 8.55px;
+    --journal-spacing: 11.4px;
+    font-size: .7125rem;
+
+    &__entries { padding: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__card:hover { transform: none; }
+  }
+}
