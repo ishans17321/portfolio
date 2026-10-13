@@ -6,6 +6,10 @@ hide_date: true
 toc: true
 ---
 
+## Exam Reflections
+
+[2018 AP CSP Practice Exam Reflection]({{ "/csp/2018-practice-exam-reflection/" | relative_url }}) — concept review, classroom goals, and a practice plan.
+
 ## Sass Homework & Hacks
 
 [Open all Sass homework and hacks]({{ "/homework/sass/" | relative_url }}) — seven lessons with completed popcorn hacks, homework solutions, interactive previews, source code, and notebook downloads.
