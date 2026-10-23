@@ -13,6 +13,52 @@ Reviewing the 2018 practice exam gives me a useful way to organize my AP CSP pre
 
 ## Test strengths and weaknesses
 
+### Results by topic
+
+The screenshot reports 66 questions: 63 correct overall (95.5%). Topic percentages are based on a small number of questions, so a single missed question can move a topic score sharply. “Not assessed” topics are excluded from the averages below.
+
+| Topic | Questions | Performance | Readout |
+|---|---:|---:|---|
+| Identifying and Correcting Errors | 4 | 75% | One question missed; review tracing and debugging steps. |
+| Binary Numbers | 4 | 100% | Strength in representing information. |
+| Data Compression | 3 | 100% | Strength; explain the tradeoff between size and detail. |
+| Extracting Information from Data | 7 | 100% | Strongest evidence by volume among perfect topics. |
+| Using Programs with Data | 2 | 50% | Highest priority, but only two questions; gather more practice evidence. |
+| Variables and Assignments | 3 | 100% | Strength in tracking state. |
+| Mathematical Expressions | 1 | 100% | One question is too little evidence for a firm conclusion. |
+| Boolean Expressions | 3 | 100% | Strength in evaluating conditions. |
+| Conditionals | 2 | 100% | Strength; verify with nested and boundary cases. |
+| Iteration | 2 | 100% | Strength; trace loop start, updates, and stopping condition. |
+| Developing Algorithms | 4 | 100% | Strong evidence across four questions. |
+| Lists | 1 | 100% | One question; reinforce with insert, append, remove, and access practice. |
+| Calling Procedures | 5 | 80% | One question missed; trace arguments, local values, and returns. |
+| Developing Procedures | 2 | 100% | Strength; explain parameter and return behavior. |
+| Random Values | 2 | 100% | Strength; distinguish possible outcomes from guaranteed ones. |
+| Simulations | 2 | 100% | Strength; connect repeated trials to estimates. |
+| Algorithmic Efficiency | 2 | 100% | Strength in comparing work required. |
+| Undecidable Problems | 1 | 100% | One question; review the limits of computation. |
+| The Internet | 3 | 100% | Strength in networking concepts. |
+| Fault Tolerance | 1 | 100% | One question; limited evidence. |
+| Beneficial and Harmful Effects | 3 | 100% | Strength in evaluating computing impacts. |
+| Digital Divide | 1 | 100% | One question; limited evidence. |
+| Crowdsourcing | 2 | 100% | Strength; connect distributed participation to a task. |
+| Legal and Ethical Concerns | 2 | 100% | Strength; apply concepts to concrete scenarios. |
+| Safe Computing | 3 | 100% | Strength across three questions. |
+
+### Results by Big Idea
+
+These rollups are calculated from the topic question counts and percentages shown in the screenshot. They are question-weighted: topics with more questions contribute more to the Big Idea result. They describe this practice exam only, not mastery of the full course.
+
+| AP CSP Big Idea | Assessed questions | Estimated correct | Weighted performance | Interpretation |
+|---|---:|---:|---:|---|
+| 1. Creative Development | 0 | — | Not assessed | No questions were assigned to the displayed topics for this attempt. |
+| 2. Data | 16 | 15 | 93.8% | Strong overall; review using programs with data (1/2). |
+| 3. Algorithms and Programming | 30 | 29 | 96.7% | Strong overall; procedure calls (4/5) and error correction (3/4) are the clearest practice targets. |
+| 4. Computer Systems and Networks | 6 | 6 | 100% | Positive result across six questions. |
+| 5. Impact of Computing | 11 | 11 | 100% | Positive result across eleven questions. |
+
+The assessed-topic counts add to 63, while the exam total is 66; the remaining three questions are not represented in the screenshot’s listed topic rows. The Big Idea percentages therefore use the 63 topic-classified questions and should be treated as estimates from the displayed breakdown.
+
 **My test strengths to build on:** The example shows 100% in Binary Numbers, Data Compression, Extracting Information from Data, and Developing Algorithms. Boolean Expressions, Conditionals, and Iteration also received full marks. These topics fit together: information has a representation, conditions guide decisions, and loops repeat the work. To check my understanding, I can translate one small algorithm between a written explanation, pseudocode, and Python. Getting the same output in all three forms would be more convincing than recognizing a familiar answer choice.
 
 **My test weaknesses to address:** Using Programs with Data (50%), Identifying and Correcting Errors (75%), and Calling Procedures (80%) are the review priorities in the supplied breakdown. My practice should focus on the intermediate steps: what enters a procedure, which variable changes, and what value returns to the caller. A trace table will help me record those changes instead of trying to remember them mentally. I also want to test empty lists, repeated values, and boundary inputs, because a program can work for a typical example while failing on an overlooked case.
