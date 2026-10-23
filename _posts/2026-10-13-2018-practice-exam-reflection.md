@@ -13,6 +13,33 @@ Reviewing the 2018 practice exam gives me a useful way to organize my AP CSP pre
 
 ## Test strengths and weaknesses
 
+### Results by AP CSP practice
+
+The additional College Board breakdown groups results by course practice. Counts and percentages correspond to the supplied screenshot; estimated correct counts are derived from the rounded percentages.
+
+| Course practice | Questions | Performance | Estimated correct | Review note |
+|---|---:|---:|---:|---|
+| 1. Design and evaluate computational solutions for a purpose | 17 | 100% | 17/17 | Strongest evidence by volume; continue explaining how a solution meets its purpose. |
+| 2. Develop and implement algorithms | 11 | 91% | 10/11 | Review algorithm tracing and implementation details. |
+| 3. Develop programs that incorporate abstractions | 9 | 89% | 8/9 | Review how variables, lists, and procedures hide detail and manage complexity. |
+| 4. Evaluate and test algorithms and programs | 10 | 90% | 9/10 | Practice systematic traces, boundary tests, and explaining corrections. |
+| 5. Investigate computing innovations | 19 | 100% | 19/19 | Strong result across the largest practice group; maintain scenario-based review. |
+| 6. Contribute to an inclusive, safe, collaborative, and ethical computing culture | 0 | Not assessed | — | No questions were assigned, so this result says nothing about performance. |
+
+The five assessed practices total 66 questions and an estimated 63 correct, consistent with the overall 63/66 result. Practices 3 and 4 are the lowest displayed scores; the question counts are still modest, so use new practice to confirm these as priorities.
+
+### Skill details shown
+
+The skill screenshot shows a partial detail view. I’m recording only the rows visible there; the unshown skills should not be inferred from this table.
+
+| Skill | Questions | Performance | Estimated correct | Review note |
+|---|---:|---:|---:|---|
+| 2.A. Represent algorithmic processes without using a programming language | 0 | Not assessed | — | No evidence from this attempt. |
+| 2.B. Implement and apply an algorithm | 11 | 91% | 10/11 | Reinforce by translating a plan into code and tracing the result. |
+| 3.A. Generalize data sources through variables | 1 | 100% | 1/1 | One question is limited evidence. |
+| 3.B. Use abstraction to manage complexity in a program | 4 | 75% | 3/4 | Review when and how to use abstractions such as lists and procedures. |
+| 3.C. Explain how abstraction manages complexity | 4 | 100% | 4/4 | Preserve this strength by explaining what details an abstraction hides. |
+
 ### Results by topic
 
 The screenshot reports 66 questions: 63 correct overall (95.5%). Topic percentages are based on a small number of questions, so a single missed question can move a topic score sharply. “Not assessed” topics are excluded from the averages below.
@@ -61,7 +88,7 @@ The assessed-topic counts add to 63, while the exam total is 66; the remaining t
 
 **My test strengths to build on:** The example shows 100% in Binary Numbers, Data Compression, Extracting Information from Data, and Developing Algorithms. Boolean Expressions, Conditionals, and Iteration also received full marks. These topics fit together: information has a representation, conditions guide decisions, and loops repeat the work. To check my understanding, I can translate one small algorithm between a written explanation, pseudocode, and Python. Getting the same output in all three forms would be more convincing than recognizing a familiar answer choice.
 
-**My test weaknesses to address:** Using Programs with Data (50%), Identifying and Correcting Errors (75%), and Calling Procedures (80%) are the review priorities in the supplied breakdown. My practice should focus on the intermediate steps: what enters a procedure, which variable changes, and what value returns to the caller. A trace table will help me record those changes instead of trying to remember them mentally. I also want to test empty lists, repeated values, and boundary inputs, because a program can work for a typical example while failing on an overlooked case.
+**My test weaknesses to address:** The supplied breakdown points to Using Programs with Data (50%), Identifying and Correcting Errors (75%), Calling Procedures (80%), Practice 3 (89%), Practice 4 (90%), and Skill 3.B (75%) as useful review areas. I should focus on the intermediate steps: what data enters a program or procedure, which variable changes, what an abstraction hides, and what value returns to the caller. A trace table will help me record those changes instead of trying to remember them mentally. I also want to test empty lists, repeated values, and boundary inputs, because a program can work for a typical example while failing on an overlooked case.
 
 <figure>
   <a href="{{ '/images/reflections/2018-practice-exam-results.png' | relative_url }}">

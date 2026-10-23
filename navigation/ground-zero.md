@@ -39,6 +39,8 @@ A program takes input, stores and transforms information, makes decisions, repea
 
 The [practice exam reflection]({{ "/csp/2018-practice-exam-reflection/" | relative_url }}) includes a topic breakdown and question-weighted Big Idea estimates. Its screenshot is reference evidence, as explained on that page; the numbers are not presented here as a verified personal score.
 
+The College Board practice breakdown shown in the reflection adds another useful lens: Practice 3 (abstraction) is 8/9, Practice 4 (evaluation and testing) is 9/10, and Skill 3.B (using abstraction to manage complexity) is 3/4. These point toward explaining abstractions and documenting systematic tests as good next review activities. Practice 6 and Skill 2.A had zero questions, so they remain unassessed in that screenshot.
+
 ## A repeatable way to work through a problem
 
 1. **Understand the task:** identify the input, expected output, and constraints.
